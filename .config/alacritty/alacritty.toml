@@ -1,0 +1,45 @@
+[window]
+title = "Terminal"
+padding = { x = 16, y = 0 }
+dynamic_padding = false
+decorations = "None"
+
+[cursor]
+style = { shape = "Beam", blinking = "always" }
+thickness = 0.15
+
+[mouse]
+hide_when_typing = true
+
+[font]
+size = 14
+normal = { family = "Geist Mono" }
+italic = { family = "Geist Mono" }
+bold = { family = "Geist Mono" }
+bold_italic = { family = "Geist Mono" }
+
+[colors]
+primary = { foreground = "#f2f3f4", background = "#020304" }
+cursor = { cursor = "#3090f0" }
+line_indicator = { foreground = "#020304", background = "#f2f3f4" }
+footer_bar = { foreground = "#020304", background = "#f2f3f4" }
+
+[colors.normal]
+black = "#a4a5a6"
+white = "#f2f3f4"
+red = "#e25099"
+yellow = "#e0a278"
+green = "#62c073"
+cyan = "#4aacc0"
+blue = "#6969f9"
+magenta = "#a658f5"
+
+[colors.bright]
+black = "#a4a5a6"
+white = "#f2f3f4"
+red = "#e25099"
+yellow = "#e0a278"
+green = "#62c073"
+cyan = "#4aacc0"
+blue = "#6969f9"
+magenta = "#a658f5"

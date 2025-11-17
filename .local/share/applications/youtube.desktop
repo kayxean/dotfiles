@@ -1,0 +1,7 @@
+[Desktop Entry]
+Icon=/home/rsp/.local/icons/youtube.svg
+Name=YouTube
+Exec=chromium --app="https://youtube.com/"
+Type=Application
+Terminal=false
+StartupNotify=true

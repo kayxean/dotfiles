@@ -1,0 +1,7 @@
+[Desktop Entry]
+Icon=/home/rsp/.local/icons/instagram.svg
+Name=Instagram
+Exec=chromium --app="https://instagram.com/"
+Type=Application
+Terminal=false
+StartupNotify=true

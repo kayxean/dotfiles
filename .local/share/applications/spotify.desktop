@@ -1,0 +1,7 @@
+[Desktop Entry]
+Icon=/home/rsp/.local/icons/spotify.svg
+Name=Spotify
+Exec=chromium --app="https://open.spotify.com/"
+Type=Application
+Terminal=false
+StartupNotify=true

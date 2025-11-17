@@ -1,0 +1,7 @@
+[Desktop Entry]
+Icon=/home/rsp/.local/icons/threads.svg
+Name=Threads
+Exec=chromium --app="https://threads.com/"
+Type=Application
+Terminal=false
+StartupNotify=true

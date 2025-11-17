@@ -1,0 +1,7 @@
+[Desktop Entry]
+Icon=/home/rsp/.local/icons/whatsapp.svg
+Name=WhatsApp
+Exec=chromium --app="https://web.whatsapp.com/"
+Type=Application
+Terminal=false
+StartupNotify=true

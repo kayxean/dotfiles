@@ -1,0 +1,7 @@
+[Desktop Entry]
+Icon=/home/rsp/.local/icons/discord.svg
+Name=Discord
+Exec=chromium --app="https://discord.com/channels/@me"
+Type=Application
+Terminal=false
+StartupNotify=true

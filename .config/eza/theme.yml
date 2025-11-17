@@ -1,0 +1,130 @@
+colourful: true
+
+filekinds:
+  normal: { foreground: black }
+  directory: { foreground: blue, is_bold: false }
+  symlink: { foreground: green }
+  pipe: { foreground: black }
+  block_device: { foreground: black, is_bold: false }
+  char_device: { foreground: black, is_bold: false }
+  socket: { foreground: black, is_bold: false }
+  special: { foreground: black }
+  executable: { foreground: black, is_bold: false }
+  mount_point: { foreground: black, is_bold: false, is_underline: false }
+
+perms:
+  user_read: { foreground: cyan, is_bold: false }
+  user_write: { foreground: green, is_bold: false }
+  user_execute_file: { foreground: red, is_bold: false, is_underline: false }
+  user_execute_other: { foreground: red, is_bold: false }
+
+  group_read: { foreground: cyan }
+  group_write: { foreground: green }
+  group_execute: { foreground: red }
+
+  other_read: { foreground: cyan }
+  other_write: { foreground: green }
+  other_execute: { foreground: red }
+
+  special_user_file: { foreground: black }
+  special_other: { foreground: black }
+  attribute: { foreground: black }
+
+size:
+  major: { foreground: yellow, is_bold: false }
+  minor: { foreground: yellow }
+  number_byte: { foreground: yellow, is_bold: false }
+  number_kilo: { foreground: yellow, is_bold: false }
+  number_mega: { foreground: yellow, is_bold: false }
+  number_giga: { foreground: yellow, is_bold: false }
+  number_huge: { foreground: yellow, is_bold: false }
+  unit_byte: { foreground: yellow }
+  unit_kilo: { foreground: yellow }
+  unit_mega: { foreground: yellow }
+  unit_giga: { foreground: yellow }
+  unit_huge: { foreground: yellow }
+
+users:
+  user_you: { foreground: cyan, is_bold: false }
+  user_root: { foreground: cyan }
+  user_other: { foreground: cyan }
+  group_yours: { foreground: cyan, is_bold: false }
+  group_other: { foreground: cyan }
+  group_root: { foreground: cyan }
+
+links:
+  normal: { foreground: black, is_bold: false }
+  multi_link_file: { foreground: black, background: black }
+
+git:
+  new: { foreground: green }
+  modified: { foreground: yellow }
+  deleted: { foreground: red }
+  renamed: { foreground: magenta }
+  typechange: { foreground: blue }
+  ignored: { foreground: black, is_dimmed: false }
+  conflicted: { foreground: yellow }
+
+git_repo:
+  branch_main: { foreground: green }
+  branch_other: { foreground: yellow }
+  git_clean: { foreground: green }
+  git_dirty: { foreground: yellow }
+
+security_context:
+  colon: { foreground: black, is_dimmed: false }
+  user: { foreground: blue }
+  role: { foreground: green }
+  typ: { foreground: yellow }
+  range: { foreground: cyan }
+
+file_type:
+  image: { foreground: cyan }
+  video: { foreground: cyan, is_bold: false }
+  music: { foreground: cyan }
+  lossless: { foreground: cyan, is_bold: false }
+  crypto: { foreground: red, is_bold: false }
+  document: { foreground: magenta }
+  compressed: { foreground: blue }
+  temp: { foreground: red }
+  compiled: { foreground: cyan }
+  build: { foreground: blue, is_bold: false, is_underline: false }
+  source: { foreground: green, is_bold: false }
+
+punctuation: { foreground: "#454647", is_bold: false }
+date: { foreground: "#acafff" }
+inode: { foreground: magenta }
+blocks: { foreground: cyan }
+header: { foreground: black, is_underline: true }
+octal: { foreground: magenta }
+flags: { foreground: black }
+
+symlink_path: { foreground: blue }
+control_char: { foreground: red }
+broken_symlink: { foreground: red }
+broken_path_overlay: { foreground: black, is_underline: false }
+
+extensions:
+  astro: { filename: { foreground: green } }
+  cfg: { filename: { foreground: yellow } }
+  cjs: { filename: { foreground: green } }
+  conf: { filename: { foreground: yellow } }
+  desktop: { filename: { foreground: yellow } }
+  html: { filename: { foreground: green } }
+  ini: { filename: { foreground: yellow } }
+  json: { filename: { foreground: green } }
+  map: { filename: { foreground: red, is_dimmed: true } }
+  md: { filename: { foreground: magenta } }
+  mdx: { filename: { foreground: magenta } }
+  mjs: { filename: { foreground: green } }
+  sh: { filename: { foreground: yellow } }
+  svelte: { filename: { foreground: green } }
+  service: { filename: { foreground: yellow } }
+  toml: { filename: { foreground: green } }
+  tsx: { filename: { foreground: green } }
+  txt: { filename: { foreground: magenta } }
+  vue: { filename: { foreground: green } }
+  xml: { filename: { foreground: green } }
+  yml: { filename: { foreground: green } }
+  yaml: { filename: { foreground: green } }
+  zsh: { filename: { foreground: yellow } }

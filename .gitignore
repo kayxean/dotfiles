@@ -1,0 +1,10 @@
+# Ignore gh-cli known hosts file
+hosts.yml
+
+# Ignore easyeffects generated config files
+.config/easyeffects/autoload
+.config/easyeffects/irs
+.config/easyeffects/rnnoise
+
+# Ignore walker & elephant systemd request
+.config/systemd/user/graphical-session.target.wants

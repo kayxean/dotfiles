@@ -1,0 +1,259 @@
+[
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-c": "editor::Copy",
+      "ctrl-v": "editor::Paste",
+      "ctrl-x": "editor::Cut",
+      "ctrl-z": "editor::Undo",
+      "ctrl-y": "editor::Redo",
+      "ctrl-k": "editor::CutToEndOfLine",
+      "ctrl-d": ["editor::SelectNext", { "replace_newest": false }],
+      "ctrl-a": "editor::SelectAll",
+      "ctrl-l": "editor::SelectLine",
+      "shift-up": "editor::SelectUp",
+      "shift-down": "editor::SelectDown",
+      "shift-left": "editor::SelectLeft",
+      "shift-right": "editor::SelectRight",
+      "shift-pageup": "editor::SelectPageUp",
+      "shift-pagedown": "editor::SelectPageDown",
+      "enter": "editor::Newline",
+      "escape": "editor::Cancel",
+      "backspace": "editor::Backspace",
+      "delete": "editor::Delete",
+      "ctrl-delete": "editor::DeleteToEndOfLine",
+      "up": "editor::MoveUp",
+      "down": "editor::MoveDown",
+      "left": "editor::MoveLeft",
+      "right": "editor::MoveRight",
+      "home": ["editor::MoveToBeginningOfLine", { "stop_at_soft_wraps": true, "stop_at_indent": true }],
+      "end": ["editor::MoveToEndOfLine", { "stop_at_soft_wraps": true }],
+      "ctrl-up": "editor::LineUp",
+      "ctrl-down": "editor::LineDown",
+      "ctrl-left": "editor::MoveToPreviousWordStart",
+      "ctrl-right": "editor::MoveToNextWordEnd",
+      "ctrl-home": "editor::MoveToBeginning",
+      "ctrl-end": "editor::MoveToEnd",
+      "pageup": "editor::MovePageUp",
+      "pagedown": "editor::MovePageDown",
+      "alt-up": "editor::MoveLineUp",
+      "alt-down": "editor::MoveLineDown",
+      "alt-pageup": "editor::PageUp",
+      "alt-pagedown": "editor::PageDown",
+      "tab": "editor::Tab",
+      "shift-tab": "editor::Backtab",
+      "ctrl-shift-up": "editor::DuplicateLineUp",
+      "ctrl-shift-down": "editor::DuplicateLineDown",
+      "ctrl-shift-left": "editor::SelectToPreviousWordStart",
+      "ctrl-shift-right": "editor::SelectToNextWordEnd",
+      "ctrl-shift-home": "editor::SelectToBeginning",
+      "ctrl-shift-end": "editor::SelectToEnd",
+      "alt-shift-up": "editor::AddSelectionAbove",
+      "alt-shift-down": "editor::AddSelectionBelow",
+      "alt-shift-right": "editor::SelectLargerSyntaxNode",
+      "alt-shift-left": "editor::SelectSmallerSyntaxNode",
+      "shift-home": ["editor::SelectToBeginningOfLine", { "stop_at_soft_wraps": true, "stop_at_indent": true }],
+      "shift-end": ["editor::SelectToEndOfLine", { "stop_at_soft_wraps": true }],
+      "ctrl-,": "workspace::NewCenterTerminal",
+      "ctrl-.": "editor::ToggleBreakpoint",
+      "ctrl-;": "editor::ToggleLineNumbers",
+      "ctrl-[": "editor::Outdent",
+      "ctrl-]": "editor::Indent",
+      "ctrl-=": ["zed::IncreaseBufferFontSize", { "persist": false }],
+      "ctrl-+": ["zed::IncreaseBufferFontSize", { "persist": false }],
+      "ctrl--": ["zed::DecreaseBufferFontSize", { "persist": false }],
+      "ctrl-0": ["zed::ResetBufferFontSize", { "persist": false }],
+      "ctrl-tab": "tab_switcher::Toggle",
+      "ctrl-w": "pane::CloseActiveItem",
+      "ctrl-f": "buffer_search::Deploy",
+      "ctrl-h": "buffer_search::DeployReplace",
+      "alt-enter": "assistant::InlineAssist",
+      "alt-right": "editor::ShowCompletions",
+      "alt-space": "editor::Hover",
+      "alt-tab alt-up": "pane::SplitAndMoveUp",
+      "alt-tab alt-down": "pane::SplitAndMoveDown",
+      "alt-tab alt-right": "pane::SplitAndMoveRight",
+      "alt-tab alt-left": "pane::SplitAndMoveLeft",
+      "alt-tab alt-h": "pane::SplitHorizontal",
+      "alt-tab alt-v": "pane::SplitVertical"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-1": ["workspace::ActivatePane", 0],
+      "ctrl-2": ["workspace::ActivatePane", 1],
+      "ctrl-3": ["workspace::ActivatePane", 2],
+      "ctrl-4": ["workspace::ActivatePane", 3],
+      "ctrl-5": ["workspace::ActivatePane", 4],
+      "ctrl-6": ["workspace::ActivatePane", 5],
+      "ctrl-7": ["workspace::ActivatePane", 6],
+      "ctrl-8": ["workspace::ActivatePane", 7],
+      "ctrl-9": ["workspace::ActivatePane", 8],
+      "alt-1": ["pane::ActivateItem", 0],
+      "alt-2": ["pane::ActivateItem", 1],
+      "alt-3": ["pane::ActivateItem", 2],
+      "alt-4": ["pane::ActivateItem", 3],
+      "alt-5": ["pane::ActivateItem", 4],
+      "alt-6": ["pane::ActivateItem", 5],
+      "alt-7": ["pane::ActivateItem", 6],
+      "alt-8": ["pane::ActivateItem", 7],
+      "alt-9": ["pane::ActivateItem", 8],
+      "ctrl-n": "workspace::NewFile",
+      "ctrl-shift-n": "workspace::NewWindow",
+      "ctrl-o": "workspace::OpenFiles",
+      "ctrl-alt-o": "workspace::Open",
+      "ctrl-shift-o": ["projects::OpenRecent", { "create_new_window": false }],
+      "ctrl-s": "workspace::Save",
+      "ctrl-b": "workspace::ToggleRightDock",
+      "ctrl-alt-b": "workspace::ToggleLeftDock",
+      "ctrl-j": "workspace::ToggleBottomDock",
+      "ctrl-alt-j": "workspace::CloseAllDocks",
+      "ctrl-alt-0": "workspace::ResetActiveDockSize",
+      "ctrl-alt--": ["workspace::DecreaseActiveDockSize", { "px": 0 }],
+      "ctrl-alt-=": ["workspace::IncreaseActiveDockSize", { "px": 0 }],
+      "f1": ["app_menu::OpenApplicationMenu", "Zed"],
+      "ctrl-,": "zed::OpenSettings",
+      "ctrl-t": "theme_selector::Toggle",
+      "ctrl-shift-x": "zed::Extensions",
+      "ctrl-p": "file_finder::Toggle",
+      "ctrl-shift-p": "command_palette::Toggle"
+    }
+  },
+  {
+    "context": "ApplicationMenu",
+    "bindings": {
+      "escape": "menu::Cancel",
+      "enter": "menu::Confirm",
+      "up": "menu::SelectPrevious",
+      "down": "menu::SelectNext",
+      "left": "app_menu::ActivateMenuLeft",
+      "right": "app_menu::ActivateMenuRight",
+      "pageup": "menu::SelectFirst",
+      "pagedown": "menu::SelectLast",
+      "tab": "menu::SelectNext",
+      "shift-tab": "menu::SelectPrevious"
+    }
+  },
+  {
+    "context": "BufferSearchBar",
+    "bindings": {
+      "escape": "buffer_search::Dismiss",
+      "tab": "buffer_search::FocusEditor",
+      "alt-up": "search::SelectNextMatch",
+      "alt-down": "search::SelectPreviousMatch",
+      "alt-right": "search::SelectNextMatch",
+      "alt-left": "search::SelectPreviousMatch",
+      "ctrl-m": "search::SelectAllMatches",
+      "ctrl-f": "search::FocusSearch",
+      "ctrl-h": "search::ToggleReplace",
+      "ctrl-l": "search::ToggleSelection"
+    }
+  },
+  {
+    "context": "Editor && showing_code_actions",
+    "bindings": {
+      "enter": "editor::ConfirmCodeAction"
+    }
+  },
+  {
+    "context": "Editor && showing_completions",
+    "bindings": {
+      "enter": "editor::ConfirmCompletion",
+      "shift-enter": "editor::ConfirmCompletionReplace",
+      "tab": "editor::ComposeCompletion"
+    }
+  },
+  {
+    "context": "Editor && (showing_code_actions || showing_completions)",
+    "bindings": {
+      "up": "editor::ContextMenuPrevious",
+      "down": "editor::ContextMenuNext",
+      "pageup": "editor::ContextMenuFirst",
+      "pagedown": "editor::ContextMenuLast"
+    }
+  },
+  {
+    "context": "Editor && (edit_prediction || edit_prediction_conflict)",
+    "bindings": {
+      "right": "editor::AcceptEditPrediction",
+      "alt-right": "editor::AcceptPartialEditPrediction"
+    }
+  },
+  {
+    "context": "FileFinder || (Picker > Editor)",
+    "bindings": {
+      "escape": "menu::Cancel",
+      "enter": "menu::Confirm"
+    }
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "escape": "menu::Cancel",
+      "up": "menu::SelectPrevious",
+      "down": "menu::SelectNext",
+      "left": "project_panel::CollapseSelectedEntry",
+      "right": "project_panel::ExpandSelectedEntry",
+      "ctrl-n": "project_panel::NewFile",
+      "ctrl-d": "project_panel::NewDirectory",
+      "ctrl-x": "project_panel::Cut",
+      "ctrl-c": "project_panel::Copy",
+      "ctrl-v": "project_panel::Paste",
+      "enter": "project_panel::Rename",
+      "f2": "project_panel::Rename",
+      "backspace": ["project_panel::Trash", { "skip_prompt": false }],
+      "delete": ["project_panel::Delete", { "skip_prompt": true }]
+    }
+  },
+  {
+    "context": "SettingsWindow",
+    "use_key_equivalents": true,
+    "bindings": {
+      "escape": "workspace::CloseWindow",
+      "up": "settings_editor::FocusPreviousNavEntry",
+      "down": "settings_editor::FocusNextNavEntry",
+      "right": "settings_editor::ExpandNavEntry",
+      "left": "settings_editor::CollapseNavEntry",
+      "pageup": "settings_editor::FocusPreviousRootNavEntry",
+      "pagedown": "settings_editor::FocusNextRootNavEntry",
+      "home": "settings_editor::FocusFirstNavEntry",
+      "end": "settings_editor::FocusLastNavEntry",
+      "tab": "settings_editor::ToggleFocusNav",
+      "ctrl-f": "search::FocusSearch"
+    }
+  },
+  {
+    "context": "TabSwitcher",
+    "bindings": {
+      "ctrl-up": "menu::SelectPrevious",
+      "ctrl-down": "menu::SelectNext",
+      "ctrl-left": "menu::SelectPrevious",
+      "ctrl-right": "menu::SelectNext",
+      "ctrl-tab": "menu::SelectNext",
+      "ctrl-shift-tab": "menu::SelectPrevious"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-shift-c": "terminal::Copy",
+      "ctrl-shift-v": "terminal::Paste",
+      "ctrl-space": ["terminal::SendKeystroke", "ctrl-space"],
+      "ctrl-d": ["terminal::SendKeystroke", "ctrl-d"],
+      "ctrl-z": ["terminal::SendKeystroke", "ctrl-z"],
+      "ctrl-y": ["terminal::SendKeystroke", "ctrl-y"],
+      "ctrl-r": ["terminal::SendKeystroke", "ctrl-r"],
+      "ctrl-t": ["terminal::SendKeystroke", "ctrl-t"],
+      "alt-c": ["terminal::SendKeystroke", "alt-c"],
+      "up": ["terminal::SendKeystroke", "up"],
+      "down": ["terminal::SendKeystroke", "down"],
+      "left": ["terminal::SendKeystroke", "left"],
+      "right": ["terminal::SendKeystroke", "right"],
+      "home": ["terminal::SendKeystroke", "home"],
+      "end": ["terminal::SendKeystroke", "end"],
+      "escape": ["terminal::SendKeystroke", "escape"],
+      "enter": ["terminal::SendKeystroke", "enter"]
+    }
+  }
+]

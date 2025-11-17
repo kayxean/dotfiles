@@ -1,0 +1,59 @@
+max_volume_percent = 100.0
+enforce_max_volume = true
+
+[themes.default]
+default_device = { fg = "white" }
+default_stream = { fg = "white" }
+selector = { fg = "blue" }
+tab = { fg = "black" }
+tab_selected = { fg = "white" }
+tab_marker = { fg = "black" }
+list_more = { fg = "#454647" }
+node_title = { fg = "white" }
+node_target = { fg = "black" }
+volume = { fg = "black" }
+volume_empty = { fg = "#454647" }
+volume_filled = { fg = "blue" }
+meter_active = { fg = "green" }
+meter_overload = { fg = "black" }
+meter_inactive = { fg = "#454647" }
+meter_center_active = { fg = "cyan" }
+meter_center_inactive = { fg = "#454647" }
+config_device = { fg = "white" }
+config_profile = { fg = "black" }
+dropdown_icon = { fg = "black" }
+dropdown_border = { fg = "#454647" }
+dropdown_item = { fg = "black" }
+dropdown_selected = { fg = "white", add_modifier = "REVERSED" }
+dropdown_more = { fg = "#454647" }
+help_border = { fg = "#454647" }
+help_item = { fg = "black" }
+help_more = { fg = "#454647" }
+
+[char_sets.default]
+default_device = "○"
+default_stream = "○"
+selector_top = "●"
+selector_middle = " "
+selector_bottom = " "
+tab_marker_left = " "
+tab_marker_right = " "
+list_more = "•••"
+volume_empty = "▬"
+volume_filled = "▬"
+meter_left_active = "▬"
+meter_left_inactive = "▬"
+meter_left_overload = "▭"
+meter_right_active = "▬"
+meter_right_inactive = "▬"
+meter_right_overload = "▭"
+meter_center_left_active = "▬"
+meter_center_left_inactive = "▬"
+meter_center_right_active = "▬"
+meter_center_right_inactive = "▬"
+dropdown_icon = "▽"
+dropdown_selector = "▷"
+dropdown_more = "•••"
+dropdown_border = "Plain"
+help_more = "•••"
+help_border = "Plain"

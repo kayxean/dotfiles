@@ -1,4 +1,5 @@
 zmodload zsh/complist
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 
 setopt append_history
 setopt inc_append_history
@@ -15,14 +16,17 @@ setopt flow_control
 setopt globdots
 setopt extended_glob
 
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
 bindkey "^?" backward-delete-char
 bindkey "^[[3~" delete-char
 bindkey "^[[D" backward-char
 bindkey "^[[C" forward-char
-bindkey "^[[A" history-search-backward
-bindkey "^[[B" history-search-forward
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
 bindkey "^D" kill-buffer
@@ -35,7 +39,6 @@ eval "$(zoxide init --cmd cd zsh)"
 source ~/.config/zsh/aliases.zsh
 source ~/.config/zsh/plugins.zsh
 
-source /usr/share/doc/pkgfile/command-not-found.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 

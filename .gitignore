@@ -2,9 +2,12 @@
 hosts.yml
 
 # Ignore easyeffects generated config files
-.config/easyeffects/autoload
-.config/easyeffects/irs
-.config/easyeffects/rnnoise
+.local/share/easyeffects/autoload
+.local/share/easyeffects/irs
+.local/share/easyeffects/rnnoise
 
 # Ignore walker & elephant systemd request
 .config/systemd/user/graphical-session.target.wants
+
+# Ignore hyprpaper config
+.config/hypr/hyprpaper.conf

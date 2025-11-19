@@ -1,4 +1,7 @@
 {
+  "edit_predictions": {
+    "mode": "eager"
+  },
   "agent": {
     "inline_assistant_model": {
       "provider": "google",

@@ -1,5 +1,5 @@
 [Desktop Entry]
-Icon=/home/rsp/.local/icons/x.svg
+Icon=~/.local/icons/x.svg
 Name=X
 Exec=chromium --app="https://x.com/"
 Type=Application

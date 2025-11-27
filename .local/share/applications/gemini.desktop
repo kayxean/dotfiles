@@ -1,5 +1,5 @@
 [Desktop Entry]
-Icon=/home/rsp/.local/icons/gemini.svg
+Icon=~/.local/icons/gemini.svg
 Name=Gemini
 Exec=chromium --app="https://gemini.google.com/"
 Type=Application

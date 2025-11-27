@@ -1,5 +1,5 @@
 [Desktop Entry]
-Icon=/home/rsp/.local/icons/spotify.svg
+Icon=~/.local/icons/spotify.svg
 Name=Spotify
 Exec=chromium --app="https://open.spotify.com/"
 Type=Application

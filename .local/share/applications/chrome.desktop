@@ -1,5 +1,5 @@
 [Desktop Entry]
-Icon=/home/rsp/.local/icons/chrome.svg
+Icon=~/.local/icons/chrome.svg
 Name=Chrome
 Exec=google-chrome-stable %U
 Type=Application

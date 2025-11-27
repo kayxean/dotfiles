@@ -1,5 +1,5 @@
 [Desktop Entry]
-Icon=/home/rsp/.local/icons/figma.svg
+Icon=~/.local/icons/figma.svg
 Name=Figma
 Exec=chromium --app="https://figma.com/"
 Type=Application

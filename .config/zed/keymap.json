@@ -10,7 +10,7 @@
       "ctrl-k": "editor::CutToEndOfLine",
       "ctrl-d": ["editor::SelectNext", { "replace_newest": false }],
       "ctrl-a": "editor::SelectAll",
-      "ctrl-l": "editor::SelectLine",
+      "ctrl-e": "editor::SelectLine",
       "shift-up": "editor::SelectUp",
       "shift-down": "editor::SelectDown",
       "shift-left": "editor::SelectLeft",
@@ -67,9 +67,10 @@
       "ctrl-w": "pane::CloseActiveItem",
       "ctrl-f": "buffer_search::Deploy",
       "ctrl-h": "buffer_search::DeployReplace",
-      "alt-enter": "assistant::InlineAssist",
+      "ctrl-j": "journal::NewJournalEntry",
+      "ctrl-enter": "assistant::InlineAssist",
       "alt-right": "editor::ShowCompletions",
-      "alt-space": "editor::Hover",
+      "alt-left": "editor::Hover",
       "alt-tab alt-up": "pane::SplitAndMoveUp",
       "alt-tab alt-down": "pane::SplitAndMoveDown",
       "alt-tab alt-right": "pane::SplitAndMoveRight",
@@ -107,17 +108,17 @@
       "ctrl-s": "workspace::Save",
       "ctrl-b": "workspace::ToggleRightDock",
       "ctrl-alt-b": "workspace::ToggleLeftDock",
-      "ctrl-j": "workspace::ToggleBottomDock",
-      "ctrl-alt-j": "workspace::CloseAllDocks",
+      "ctrl-alt-d": "workspace::CloseAllDocks",
       "ctrl-alt-0": "workspace::ResetActiveDockSize",
       "ctrl-alt--": ["workspace::DecreaseActiveDockSize", { "px": 0 }],
       "ctrl-alt-=": ["workspace::IncreaseActiveDockSize", { "px": 0 }],
-      "f1": ["app_menu::OpenApplicationMenu", "Zed"],
+      "ctrl-.": ["app_menu::OpenApplicationMenu", "Zed"],
       "ctrl-,": "zed::OpenSettings",
       "ctrl-t": "theme_selector::Toggle",
       "ctrl-shift-x": "zed::Extensions",
       "ctrl-p": "file_finder::Toggle",
-      "ctrl-shift-p": "command_palette::Toggle"
+      "ctrl-shift-p": "command_palette::Toggle",
+      "ctrl-g": "workspace::NewSearch"
     }
   },
   {
@@ -176,8 +177,8 @@
   {
     "context": "Editor && (edit_prediction || edit_prediction_conflict)",
     "bindings": {
-      "right": "editor::AcceptEditPrediction",
-      "alt-right": "editor::AcceptPartialEditPrediction"
+      "tab": "editor::AcceptEditPrediction",
+      "alt-tab": "editor::AcceptPartialEditPrediction"
     }
   },
   {
@@ -237,12 +238,6 @@
   {
     "context": "Terminal",
     "bindings": {
-      "ctrl-shift-c": "terminal::Copy",
-      "ctrl-shift-v": "terminal::Paste",
-      "ctrl-d": ["terminal::SendKeystroke", "ctrl-d"],
-      "ctrl-z": ["terminal::SendKeystroke", "ctrl-z"],
-      "ctrl-y": ["terminal::SendKeystroke", "ctrl-y"],
-      "ctrl-r": ["terminal::SendKeystroke", "ctrl-r"],
       "alt-f": ["terminal::SendKeystroke", "alt-f"],
       "alt-d": ["terminal::SendKeystroke", "alt-d"],
       "alt-c": ["terminal::SendKeystroke", "alt-c"],

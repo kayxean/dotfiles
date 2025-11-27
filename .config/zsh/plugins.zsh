@@ -15,7 +15,7 @@ function plugin-find-file() {
     local query="$BUFFER"
     BUFFER=""
 
-    local prefix="fd --type file --follow --hidden --exclude .git"
+    local prefix="fd --type file --follow --hidden"
     local file=$(
         fzf --disabled --query "$query" \
             --bind "start:reload:$prefix {q}" \
@@ -37,7 +37,7 @@ function plugin-find-directory() {
     local query="$BUFFER"
     BUFFER=""
 
-    local prefix="fd --type directory --follow --hidden --exclude .git"
+    local prefix="fd --type directory --follow --hidden --max-depth 2"
     local directory=$(
         fzf --disabled --query "$query" \
             --bind "start:reload:$prefix {q}" \
@@ -161,7 +161,7 @@ function plugin-draft(){
     local query="$BUFFER"
     BUFFER=""
 
-    local docs="$HOME/documents"
+    local docs="$HOME/vibes/draft"
 
     local prefix="eza $docs"
     local draft=$(

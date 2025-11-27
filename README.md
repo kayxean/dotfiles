@@ -76,15 +76,11 @@ stow -D -t ~ -d ~/repo/dotfiles .
 - [xorg-xwayland](https://archlinux.org/packages/extra/x86_64/xorg-xwayland/) - X server for running X11 applications on Wayland
 
 ### Wayland
-- [elephant](https://aur.archlinux.org/packages/elephant) - Data provider service
-- [elephant-websearch](https://aur.archlinux.org/packages/elephant-websearch) - Minimal web search
 - [grim](https://archlinux.org/packages/extra/x86_64/grim/) - Screenshot utility for Wayland
+- [hyprpaper](https://archlinux.org/packages/extra/x86_64/hyprpaper/) - A blazing fast wayland wallpaper utility with IPC controls
 - [hyprpicker](https://archlinux.org/packages/extra/x86_64/hyprpicker/) - A wlroots-compatible Wayland color picker that does not suck
 - [slurp](https://archlinux.org/packages/extra/x86_64/slurp/) - Select a region in a Wayland compositor
-- [swayosd](https://archlinux.org/packages/extra/x86_64/swayosd/) - On-Screen Display for Sway/Wayland
-- [swww](https://archlinux.org/packages/extra/x86_64/swww/) - Wallpaper daemon
 - [uwsm](https://archlinux.org/packages/extra/any/uwsm/) - Universal Wayland session manager
-- [walker](https://aur.archlinux.org/packages/walker) - Multipurpose launcher
 - [wev](https://archlinux.org/packages/extra/x86_64/wev/) - A tool for debugging wayland events on a Wayland window
 - [wl-clipboard](https://archlinux.org/packages/extra/x86_64/wl-clipboard/) - Command-line copy/paste utilities for Wayland
 

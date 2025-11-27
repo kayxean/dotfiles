@@ -1,5 +1,5 @@
 [Desktop Entry]
-Icon=/home/rsp/.local/icons/youtube-music.svg
+Icon=~/.local/icons/youtube-music.svg
 Name=Music
 Exec=chromium --app="https://music.youtube.com/"
 Type=Application

@@ -6,8 +6,11 @@ hosts.yml
 .local/share/easyeffects/irs
 .local/share/easyeffects/rnnoise
 
-# Ignore walker & elephant systemd request
-.config/systemd/user/graphical-session.target.wants
-
 # Ignore hyprpaper config
 .config/hypr/hyprpaper.conf
+
+# Ignore local lint and format
+node_modules
+biome.json
+package.json
+pnpm-lock.yaml

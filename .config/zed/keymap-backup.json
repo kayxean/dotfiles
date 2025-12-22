@@ -1,5 +1,25 @@
 [
   {
+    "bindings": {
+      "home": "menu::SelectFirst",
+      "shift-pageup": "menu::SelectFirst",
+      "pageup": "menu::SelectFirst",
+      "end": "menu::SelectLast",
+      "shift-pagedown": "menu::SelectLast",
+      "pagedown": "menu::SelectLast",
+      "ctrl-n": "menu::SelectNext",
+      "tab": "menu::SelectNext",
+      "down": "menu::SelectNext",
+      "ctrl-p": "menu::SelectPrevious",
+      "shift-tab": "menu::SelectPrevious",
+      "up": "menu::SelectPrevious",
+      "enter": "menu::Confirm",
+      "ctrl-enter": "menu::SecondaryConfirm",
+      "ctrl-escape": "menu::Cancel",
+      "escape": "menu::Cancel"
+    }
+  },
+  {
     "context": "Editor",
     "bindings": {
       "ctrl-c": "editor::Copy",

@@ -53,6 +53,8 @@ export BROWSER="chromium"
 packages="$HOME/packages"
 export PATH="$packages/pnpm:$packages/npm/global/bin:$packages/rust/bin:$packages/go/bin:$PATH"
 
+export NODE_OPTIONS="--dns-result-order=ipv4first"
+
 export PNPM_HOME="$packages/pnpm"
 export PNPM_CACHE_DIR="$packages/pnpm/cache"
 export PNPM_GLOBAL_HOME="$packages/pnpm/global"

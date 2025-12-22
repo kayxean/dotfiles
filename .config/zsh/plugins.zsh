@@ -126,7 +126,7 @@ function plugin-wallpaper(){
     BUFFER=""
 
     local monitor="eDP-1"
-    local gallery="$HOME/wallpapers"
+    local gallery="~/wallpapers"
     local config="$HOME/.config/hypr/hyprpaper.conf"
 
     local prefix="eza $gallery"
@@ -140,14 +140,13 @@ function plugin-wallpaper(){
     )
 
     if [[ -n "$wallpaper" ]]; then
-        local selected="$gallery/$wallpaper"
 
-        hyprctl hyprpaper unload all > /dev/null
-        hyprctl hyprpaper preload "$selected" > /dev/null
-        hyprctl hyprpaper wallpaper "$monitor,$gallery/$wallpaper" > /dev/null
+        killall hyprpaper
 
         mkdir -p "$(dirname $config)"
-        printf "preload = $selected\nwallpaper = $monitor, $gallery/$wallpaper" > "$config"
+        printf "wallpaper {\n  monitor = $monitor\n  path = $gallery/$wallpaper\n  fit_mode = fill\n}\n\nsplash = false" > "$config"
+
+        hyprctl dispatch exec hyprpaper
 
         BUFFER=""
         zle accept-line

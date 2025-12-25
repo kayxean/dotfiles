@@ -36,6 +36,8 @@ bindkey "^Y" redo
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
+trap 'cd $(cat /tmp/tv-jump)' SIGUSR1
+
 source ~/.config/zsh/aliases.zsh
 source ~/.config/zsh/plugins.zsh
 

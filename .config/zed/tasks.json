@@ -1,0 +1,16 @@
+[
+  {
+    "label": "TV: Search Text",
+    "command": "tv text",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "TV: Select File",
+    "command": "tv files",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  }
+]

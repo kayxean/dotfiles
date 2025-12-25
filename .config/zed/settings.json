@@ -14,7 +14,7 @@
     "default_width": 320
   },
   "agent_buffer_font_size": 14,
-  "autosave": "on_window_change",
+  "autosave": "on_focus_change",
   "base_keymap": "None",
   "buffer_font_features": {
     "calt": false,

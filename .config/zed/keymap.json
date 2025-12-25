@@ -24,12 +24,11 @@
   {
     "context": "Editor && mode == full",
     "bindings": {
+      "alt-space": "editor::ShowCompletions",
       "enter": "editor::Newline",
-      "ctrl-enter": "assistant::InlineAssist",
-      "ctrl-k": "editor::CutToEndOfLine",
-      "ctrl-d": ["editor::SelectNext", { "replace_newest": false }],
       "ctrl-a": "editor::SelectAll",
-      "ctrl-e": "editor::SelectLine",
+      "ctrl-g": ["editor::SelectNext", { "replace_newest": false }],
+      "ctrl-i": "assistant::InlineAssist",
       "ctrl-up": "editor::LineUp",
       "ctrl-down": "editor::LineDown",
       "ctrl-left": "editor::MoveToPreviousWordStart",
@@ -44,12 +43,8 @@
       "ctrl-shift-right": "editor::SelectToNextWordEnd",
       "alt-up": "editor::MoveLineUp",
       "alt-down": "editor::MoveLineDown",
-      "alt-right": "editor::ShowCompletions",
-      "alt-left": "editor::Hover",
       "alt-shift-up": "editor::AddSelectionAbove",
-      "alt-shift-down": "editor::AddSelectionBelow",
-      "alt-shift-right": "editor::SelectLargerSyntaxNode",
-      "alt-shift-left": "editor::SelectSmallerSyntaxNode"
+      "alt-shift-down": "editor::AddSelectionBelow"
     }
   },
   {
@@ -59,9 +54,9 @@
       "ctrl-alt-o": "workspace::Open",
       "ctrl-shift-o": ["projects::OpenRecent", { "create_new_window": false }],
       "ctrl-s": "workspace::Save",
-      "ctrl-b": "workspace::ToggleRightDock",
-      "ctrl-alt-b": "workspace::ToggleLeftDock",
-      "ctrl-alt-d": "workspace::CloseAllDocks",
+      "ctrl-d": "workspace::ToggleRightDock",
+      "ctrl-alt-d": "workspace::ToggleLeftDock",
+      "ctrl-alt-c": "workspace::CloseAllDocks",
       "ctrl-alt-0": "workspace::ResetActiveDockSize",
       "ctrl-.": ["app_menu::OpenApplicationMenu", "Zed"],
       "ctrl-,": "zed::OpenSettings",
@@ -69,25 +64,21 @@
       "ctrl-+": ["zed::IncreaseBufferFontSize", { "persist": false }],
       "ctrl--": ["zed::DecreaseBufferFontSize", { "persist": false }],
       "ctrl-0": ["zed::ResetBufferFontSize", { "persist": false }],
-      "ctrl-t": "theme_selector::Toggle",
+      "ctrl-shift-t": "theme_selector::Toggle",
       "ctrl-shift-x": "zed::Extensions",
       "ctrl-p": "file_finder::Toggle",
       "ctrl-shift-p": "command_palette::Toggle",
       "ctrl-f": "buffer_search::Deploy",
-      "ctrl-h": "buffer_search::DeployReplace",
+      "ctrl-shift-f": "buffer_search::DeployReplace",
       "ctrl-j": "workspace::NewCenterTerminal",
-      "ctrl-w": "pane::CloseActiveItem"
+      "ctrl-w": "pane::CloseActiveItem",
+      "alt-t": ["task::Spawn", { "task_name": "TV: Search Text", "reveal_target": "center" }],
+      "alt-f": ["task::Spawn", { "task_name": "TV: Select File", "reveal_target": "center" }]
     }
   },
   {
     "context": "Pane",
     "bindings": {
-      "alt-tab alt-up": "pane::SplitAndMoveUp",
-      "alt-tab alt-down": "pane::SplitAndMoveDown",
-      "alt-tab alt-right": "pane::SplitAndMoveRight",
-      "alt-tab alt-left": "pane::SplitAndMoveLeft",
-      "alt-tab alt-h": "pane::SplitHorizontal",
-      "alt-tab alt-v": "pane::SplitVertical",
       "ctrl-1": ["workspace::ActivatePane", 0],
       "ctrl-2": ["workspace::ActivatePane", 1],
       "ctrl-3": ["workspace::ActivatePane", 2],
@@ -132,10 +123,7 @@
       "alt-down": "search::SelectPreviousMatch",
       "alt-right": "search::SelectNextMatch",
       "alt-left": "search::SelectPreviousMatch",
-      "ctrl-m": "search::SelectAllMatches",
-      "ctrl-f": "search::FocusSearch",
-      "ctrl-h": "search::ToggleReplace",
-      "ctrl-l": "search::ToggleSelection"
+      "ctrl-a": "search::SelectAllMatches"
     }
   },
   {
@@ -183,11 +171,9 @@
       "down": "menu::SelectNext",
       "left": "project_panel::CollapseSelectedEntry",
       "right": "project_panel::ExpandSelectedEntry",
-      "ctrl-n": "project_panel::NewFile",
-      "ctrl-d": "project_panel::NewDirectory",
-      "ctrl-x": "project_panel::Cut",
       "ctrl-c": "project_panel::Copy",
       "ctrl-v": "project_panel::Paste",
+      "ctrl-x": "project_panel::Cut",
       "enter": "project_panel::Rename",
       "f2": "project_panel::Rename",
       "backspace": ["project_panel::Trash", { "skip_prompt": false }],

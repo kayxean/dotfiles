@@ -200,12 +200,6 @@
   {
     "context": "Terminal",
     "bindings": {
-      "alt-f": ["terminal::SendKeystroke", "alt-f"],
-      "alt-d": ["terminal::SendKeystroke", "alt-d"],
-      "alt-c": ["terminal::SendKeystroke", "alt-c"],
-      "alt-e": ["terminal::SendKeystroke", "alt-e"],
-      "alt-w": ["terminal::SendKeystroke", "alt-w"],
-      "alt-h": ["terminal::SendKeystroke", "alt-h"],
       "up": ["terminal::SendKeystroke", "up"],
       "down": ["terminal::SendKeystroke", "down"],
       "left": ["terminal::SendKeystroke", "left"],
@@ -213,7 +207,14 @@
       "home": ["terminal::SendKeystroke", "home"],
       "end": ["terminal::SendKeystroke", "end"],
       "escape": ["terminal::SendKeystroke", "escape"],
-      "enter": ["terminal::SendKeystroke", "enter"]
+      "enter": ["terminal::SendKeystroke", "enter"],
+      "backspace": ["terminal::SendKeystroke", "backspace"],
+      "delete": ["terminal::SendKeystroke", "delete"],
+      "ctrl-left": ["terminal::SendKeystroke", "ctrl-left"],
+      "ctrl-right": ["terminal::SendKeystroke", "ctrl-right"],
+      "ctrl-d": ["terminal::SendKeystroke", "ctrl-d"],
+      "ctrl-z": ["terminal::SendKeystroke", "ctrl-z"],
+      "ctrl-y": ["terminal::SendKeystroke", "ctrl-y"]
     }
   }
 ]

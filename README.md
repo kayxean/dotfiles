@@ -24,19 +24,19 @@ stow -D -t ~ -d ~/repo/dotfiles .
 - [bat](https://archlinux.org/packages/extra/x86_64/bat/) - `cat` clone with syntax highlighting
 - [eza](https://archlinux.org/packages/extra/x86_64/eza/) - A modern replacement for `ls`
 - [fd](https://archlinux.org/packages/extra/x86_64/fd/) - A simple, fast and user-friendly alternative to `find`
-- [fzf](https://archlinux.org/packages/extra/x86_64/fzf/) - A command-line fuzzy finder
 - [git](https://archlinux.org/packages/extra/x86_64/git/) - the fast distributed version control system
 - [github-cli](https://archlinux.org/packages/extra/x86_64/github-cli/) - The GitHub CLI
+- [jq](https://archlinux.org/packages/extra/x86_64/jq/) - A lightweight and flexible command-line JSON processor
 - [less](https://archlinux.org/packages/core/x86_64/less/) - A terminal based program for viewing text files
 - [ripgrep](https://archlinux.org/packages/extra/x86_64/ripgrep/) - A fast, smarter alternative to `grep`
 - [stow](https://archlinux.org/packages/extra/any/stow/) - Manage installation of multiple softwares in the same directory tree
+- [television](https://archlinux.org/packages/extra/x86_64/television/) - A very fast, portable and hackable fuzzy finder for the terminal
 - [tree](https://archlinux.org/packages/core/x86_64/tree/) - A directory listing program displaying a depth indented list of files
 - [zoxide](https://archlinux.org/packages/extra/x86_64/zoxide/) - A smarter `cd` command for your terminal
 
 ### Shell
 - [auto-cpufreq](https://aur.archlinux.org/packages/auto-cpufreq) - CPU frequency manager
 - [btop](https://archlinux.org/packages/extra/x86_64/btop/) - A monitor of system resources
-- [fastfetch](https://archlinux.org/packages/extra/x86_64/fastfetch/) - A feature-rich and performance oriented system information tool
 - [impala](https://archlinux.org/packages/extra/x86_64/impala/) - TUI for managing wifi
 - [iwd](https://archlinux.org/packages/extra/x86_64/iwd/) - Internet Wireless Daemon
 - [nano](https://archlinux.org/packages/core/x86_64/nano/) - Simple text editor
@@ -62,23 +62,26 @@ stow -D -t ~ -d ~/repo/dotfiles .
 - [libva-utils ](https://archlinux.org/packages/extra/x86_64/libva-utils/)- Intel VA-API Media Applications and Scripts for libva
 - [linux](https://archlinux.org/packages/core/x86_64/linux/) - The Linux kernel and modules
 - [linux-firmware](https://archlinux.org/packages/core/any/linux-firmware/) - Firmware files for Linux
+- [linux-lts](https://archlinux.org/packages/core/x86_64/linux-lts/) - The Linux kernel and modules
+- [linux-lts-headers](https://archlinux.org/packages/core/x86_64/linux-lts-headers/) - Headers for Linux kernel LTS
 - [playerctl](https://archlinux.org/packages/extra/x86_64/playerctl/) - mpris media player controller
 - [snapper](https://archlinux.org/packages/extra/x86_64/snapper/) - A tool for managing BTRFS and LVM snapshots
+- [usbutils](https://archlinux.org/packages/core/x86_64/usbutils/) - A collection of USB tools to query connected USB devices
 - [vulkan-radeon](https://archlinux.org/packages/extra/x86_64/vulkan-radeon/) - Open-source Vulkan driver for AMD GPUs
 - [zram-generator](https://archlinux.org/packages/extra/x86_64/zram-generator/) - Systemd unit generator for zram devices
 
 ### Hyprland
-- [hyprland](https://archlinux.org/packages/extra/x86_64/hyprland/) - A highly customizable dynamic tiling Wayland compositor
-  - [hypridle](https://archlinux.org/packages/extra/x86_64/hypridle/) - Hyprland idle daemon
+- [hypridle-git](https://aur.archlinux.org/packages/hypridle-git/) - Hyprland idle daemon
+- [hyprland-git](https://aur.archlinux.org/packages/hyprland-git/) - A highly customizable dynamic tiling Wayland compositor
+- [hyprpaper-git](https://aur.archlinux.org/packages/hyprpaper-git/) - A blazing fast wayland wallpaper utility with IPC controls
 - [polkit](https://archlinux.org/packages/extra/x86_64/polkit/) - Application development toolkit for controlling system-wide privileges
 - [xdg-desktop-portal-gtk](https://archlinux.org/packages/extra/x86_64/xdg-desktop-portal-gtk/) - GTK-based XDG Desktop Portal implementation
-- [xdg-desktop-portal-hyprland](https://archlinux.org/packages/extra/x86_64/xdg-desktop-portal-hyprland/) - Hyprland XDG Desktop Portal implementation
+- [xdg-desktop-portal-hyprland-git](https://aur.archlinux.org/packages/xdg-desktop-portal-hyprland-git) - Hyprland XDG Desktop Portal implementation
 - [xorg-xwayland](https://archlinux.org/packages/extra/x86_64/xorg-xwayland/) - X server for running X11 applications on Wayland
 
 ### Wayland
 - [grim](https://archlinux.org/packages/extra/x86_64/grim/) - Screenshot utility for Wayland
-- [hyprpaper](https://archlinux.org/packages/extra/x86_64/hyprpaper/) - A blazing fast wayland wallpaper utility with IPC controls
-- [hyprpicker](https://archlinux.org/packages/extra/x86_64/hyprpicker/) - A wlroots-compatible Wayland color picker that does not suck
+- [libnewt](https://archlinux.org/packages/extra/x86_64/libnewt/) - Not Erik's Windowing Toolkit - text mode windowing with slang
 - [slurp](https://archlinux.org/packages/extra/x86_64/slurp/) - Select a region in a Wayland compositor
 - [uwsm](https://archlinux.org/packages/extra/any/uwsm/) - Universal Wayland session manager
 - [wev](https://archlinux.org/packages/extra/x86_64/wev/) - A tool for debugging wayland events on a Wayland window

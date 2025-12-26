@@ -1,0 +1,18 @@
+[metadata]
+name = "hyprpaper"
+description = "Select and set wallpaper"
+requirements = ["eza", "hyprpaper"]
+
+[source]
+command = "eza --oneline ~/wallpapers"
+
+[ui]
+layout = "portrait"
+preview_panel = { hidden = true }
+
+[keybindings]
+enter = "actions:select"
+
+[actions.select]
+command = "zsh -c 'source ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins.zsh; set-wallpaper \"{}\"'"
+mode = "execute"

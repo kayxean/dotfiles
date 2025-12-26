@@ -1,5 +1,5 @@
 tick_rate = 50
-default_channel = "files"
+default_channel = "channels"
 history_size = 200
 global_history = false
 

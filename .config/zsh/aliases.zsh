@@ -14,5 +14,4 @@ alias help="bat --language=help --style=plain"
 alias now="date +'%I:%M %p, %a, %b %d'"
 alias exit="hyprctl dispatch exit"
 
-alias firewall="sudo ufw status verbose"
 alias service="systemctl list-units --type=service --all --no-legend --plain"

@@ -44,7 +44,6 @@ stow -D -t ~ -d ~/repo/dotfiles .
 - [paru](https://github.com/Morganamilo/paru) - AUR helper
 - [pkgfile](https://archlinux.org/packages/extra/x86_64/pkgfile/) - A tool to search for files in official repository packages
 - [starship](https://archlinux.org/packages/extra/x86_64/starship/) - The cross-shell prompt for astronauts
-- [ufw](https://archlinux.org/packages/extra/any/ufw/) - Uncomplicated and easy to use CLI tool for managing a netfilter firewall
 - [zsh](https://archlinux.org/packages/extra/x86_64/zsh/) - A very advanced and programmable command interpreter (shell) for UNIX
 - [zsh-autosuggestions](https://archlinux.org/packages/extra/any/zsh-autosuggestions/) - Fish-like autosuggestions for zsh
 - [zsh-syntax-highlighting](https://archlinux.org/packages/extra/any/zsh-syntax-highlighting/) - Fish shell like syntax highlighting for Zsh
@@ -107,3 +106,9 @@ stow -D -t ~ -d ~/repo/dotfiles .
 - [otf-geist](https://aur.archlinux.org/packages/otf-geist) - Sans-serif font family
 - [otf-geist-mono](https://aur.archlinux.org/packages/otf-geist-mono) - Monospaced font family
 - [otf-geist-mono-nerd](https://archlinux.org/packages/extra/any/otf-geist-mono-nerd/) - Monospaced font family (Nerd Font)
+
+### Firewall
+- [dnscrypt-proxy](https://archlinux.org/packages/extra/x86_64/dnscrypt-proxy/) - A flexible DNS proxy, with support for encrypted DNS protocols
+- [iptables-nft](https://archlinux.org/packages/core/x86_64/iptables-nft/) - Linux kernel packet control tool (using nft interface)
+- [nftables](https://archlinux.org/packages/extra/x86_64/nftables/) - Netfilter firewall, userspace command line utility
+- [zapret-git](https://aur.archlinux.org/packages/zapret-git) - Bypass deep packet inspection

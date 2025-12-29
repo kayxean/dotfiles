@@ -1,18 +1,18 @@
 [metadata]
 name = "channels"
 description = "Select a television channel"
-requirements = ["tv", "bat"]
+requirements = ["eza"]
 
 [source]
-command = ["tv list-channels"]
+command = "eza --oneline ${XDG_CONFIG_HOME:-$HOME/.config}/television/cable | sed 's/\\.toml$//'"
 
-[preview]
-command = "bat -pn --color always ${XDG_CONFIG_HOME:-$HOME/.config}/television/cable/**/{}.toml"
+[ui]
+layout = "portrait"
+preview_panel = { hidden = true }
 
 [keybindings]
 enter = "actions:select"
 
 [actions.select]
-description = "Enter a television channel"
 command = "tv {}"
 mode = "execute"

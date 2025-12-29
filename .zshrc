@@ -1,23 +1,9 @@
-zmodload zsh/complist
+typeset -U path
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
-
-setopt append_history
-setopt inc_append_history
-setopt share_history
-setopt hist_ignore_dups
-setopt hist_save_no_dups
-setopt no_bang_hist
-setopt auto_cd
-setopt auto_menu
-setopt auto_list
-setopt auto_param_slash
-setopt correct
-setopt flow_control
-setopt globdots
-setopt extended_glob
-
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
+
+setopt auto_cd auto_menu auto_list auto_param_slash correct flow_control globdots extended_glob no_bang_hist
 
 bindkey "^[[A" up-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
@@ -32,21 +18,6 @@ bindkey "^[[1;5C" forward-word
 bindkey "^D" kill-buffer
 bindkey "^Z" undo
 bindkey "^Y" redo
-
-eval "$(starship init zsh)"
-eval "$(zoxide init --cmd cd zsh)"
-
-trap 'cd $(cat /tmp/tv-jump)' SIGUSR1
-
-source ~/.config/zsh/aliases.zsh
-source ~/.config/zsh/plugins.zsh
-
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
 
 export TERMINAL="alacritty"
 export EDITOR="nano"
@@ -76,3 +47,23 @@ export GOBIN="$packages/go/bin"
 export BAT_PAGER="less -R"
 export BAT_PAGING="always"
 export BAT_THEME="scope"
+
+[[ -f ~/.config/zsh/functions.zsh ]] && source ~/.config/zsh/functions.zsh
+[[ -f ~/.config/zsh/aliases.zsh ]] && source ~/.config/zsh/aliases.zsh
+
+eval "$(starship init zsh)"
+eval "$(zoxide init --cmd cd zsh)"
+trap 'cd $(cat /tmp/tv-jump)' SIGUSR1
+
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+unsetopt extended_history
+setopt append_history
+setopt inc_append_history
+setopt share_history
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

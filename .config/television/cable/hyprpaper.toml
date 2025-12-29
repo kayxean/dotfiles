@@ -14,5 +14,5 @@ preview_panel = { hidden = true }
 enter = "actions:select"
 
 [actions.select]
-command = "zsh -c 'source ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins.zsh; set-wallpaper \"{}\"'"
+command = "zsh -c 'source ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/functions.zsh; set-wallpaper \"{}\"'"
 mode = "execute"

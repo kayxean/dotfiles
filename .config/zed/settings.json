@@ -4,7 +4,7 @@
       "provider": "google",
       "model": "gemini-3-flash-preview"
     },
-    "default_profile": "write",
+    "default_profile": "ask",
     "default_model": {
       "provider": "google",
       "model": "gemini-3-flash-preview"

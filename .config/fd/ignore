@@ -18,6 +18,9 @@
 .zshenv
 .zsh_history
 
+.zen/
+.mozilla/
+
 /repo/
 /packages/
 /shared/

@@ -1,7 +1,0 @@
-[Desktop Entry]
-Icon=~/.local/icons/gemini.svg
-Name=Gemini
-Exec=chromium --app="https://gemini.google.com/"
-Type=Application
-Terminal=false
-StartupNotify=true

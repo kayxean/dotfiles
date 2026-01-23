@@ -1,7 +1,0 @@
-[Desktop Entry]
-Icon=~/.local/icons/github.svg
-Name=GitHub
-Exec=google-chrome-stable --app="https://github.com/"
-Type=Application
-Terminal=false
-StartupNotify=true

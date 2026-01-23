@@ -1,7 +1,0 @@
-[Desktop Entry]
-Icon=~/.local/icons/google.svg
-Name=Google
-Exec=chromium --app="https://google.com/search?sourceid=chrome&udm=50&aep=42"
-Type=Application
-Terminal=false
-StartupNotify=true

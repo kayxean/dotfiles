@@ -1,7 +1,0 @@
-[Desktop Entry]
-Icon=~/.local/icons/vercel.svg
-Name=Vercel
-Exec=google-chrome-stable --app="https://vercel.com/"
-Type=Application
-Terminal=false
-StartupNotify=true

@@ -1,126 +1,126 @@
 {
-  "agent": {
-    "inline_assistant_model": {
-      "provider": "google",
-      "model": "gemini-3-flash-preview"
-    },
-    "default_profile": "ask",
-    "default_model": {
-      "provider": "google",
-      "model": "gemini-3-flash-preview"
-    },
-    "model_parameters": [],
-    "dock": "left",
-    "default_width": 320
-  },
-  "agent_buffer_font_size": 14,
-  "autosave": "on_focus_change",
-  "base_keymap": "None",
-  "buffer_font_features": {
-    "calt": false,
-    "liga": false
-  },
-  "buffer_font_family": "Geist Mono",
-  "buffer_font_size": 14,
-  "buffer_line_height": "comfortable",
-  "code_actions_on_format": {
-    "source.organizeImports.biome": true,
-    "source.fixAll.biome": true
-  },
-  "completions": {
-    "words": "fallback",
-    "words_min_length": 3,
-    "lsp": true,
-    "lsp_fetch_timeout_ms": 0,
-    "lsp_insert_mode": "replace_subsequence"
-  },
-  "confirm_quit": false,
-  "diagnostics": {
-    "inline": {
-      "enabled": true
-    }
-  },
-  "edit_predictions": {
-    "mode": "eager"
-  },
-  "enable_language_server": true,
-  "features": {
-    "edit_prediction_provider": "supermaven"
-  },
-  "file_finder": {
-    "modal_max_width": "small"
-  },
-  "git": {
-    "git_gutter": "hide",
-    "branch_picker": {
-      "show_author_name": false
-    }
-  },
-  "git_panel": {
-    "default_width": 320
-  },
-  "icon_theme": "Zed (Default)",
-  "journal": {
-    "path": "~/vibes",
-    "hour_format": "hour12"
-  },
-  "languages": {
-    "JavaScript": { "formatter": { "language_server": { "name": "biome" } } },
-    "TypeScript": { "formatter": { "language_server": { "name": "biome" } } },
-    "TSX": { "formatter": { "language_server": { "name": "biome" } } },
-    "JSON": { "formatter": { "language_server": { "name": "biome" } } },
-    "JSONC": { "formatter": { "language_server": { "name": "biome" } } },
-    "CSS": { "formatter": { "language_server": { "name": "biome" } } },
-    "HTML": { "formatter": { "language_server": { "name": "biome" } } }
-  },
-  "node": {
-    "path": "/home/rsp/packages/pnpm/node",
-    "npm_path": "/home/rsp/packages/pnpm/npm",
-    "ignore_system_version": true
-  },
-  "outline_panel": {
-    "default_width": 320
-  },
-  "project_panel": {
-    "default_width": 320,
-    "dock": "right",
-    "file_icons": false,
-    "folder_icons": false,
-    "hide_root": true
-  },
-  "restore_on_startup": "none",
-  "scrollbar": {
-    "diagnostics": "warning",
-    "selected_symbol": false,
-    "selected_text": false
-  },
-  "search": {
-    "center_on_match": true
-  },
-  "tab_bar": {
-    "show_nav_history_buttons": false
-  },
-  "terminal": {
-    "button": false,
-    "blinking": "on",
-    "cursor_shape": "bar",
-    "font_family": "Geist Mono",
-    "minimum_contrast": 0
-  },
-  "theme": {
-    "mode": "dark",
-    "light": "One Light",
-    "dark": "Midnight Shell Dark"
-  },
-  "toolbar": {
-    "breadcrumbs": false,
-    "quick_actions": false,
-    "selections_menu": false,
-    "agent_review": false,
-    "code_actions": false
-  },
-  "ui_font_family": "Geist",
-  "ui_font_size": 14,
-  "ui_font_weight": 400,
-  "use_smartcase_search": true
+	"agent": {
+		"inline_assistant_model": {
+			"provider": "google",
+			"model": "gemini-3-flash-preview"
+		},
+		"default_profile": "ask",
+		"default_model": {
+			"provider": "google",
+			"model": "gemini-2.5-flash"
+		},
+		"model_parameters": [],
+		"dock": "left",
+		"default_width": 320
+	},
+	"agent_buffer_font_size": 14,
+	"autosave": "on_focus_change",
+	"base_keymap": "None",
+	"buffer_font_features": {
+		"calt": false,
+		"liga": false
+	},
+	"buffer_font_family": "Geist Mono",
+	"buffer_font_size": 14,
+	"buffer_line_height": "comfortable",
+	"code_actions_on_format": {
+		"source.organizeImports.biome": true,
+		"source.fixAll.biome": true
+	},
+	"completions": {
+		"words": "fallback",
+		"words_min_length": 3,
+		"lsp": true,
+		"lsp_fetch_timeout_ms": 0,
+		"lsp_insert_mode": "replace_subsequence"
+	},
+	"confirm_quit": false,
+	"diagnostics": {
+		"inline": {
+			"enabled": true
+		}
+	},
+	"edit_predictions": {
+		"mode": "eager"
+	},
+	"enable_language_server": true,
+	"features": {
+		"edit_prediction_provider": "supermaven"
+	},
+	"file_finder": {
+		"modal_max_width": "small"
+	},
+	"git": {
+		"git_gutter": "hide",
+		"branch_picker": {
+			"show_author_name": false
+		}
+	},
+	"git_panel": {
+		"default_width": 320
+	},
+	"icon_theme": "Zed (Default)",
+	"journal": {
+		"path": "~/vibes",
+		"hour_format": "hour12"
+	},
+	"languages": {
+		"JavaScript": { "formatter": { "language_server": { "name": "biome" } } },
+		"TypeScript": { "formatter": { "language_server": { "name": "biome" } } },
+		"TSX": { "formatter": { "language_server": { "name": "biome" } } },
+		"JSON": { "formatter": { "language_server": { "name": "biome" } } },
+		"JSONC": { "formatter": { "language_server": { "name": "biome" } } },
+		"CSS": { "formatter": { "language_server": { "name": "biome" } } },
+		"HTML": { "formatter": { "language_server": { "name": "biome" } } }
+	},
+	"node": {
+		"path": "/home/rsp/packages/pnpm/node",
+		"npm_path": "/home/rsp/packages/pnpm/npm",
+		"ignore_system_version": true
+	},
+	"outline_panel": {
+		"default_width": 320
+	},
+	"project_panel": {
+		"default_width": 320,
+		"dock": "right",
+		"file_icons": false,
+		"folder_icons": false,
+		"hide_root": true
+	},
+	"restore_on_startup": "launchpad",
+	"scrollbar": {
+		"diagnostics": "warning",
+		"selected_symbol": false,
+		"selected_text": false
+	},
+	"search": {
+		"center_on_match": true
+	},
+	"tab_bar": {
+		"show_nav_history_buttons": false
+	},
+	"terminal": {
+		"button": false,
+		"blinking": "on",
+		"cursor_shape": "bar",
+		"font_family": "Geist Mono",
+		"minimum_contrast": 0
+	},
+	"theme": {
+		"mode": "dark",
+		"light": "One Light",
+		"dark": "Midnight Shell Dark"
+	},
+	"toolbar": {
+		"breadcrumbs": false,
+		"quick_actions": false,
+		"selections_menu": false,
+		"agent_review": false,
+		"code_actions": false
+	},
+	"ui_font_family": "Geist",
+	"ui_font_size": 14,
+	"ui_font_weight": 400,
+	"use_smartcase_search": true
 }

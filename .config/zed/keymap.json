@@ -162,7 +162,7 @@
 		"context": "Editor && (edit_prediction || edit_prediction_conflict)",
 		"bindings": {
 			"tab": "editor::AcceptEditPrediction",
-			"alt-tab": "editor::AcceptPartialEditPrediction"
+			"alt-tab": "editor::AcceptNextWordEditPrediction"
 		}
 	},
 	{

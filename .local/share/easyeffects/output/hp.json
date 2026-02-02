@@ -1,16 +1,5 @@
 {
 	"output": {
-		"bass_enhancer#0": {
-			"amount": 6.0,
-			"blend": 2.0,
-			"bypass": true,
-			"floor": 20.0,
-			"floor-active": true,
-			"harmonics": 4.0,
-			"input-gain": 0.0,
-			"output-gain": 0.0,
-			"scope": 125.0
-		},
 		"blocklist": [],
 		"equalizer#0": {
 			"balance": 0.0,
@@ -130,7 +119,7 @@
 			},
 			"mode": "IIR",
 			"num-bands": 10,
-			"output-gain": 0.0,
+			"output-gain": -2.4,
 			"pitch-left": 0.0,
 			"pitch-right": 0.0,
 			"right": {
@@ -261,20 +250,20 @@
 			"type": "High-pass",
 			"width": 1.0
 		},
-		"plugins_order": ["filter#0", "equalizer#0", "bass_enhancer#0", "reverb#0"],
+		"plugins_order": ["filter#0", "equalizer#0", "reverb#0"],
 		"reverb#0": {
-			"amount": -12.0,
-			"bass-cut": 125.0,
+			"amount": -9.6,
+			"bass-cut": 630.0,
 			"bypass": true,
 			"decay-time": 0.4,
-			"diffusion": 0.4,
+			"diffusion": 0.2,
 			"dry": 0.0,
-			"hf-damp": 6300.0,
+			"hf-damp": 3150.0,
 			"input-gain": 0.0,
 			"output-gain": 0.0,
-			"predelay": 20.0,
-			"room-size": "Experimental",
-			"treble-cut": 12500.0
+			"predelay": 60.0,
+			"room-size": "Large/smooth",
+			"treble-cut": 6300.0
 		}
 	}
 }

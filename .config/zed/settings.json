@@ -1,5 +1,22 @@
 {
-	"agent": {
+	"lsp": {
+  "vtsls": {
+   "settings": {
+    "typescript": {
+     "updateImportsOnFileMove": {
+      "enabled": "always"
+     }
+    },
+    "javascript": {
+     "updateImportsOnFileMove": {
+      "enabled": "always"
+     }
+    }
+   },
+   "enable_lsp_tasks": true
+  }
+ },
+ "agent": {
 		"inline_assistant_model": {
 			"provider": "google",
 			"model": "gemini-3-flash-preview"

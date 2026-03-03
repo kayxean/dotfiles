@@ -2,7 +2,7 @@
 	"input": {
 		"blocklist": [],
 		"compressor#0": {
-			"attack": 10.0,
+			"attack": 20.0,
 			"boost-amount": 6.0,
 			"boost-threshold": -72.0,
 			"bypass": false,
@@ -12,7 +12,7 @@
 			"input-gain": 0.0,
 			"input-to-link": 0.0,
 			"input-to-sidechain": 0.0,
-			"knee": -4.0,
+			"knee": -6.0,
 			"link-to-input": 0.0,
 			"link-to-sidechain": 0.0,
 			"lpf-frequency": 20000.0,
@@ -20,9 +20,9 @@
 			"makeup": 0.0,
 			"mode": "Downward",
 			"output-gain": 0.0,
-			"ratio": 2.0,
+			"ratio": 4.0,
 			"release": 100.0,
-			"release-threshold": -8.0,
+			"release-threshold": -80.01,
 			"sidechain": {
 				"lookahead": 0.0,
 				"mode": "Peak",
@@ -39,13 +39,13 @@
 			"wet": 0.0
 		},
 		"deepfilternet#0": {
-			"attenuation-limit": 24.0,
+			"attenuation-limit": 30.0,
 			"bypass": false,
 			"input-gain": 0.0,
-			"max-df-processing-threshold": 12.0,
-			"max-erb-processing-threshold": 12.0,
-			"min-processing-buffer": 6,
-			"min-processing-threshold": -12.0,
+			"max-df-processing-threshold": 20.0,
+			"max-erb-processing-threshold": 30.0,
+			"min-processing-buffer": 0,
+			"min-processing-threshold": -10.0,
 			"output-gain": 0.0,
 			"post-filter-beta": 0.019999999552965164
 		},
@@ -398,11 +398,11 @@
 			"alr": true,
 			"alr-attack": 5.0,
 			"alr-knee": 0.0,
-			"alr-knee-smooth": -8.0,
+			"alr-knee-smooth": -6.0,
 			"alr-release": 50.0,
 			"attack": 5.0,
 			"bypass": false,
-			"dithering": "None",
+			"dithering": "24bit",
 			"gain-boost": true,
 			"input-gain": 0.0,
 			"input-to-link": 0.0,
@@ -410,7 +410,7 @@
 			"link-to-input": 0.0,
 			"link-to-sidechain": 0.0,
 			"lookahead": 5.0,
-			"mode": "Herm Duck",
+			"mode": "Herm Wide",
 			"output-gain": 0.0,
 			"oversampling": "True Peak/24 bit",
 			"release": 5.0,
@@ -419,12 +419,12 @@
 			"sidechain-to-link": 0.0,
 			"sidechain-type": "Internal",
 			"stereo-link": 100.0,
-			"threshold": -8.0
+			"threshold": -6.0
 		},
 		"pitch#0": {
 			"anti-alias": true,
 			"bypass": true,
-			"cents": 96.0,
+			"cents": 0.0,
 			"dry": -100.0,
 			"input-gain": 0.0,
 			"octaves": 0.0,
@@ -433,24 +433,24 @@
 			"quick-seek": true,
 			"rate-difference": 0.0,
 			"seek-window": 15,
-			"semitones": 10.0,
+			"semitones": 8.0,
 			"sequence-length": 40,
 			"tempo-difference": 0.0,
 			"wet": 0.0
 		},
 		"plugins_order": [
+			"compressor#0",
 			"deepfilternet#0",
 			"rnnoise#0",
 			"equalizer#0",
 			"pitch#0",
-			"compressor#0",
 			"reverb#0",
 			"limiter#0"
 		],
 		"reverb#0": {
-			"amount": -9.6,
+			"amount": -12.0,
 			"bass-cut": 630.0,
-			"bypass": true,
+			"bypass": false,
 			"decay-time": 0.4,
 			"diffusion": 0.2,
 			"dry": 0.0,
@@ -469,7 +469,7 @@
 			"output-gain": 0.0,
 			"release": 20.0,
 			"use-standard-model": true,
-			"vad-thres": 12.0,
+			"vad-thres": 15.0,
 			"wet": 0.0
 		}
 	}

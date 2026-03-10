@@ -1,12 +1,12 @@
 {
 	"output": {
 		"bass_enhancer#0": {
-			"amount": 4.8,
+			"amount": 6.0,
 			"blend": 0.0,
 			"bypass": true,
 			"floor": 20.0,
 			"floor-active": true,
-			"harmonics": 6.4,
+			"harmonics": 8.0,
 			"input-gain": 0.0,
 			"output-gain": 0.0,
 			"scope": 250.0
@@ -709,18 +709,50 @@
 			},
 			"split-channels": false
 		},
-		"plugins_order": ["equalizer#0", "bass_enhancer#0", "reverb#0"],
+		"limiter#0": {
+			"alr": true,
+			"alr-attack": 10.0,
+			"alr-knee": 6.0,
+			"alr-knee-smooth": -6.0,
+			"alr-release": 100.0,
+			"attack": 5.0,
+			"bypass": false,
+			"dithering": "24bit",
+			"gain-boost": true,
+			"input-gain": 0.0,
+			"input-to-link": 0.0,
+			"input-to-sidechain": 0.0,
+			"link-to-input": 0.0,
+			"link-to-sidechain": 0.0,
+			"lookahead": 5.0,
+			"mode": "Herm Wide",
+			"output-gain": 0.0,
+			"oversampling": "True Peak/24 bit",
+			"release": 10.0,
+			"sidechain-preamp": 0.0,
+			"sidechain-to-input": 0.0,
+			"sidechain-to-link": 0.0,
+			"sidechain-type": "Internal",
+			"stereo-link": 100.0,
+			"threshold": -0.01
+		},
+		"plugins_order": [
+			"equalizer#0",
+			"bass_enhancer#0",
+			"reverb#0",
+			"limiter#0"
+		],
 		"reverb#0": {
-			"amount": -9.6,
+			"amount": -12.0,
 			"bass-cut": 630.0,
 			"bypass": true,
 			"decay-time": 0.4,
-			"diffusion": 0.2,
+			"diffusion": 0.75,
 			"dry": 0.0,
 			"hf-damp": 3150.0,
 			"input-gain": 0.0,
 			"output-gain": 0.0,
-			"predelay": 60.0,
+			"predelay": 20.0,
 			"room-size": "Large/smooth",
 			"treble-cut": 6300.0
 		}

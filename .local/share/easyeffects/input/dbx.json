@@ -771,7 +771,7 @@
 			"sidechain-to-link": 0.0,
 			"sidechain-type": "Internal",
 			"stereo-link": 100.0,
-			"threshold": -1.0
+			"threshold": -6.0
 		},
 		"plugins_order": [
 			"deepfilternet#0",

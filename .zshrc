@@ -23,26 +23,7 @@ export TERMINAL="alacritty"
 export EDITOR="nano"
 export BROWSER="chromium"
 
-packages="$HOME/packages"
-export PATH="$packages/pnpm:$packages/npm/global/bin:$packages/rust/bin:$packages/go/bin:$PATH"
-
 export NODE_OPTIONS="--dns-result-order=ipv4first"
-
-export PNPM_HOME="$packages/pnpm"
-export PNPM_CACHE_DIR="$packages/pnpm/cache"
-export PNPM_GLOBAL_HOME="$packages/pnpm/global"
-export PNPM_STORE_DIR="$packages/pnpm/store"
-
-export npm_config_cache="$packages/npm/cache"
-export npm_config_prefix="$packages/npm/global"
-
-export RUSTUP_HOME="$packages/rust"
-export CARGO_HOME="$packages/rust/cache"
-
-export GOPATH="$packages/go"
-export GOCACHE="$packages/go/cache"
-export GOMODCACHE="$packages/go/mod"
-export GOBIN="$packages/go/bin"
 
 export BAT_PAGER="less -R"
 export BAT_PAGING="always"
@@ -67,3 +48,5 @@ setopt hist_save_no_dups
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+. "$HOME/.vite-plus/env"

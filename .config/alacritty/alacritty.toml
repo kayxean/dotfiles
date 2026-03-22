@@ -12,7 +12,7 @@ thickness = 0.15
 hide_when_typing = true
 
 [font]
-size = 14
+size = 11
 normal = { family = "Geist Mono" }
 italic = { family = "Geist Mono" }
 bold = { family = "Geist Mono" }

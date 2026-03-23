@@ -11,6 +11,3 @@ hosts.yml
 
 # Ignore local lint and format
 node_modules
-biome.json
-package.json
-pnpm-lock.yaml

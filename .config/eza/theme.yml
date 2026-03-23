@@ -91,8 +91,8 @@ file_type:
   build: { foreground: blue, is_bold: false, is_underline: false }
   source: { foreground: green, is_bold: false }
 
-punctuation: { foreground: "#454647", is_bold: false }
-date: { foreground: "#acafff" }
+punctuation: { foreground: '#454647', is_bold: false }
+date: { foreground: '#acafff' }
 inode: { foreground: magenta }
 blocks: { foreground: cyan }
 header: { foreground: black, is_underline: true }

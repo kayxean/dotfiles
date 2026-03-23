@@ -1,7 +1,7 @@
 .git
 .gitignore
 node_modules
-biome.json
+vite.config.ts
 package.json
 pnpm-lock.yaml
 README.md

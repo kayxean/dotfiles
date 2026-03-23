@@ -75,18 +75,9 @@
       "ctrl-shift-f": "buffer_search::DeployReplace",
       "ctrl-j": "workspace::NewCenterTerminal",
       "ctrl-w": "pane::CloseActiveItem",
-      "alt-t": [
-        "task::Spawn",
-        { "task_name": "TV: Search Text", "reveal_target": "center" },
-      ],
-      "alt-f": [
-        "task::Spawn",
-        { "task_name": "TV: Select File", "reveal_target": "center" },
-      ],
-      "alt-c": [
-        "task::Spawn",
-        { "task_name": "TV: Select Channel", "reveal_target": "center" },
-      ],
+      "alt-t": ["task::Spawn", { "task_name": "TV: Search Text", "reveal_target": "center" }],
+      "alt-f": ["task::Spawn", { "task_name": "TV: Select File", "reveal_target": "center" }],
+      "alt-c": ["task::Spawn", { "task_name": "TV: Select Channel", "reveal_target": "center" }],
     },
   },
   {

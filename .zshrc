@@ -23,7 +23,7 @@ export TERMINAL="alacritty"
 export EDITOR="nano"
 export BROWSER="chromium"
 
-export NODE_OPTIONS="--dns-result-order=ipv4first"
+export GIT_EDITOR="zed --wait"
 
 export BAT_PAGER="less -R"
 export BAT_PAGING="always"

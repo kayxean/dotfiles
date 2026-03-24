@@ -33,7 +33,7 @@ stow -D -t ~ -d ~/repo/dotfiles .
 - [zsh-syntax-highlighting](https://archlinux.org/packages/extra/any/zsh-syntax-highlighting/) - Syntax highlighting
 - [starship](https://archlinux.org/packages/extra/x86_64/starship/) - Cross-shell prompt
 - [alacritty](https://archlinux.org/packages/extra/x86_64/alacritty/) - GPU-accelerated terminal
-- [alsa-utils](https://archlinux.org/packages/core/x86_64/alsa-utils/) - Audio utilities
+- [alsa-utils](https://archlinux.org/packages/extra/x86_64/alsa-utils/) - Audio utilities
 
 ### Applications
 
@@ -59,7 +59,7 @@ stow -D -t ~ -d ~/repo/dotfiles .
 - [stow](https://archlinux.org/packages/extra/any/stow/) - Symlink manager
 - [television](https://archlinux.org/packages/extra/x86_64/television/) - Fuzzy finder
 - [zoxide](https://archlinux.org/packages/extra/x86_64/zoxide/) - Smarter cd
-- [just](https://archlinux.org/packages/extra/any/just/) - Command runner
+- [just](https://archlinux.org/packages/extra/x86_64/just/) - Command runner
 - [pueue](https://archlinux.org/packages/extra/x86_64/pueue/) - Task manager
 
 ### Networking
@@ -93,7 +93,7 @@ stow -D -t ~ -d ~/repo/dotfiles .
   - [zam-plugins-lv2](https://archlinux.org/packages/extra/x86_64/zam-plugins-lv2/) - Audio plugins
   - [libdeep_filter_ladspa-git](https://aur.archlinux.org/packages/libdeep_filter_ladspa-git/) - Deep filter
 - [sof-firmware](https://archlinux.org/packages/extra/x86_64/sof-firmware/) - Sound Open Firmware
-- [wiremix](https://aur.archlinux.org/packages/wiremix) - PipeWire mixer
+- [wiremix](https://archlinux.org/packages/extra/x86_64/wiremix/) - PipeWire mixer
 
 ### Fonts
 
@@ -134,4 +134,4 @@ stow -D -t ~ -d ~/repo/dotfiles .
 ### Tools
 
 - [nano](https://archlinux.org/packages/core/x86_64/nano/) - Text editor
-- [opencode-bin](https://opencode.ai) - AI coding assistant
+- [opencode-bin](https://aur.archlinux.org/packages/opencode-bin) - AI coding assistant

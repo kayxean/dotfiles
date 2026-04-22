@@ -2,15 +2,16 @@
   "agent": {
     "enable_feedback": false,
     "inline_assistant_model": {
-      "provider": "copilot_chat",
-      "model": "claude-haiku-4.5"
+      "provider": "google",
+      "model": "gemini-2.5-flash"
     },
     "default_profile": "ask",
     "default_model": {
-      "provider": "copilot_chat",
-      "model": "claude-haiku-4.5"
+      "enable_thinking": true,
+      "provider": "google",
+      "model": "gemini-2.5-flash"
     },
-    "dock": "left",
+    "dock": "right",
     "default_width": 320
   },
   "agent_buffer_font_size": 14,
@@ -28,8 +29,8 @@
     "default_width": 320
   },
   "completions": {
-    "words": "fallback",
-    "words_min_length": 3,
+    "words": "enabled",
+    "words_min_length": 2,
     "lsp": true,
     "lsp_fetch_timeout_ms": 0,
     "lsp_insert_mode": "replace_subsequence"
@@ -57,12 +58,6 @@
   },
   "hide_mouse": "on_typing",
   "icon_theme": "Zed (Default)",
-  "inlay_hints": {
-    "enabled": true,
-    "show_type_hints": true,
-    "show_parameter_hints": true,
-    "show_other_hints": true
-  },
   "languages": {
     "CSS": {
       "format_on_save": "on",

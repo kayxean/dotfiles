@@ -18,6 +18,10 @@
 .zshenv
 .zsh_history
 
+.gnupg
+.rustup
+.vite-plus
+.npm
 .zen/
 .mozilla/
 

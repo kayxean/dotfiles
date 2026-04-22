@@ -17,7 +17,7 @@
       "link-to-sidechain": 0.0,
       "lpf-frequency": 20000.0,
       "lpf-mode": "Off",
-      "makeup": 6.0,
+      "makeup": 0.0,
       "mode": "Downward",
       "output-gain": 0.0,
       "ratio": 4.0,
@@ -42,12 +42,12 @@
       "attenuation-limit": 50.0,
       "bypass": false,
       "input-gain": 0.0,
-      "max-df-processing-threshold": -4.0,
-      "max-erb-processing-threshold": -8.0,
-      "min-processing-buffer": 4,
-      "min-processing-threshold": -12.0,
+      "max-df-processing-threshold": 24.0,
+      "max-erb-processing-threshold": 32.0,
+      "min-processing-buffer": 10,
+      "min-processing-threshold": 6.0,
       "output-gain": 0.0,
-      "post-filter-beta": 0.03999999910593033
+      "post-filter-beta": 0.05
     },
     "equalizer#0": {
       "balance": 0.0,
@@ -762,7 +762,7 @@
       "link-to-input": 0.0,
       "link-to-sidechain": 0.0,
       "lookahead": 5.0,
-      "mode": "Herm Wide",
+      "mode": "Herm Thin",
       "output-gain": 0.0,
       "oversampling": "True Peak/24 bit",
       "release": 10.0,
@@ -773,14 +773,7 @@
       "stereo-link": 100.0,
       "threshold": -6.0
     },
-    "plugins_order": [
-      "deepfilternet#0",
-      "rnnoise#0",
-      "compressor#0",
-      "equalizer#0",
-      "reverb#0",
-      "limiter#0"
-    ],
+    "plugins_order": ["deepfilternet#0", "compressor#0", "equalizer#0", "reverb#0", "limiter#0"],
     "reverb#0": {
       "amount": -12.0,
       "bass-cut": 630.0,
@@ -794,17 +787,6 @@
       "predelay": 20.0,
       "room-size": "Small",
       "treble-cut": 6300.0
-    },
-    "rnnoise#0": {
-      "bypass": false,
-      "enable-vad": true,
-      "input-gain": 0.0,
-      "model-name": "\"\"",
-      "output-gain": 0.0,
-      "release": 20.0,
-      "use-standard-model": true,
-      "vad-thres": 15.0,
-      "wet": 0.0
     }
   }
 }

@@ -1,5 +1,6 @@
 .git
 .gitignore
+.pkglist
 node_modules
 vite.config.ts
 package.json

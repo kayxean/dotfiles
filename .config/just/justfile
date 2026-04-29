@@ -1,0 +1,18 @@
+set shell := ["zsh", "-f", "-uc"]
+
+dotfiles := "~/personal/dotfiles"
+
+[private]
+default:
+    @just -g --list
+
+update:
+    paru -Syu --needed --cleanafter
+    -pacman -Qtdq | xargs -r sudo pacman -Rns
+    @sudo rm -rf /var/cache/pacman/pkg/download-*(N)
+    paru -Sc
+    sudo journalctl --vacuum-time=7d
+    pacman -Qeq > {{dotfiles}}/.pkglist
+
+bootstrap:
+    paru -S --needed --cleanafter - < {{dotfiles}}/.pkglist

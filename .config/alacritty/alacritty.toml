@@ -1,8 +1,11 @@
+[env]
+TERM = "xterm-256color"
+
 [window]
-title = "Terminal"
-padding = { x = 16, y = 0 }
-dynamic_padding = false
+padding = { x = 8, y = 4 }
+dynamic_padding = true
 decorations = "None"
+startup_mode = "Windowed"
 
 [cursor]
 style = { shape = "Beam", blinking = "always" }
@@ -43,3 +46,36 @@ green = "#62c073"
 cyan = "#4aacc0"
 blue = "#6969f9"
 magenta = "#a658f5"
+
+[hints]
+alphabet = "asdfghjkl"
+
+[[hints.enabled]]
+command = "xdg-open"
+hyperlinks = true
+post_processing = true
+persist = false
+mouse.enabled = true
+binding = { key = "U", mods = "Control" }
+regex = "(https?|git|ssh|ftp)://[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`\\\\]+"
+
+[keyboard]
+bindings = [
+  { key = "V", mods = "Control|Shift", action = "Paste" },
+  { key = "C", mods = "Control|Shift", action = "Copy" },
+
+  { key = "Equals", mods = "Control", action = "IncreaseFontSize" },
+  { key = "Minus", mods = "Control", action = "DecreaseFontSize" },
+  { key = "0", mods = "Control", action = "ResetFontSize" },
+
+  { key = "F", mods = "Control|Shift", action = "SearchForward" },
+  { key = "B", mods = "Control|Shift", action = "SearchBackward" },
+
+  { key = "PageUp", mods = "Shift", action = "ScrollPageUp" },
+  { key = "PageDown", mods = "Shift", action = "ScrollPageDown" },
+  { key = "Home", mods = "Shift", action = "ScrollToTop" },
+  { key = "End", mods = "Shift", action = "ScrollToBottom" },
+
+  { key = "K", mods = "Control|Shift", action = "ClearHistory" },
+  { key = "N", mods = "Control|Shift", action = "CreateNewWindow" },
+]

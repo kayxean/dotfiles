@@ -26,6 +26,7 @@
   "buffer_font_size": 14,
   "buffer_line_height": "comfortable",
   "collaboration_panel": {
+    "dock": "left",
     "default_width": 320
   },
   "completions": {
@@ -42,7 +43,7 @@
   },
   "edit_predictions": {
     "mode": "eager",
-    "provider": "zed"
+    "provider": "copilot"
   },
   "edit_predictions_disabled_in": ["comment"],
   "enable_language_server": true,
@@ -54,6 +55,7 @@
     "hunk_style": "unstaged_hollow"
   },
   "git_panel": {
+    "dock": "left",
     "default_width": 320
   },
   "hide_mouse": "on_typing",
@@ -173,6 +175,7 @@
     "ignore_system_version": true
   },
   "outline_panel": {
+    "dock": "left",
     "default_width": 320
   },
   "project_panel": {

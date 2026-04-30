@@ -28,6 +28,11 @@ export GIT_EDITOR="zed --wait"
 export BAT_PAGER="less -R"
 export BAT_PAGING="always"
 export BAT_THEME="scope"
+export OPENCODE_EXPERIMENTAL_FILEWATCHER=true
+export OPENCODE_EXPERIMENTAL_OXFMT=true
+export OPENCODE_EXPERIMENTAL_LSP_TOOL=true
+export OPENCODE_EXPERIMENTAL_EXA=true
+export OPENCODE_EXPERIMENTAL_MARKDOWN=true
 
 [[ -f ~/.config/zsh/functions.zsh ]] && source ~/.config/zsh/functions.zsh
 [[ -f ~/.config/zsh/aliases.zsh ]] && source ~/.config/zsh/aliases.zsh

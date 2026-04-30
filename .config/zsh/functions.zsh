@@ -13,3 +13,30 @@ function set-wallpaper(){
         hyprctl dispatch exec hyprpaper
     fi
 }
+
+update() {
+    local dotfiles="$HOME/personal/dotfiles"
+
+    paru -Syu --needed --cleanafter
+
+    pacman -Qtdq | xargs -r sudo pacman -Rns
+
+    sudo rm -rf /var/cache/pacman/pkg/download-*(N)
+
+    paru -Sc
+    sudo journalctl --vacuum-time=7d
+
+    pacman -Qeq > "$dotfiles/.pkglist"
+}
+
+bootstrap() {
+    local dotfiles="$HOME/personal/dotfiles"
+    local pkglist="$dotfiles/.pkglist"
+
+    if [[ -f "$pkglist" ]]; then
+        paru -S --needed --cleanafter - < "$pkglist"
+    else
+        echo "Error: $pkglist not found."
+        return 1
+    fi
+}

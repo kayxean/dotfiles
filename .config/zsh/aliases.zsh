@@ -16,5 +16,3 @@ alias net-restart="sudo resolvectl flush-caches && sudo systemctl restart dnscry
 alias net-log="sudo journalctl -u dnscrypt-proxy -u zapret -f"
 alias net-service="ss -tulpn | grep :53"
 alias zap-rules="sudo nft list table inet zapret"
-
-alias update="just -g update"

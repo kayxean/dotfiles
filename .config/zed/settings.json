@@ -1,23 +1,23 @@
 {
-  "agent": {
-    "enable_feedback": false,
-    "inline_assistant_model": {
-      "provider": "google",
-      "model": "gemini-2.5-flash"
-    },
-    "default_profile": "ask",
-    "default_model": {
-      "enable_thinking": true,
-      "provider": "google",
-      "model": "gemini-2.5-flash"
-    },
-    "dock": "right",
-    "default_width": 320
-  },
-  "agent_buffer_font_size": 14,
-  "autosave": "on_focus_change",
-  "always_treat_brackets_as_autoclosed": true,
   "base_keymap": "None",
+  "hide_mouse": "on_typing",
+  "always_treat_brackets_as_autoclosed": true,
+
+  "autosave": "on_focus_change",
+  "restore_on_startup": "launchpad",
+  "confirm_quit": false,
+
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "Midnight Shell Dark"
+  },
+  "icon_theme": "Zed (Default)",
+
+  "ui_font_family": "Geist",
+  "ui_font_size": 14,
+  "ui_font_weight": 400,
+
   "buffer_font_features": {
     "calt": false,
     "liga": false
@@ -25,10 +25,92 @@
   "buffer_font_family": "Geist Mono",
   "buffer_font_size": 14,
   "buffer_line_height": "comfortable",
-  "collaboration_panel": {
+
+  "agent_buffer_font_size": 14,
+  "agent": {
+    "enabled": false,
+    "default_width": 320,
+    "dock": "right"
+  },
+
+  "terminal": {
+    "button": false,
+    "blinking": "on",
+    "cursor_shape": "bar",
+    "font_family": "Geist Mono",
+    "minimum_contrast": 0
+  },
+
+  "project_panel": {
+    "diagnostic_badges": true,
+    "git_status_indicator": true,
+    "default_width": 320,
+    "dock": "right",
+    "file_icons": false,
+    "folder_icons": false,
+    "hide_root": true
+  },
+
+  "toolbar": {
+    "breadcrumbs": false,
+    "quick_actions": false,
+    "selections_menu": false,
+    "agent_review": false,
+    "code_actions": false
+  },
+  "tab_bar": {
+    "show_nav_history_buttons": false
+  },
+
+  "search": {
+    "center_on_match": true,
+    "include_ignored": true
+  },
+  "use_smartcase_search": true,
+
+  "drag_and_drop_selection": {
+    "enabled": true,
+    "delay": 300
+  },
+
+  "scrollbar": {
+    "git_diff": false,
+    "diagnostics": "warning"
+  },
+
+  "git_panel": {
+    "status_style": "icon",
+    "collapse_untracked_diff": true,
+    "tree_view": true,
+    "show_count_badge": true,
     "dock": "left",
     "default_width": 320
   },
+  "git": {
+    "git_gutter": "tracked_files",
+    "hunk_style": "unstaged_hollow"
+  },
+  "outline_panel": {
+    "dock": "left",
+    "default_width": 320
+  },
+
+  "status_bar": {
+    "experimental.show": false
+  },
+
+  "node": {
+    "path": "/home/rsp/.vite-plus/bin/node",
+    "npm_path": "/home/rsp/.vite-plus/bin/npm",
+    "ignore_system_version": true
+  },
+
+  "edit_predictions": {
+    "mode": "eager",
+    "provider": "copilot"
+  },
+  "edit_predictions_disabled_in": ["comment"],
+
   "completions": {
     "words": "enabled",
     "words_min_length": 2,
@@ -36,30 +118,44 @@
     "lsp_fetch_timeout_ms": 0,
     "lsp_insert_mode": "replace_subsequence"
   },
-  "confirm_quit": false,
-  "diagnostics": {
-    "include_warnings": true,
-    "inline": { "enabled": true }
-  },
-  "edit_predictions": {
-    "mode": "eager",
-    "provider": "copilot"
-  },
-  "edit_predictions_disabled_in": ["comment"],
+
   "enable_language_server": true,
-  "file_finder": {
-    "modal_max_width": "small"
+  "semantic_tokens": "combined",
+
+  "lsp": {
+    "vtsls": {
+      "settings": {
+        "typescript": {
+          "updateImportsOnFileMove": { "enabled": "always" }
+        },
+        "javascript": {
+          "updateImportsOnFileMove": { "enabled": "always" }
+        }
+      },
+      "enable_lsp_tasks": true
+    },
+    "oxlint": {
+      "initialization_options": {
+        "settings": {
+          "configPath": null,
+          "run": "onType",
+          "disableNestedConfig": false,
+          "fixKind": "safe_fix",
+          "unusedDisableDirectives": "deny",
+          "typeAware": true
+        }
+      }
+    },
+    "oxfmt": {
+      "initialization_options": {
+        "settings": {
+          "fmt.configPath": null,
+          "run": "onSave",
+          "typeAware": true
+        }
+      }
+    }
   },
-  "git": {
-    "git_gutter": "tracked_files",
-    "hunk_style": "unstaged_hollow"
-  },
-  "git_panel": {
-    "dock": "left",
-    "default_width": 320
-  },
-  "hide_mouse": "on_typing",
-  "icon_theme": "Zed (Default)",
   "languages": {
     "CSS": {
       "format_on_save": "on",
@@ -135,89 +231,12 @@
       "formatter": [{ "language_server": { "name": "oxfmt" } }]
     }
   },
-  "lsp": {
-    "vtsls": {
-      "settings": {
-        "typescript": {
-          "updateImportsOnFileMove": { "enabled": "always" }
-        },
-        "javascript": {
-          "updateImportsOnFileMove": { "enabled": "always" }
-        }
-      },
-      "enable_lsp_tasks": true
-    },
-    "oxlint": {
-      "initialization_options": {
-        "settings": {
-          "configPath": null,
-          "run": "onType",
-          "disableNestedConfig": false,
-          "fixKind": "safe_fix",
-          "unusedDisableDirectives": "deny",
-          "typeAware": true
-        }
-      }
-    },
-    "oxfmt": {
-      "initialization_options": {
-        "settings": {
-          "fmt.configPath": null,
-          "run": "onSave",
-          "typeAware": true
-        }
-      }
+
+  "diagnostics": {
+    "include_warnings": true,
+    "inline": { "enabled": true },
+    "lsp_pull_diagnostics": {
+      "debounce_ms": 300
     }
-  },
-  "node": {
-    "path": "/home/rsp/.vite-plus/bin/node",
-    "npm_path": "/home/rsp/.vite-plus/bin/npm",
-    "ignore_system_version": true
-  },
-  "outline_panel": {
-    "dock": "left",
-    "default_width": 320
-  },
-  "project_panel": {
-    "default_width": 320,
-    "dock": "right",
-    "file_icons": false,
-    "folder_icons": false,
-    "hide_root": true
-  },
-  "restore_on_startup": "launchpad",
-  "scrollbar": {
-    "git_diff": false,
-    "diagnostics": "warning"
-  },
-  "search": {
-    "center_on_match": true
-  },
-  "semantic_tokens": "combined",
-  "tab_bar": {
-    "show_nav_history_buttons": false
-  },
-  "terminal": {
-    "button": false,
-    "blinking": "on",
-    "cursor_shape": "bar",
-    "font_family": "Geist Mono",
-    "minimum_contrast": 0
-  },
-  "theme": {
-    "mode": "dark",
-    "light": "One Light",
-    "dark": "Midnight Shell Dark"
-  },
-  "toolbar": {
-    "breadcrumbs": false,
-    "quick_actions": false,
-    "selections_menu": false,
-    "agent_review": false,
-    "code_actions": false
-  },
-  "ui_font_family": "Geist",
-  "ui_font_size": 14,
-  "ui_font_weight": 400,
-  "use_smartcase_search": true
+  }
 }

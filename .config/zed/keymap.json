@@ -47,7 +47,8 @@
       "alt-up": "editor::MoveLineUp",
       "alt-down": "editor::MoveLineDown",
       "alt-shift-up": "editor::AddSelectionAbove",
-      "alt-shift-down": "editor::AddSelectionBelow"
+      "alt-shift-down": "editor::AddSelectionBelow",
+      "ctrl-l": "editor::OpenSelectionsInMultibuffer"
     }
   },
   {
@@ -57,10 +58,7 @@
       "ctrl-alt-o": "workspace::Open",
       "ctrl-shift-o": ["projects::OpenRecent", { "create_new_window": false }],
       "ctrl-s": "workspace::Save",
-      "ctrl-b": "workspace::ToggleRightDock",
-      "ctrl-alt-b": "workspace::ToggleLeftDock",
-      "ctrl-alt-c": "workspace::CloseAllDocks",
-      "ctrl-alt-0": "workspace::ResetOpenDocksSize",
+      "alt-0": "workspace::ResetOpenDocksSize",
       "ctrl-.": ["app_menu::OpenApplicationMenu", "Zed"],
       "ctrl-,": "zed::OpenSettings",
       "ctrl-=": ["zed::IncreaseBufferFontSize", { "persist": false }],
@@ -72,12 +70,33 @@
       "ctrl-p": "file_finder::Toggle",
       "ctrl-shift-p": "command_palette::Toggle",
       "ctrl-f": "buffer_search::Deploy",
-      "ctrl-shift-f": "buffer_search::DeployReplace",
+      "ctrl-shift-f": "workspace::NewSearch",
       "ctrl-j": "workspace::NewCenterTerminal",
       "ctrl-w": "pane::CloseActiveItem",
       "alt-t": ["task::Spawn", { "task_name": "TV: Search Text", "reveal_target": "center" }],
       "alt-f": ["task::Spawn", { "task_name": "TV: Select File", "reveal_target": "center" }],
-      "alt-c": ["task::Spawn", { "task_name": "TV: Select Channel", "reveal_target": "center" }]
+      "alt-c": ["task::Spawn", { "task_name": "TV: Select Channel", "reveal_target": "center" }],
+      "alt-e": "project_panel::ToggleFocus",
+      "alt-g": "git_panel::ToggleFocus",
+      "alt-b": "outline_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "Workspace && right_dock == ProjectPanel",
+    "bindings": {
+      "alt-e": "workspace::ToggleRightDock"
+    }
+  },
+  {
+    "context": "Workspace && left_dock == GitPanel",
+    "bindings": {
+      "alt-g": "workspace::ToggleLeftDock"
+    }
+  },
+  {
+    "context": "Workspace && left_dock == OutlinePanel",
+    "bindings": {
+      "alt-b": "workspace::ToggleLeftDock"
     }
   },
   {
@@ -148,9 +167,7 @@
     "context": "Editor && (showing_code_actions || showing_completions)",
     "bindings": {
       "up": "editor::ContextMenuPrevious",
-      "down": "editor::ContextMenuNext",
-      "pageup": "editor::ContextMenuFirst",
-      "pagedown": "editor::ContextMenuLast"
+      "down": "editor::ContextMenuNext"
     }
   },
   {
@@ -182,6 +199,12 @@
       "f2": "project_panel::Rename",
       "backspace": ["project_panel::Trash", { "skip_prompt": false }],
       "delete": ["project_panel::Delete", { "skip_prompt": true }]
+    }
+  },
+  {
+    "context": "ProjectSearchBar",
+    "bindings": {
+      "enter": "menu::Confirm"
     }
   },
   {

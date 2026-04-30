@@ -35,9 +35,7 @@ The apps and tools I actually use and interact with. This includes my browsers, 
 - [git](https://git-scm.com/): the fast distributed version control system
 - [github-cli](https://github.com/cli/cli): The GitHub CLI
 - [jq](https://jqlang.github.io/jq/): Command-line JSON processor
-- [just](https://github.com/casey/just): A handy way to save and run project-specific commands
 - [less](https://www.greenwoodsoftware.com/less/): A terminal based program for viewing text files
-- [pueue](https://github.com/nukesor/pueue): A CLI tool for managing long running shell commands
 - [ripgrep](https://github.com/BurntSushi/ripgrep): A search tool that combines the usability of ag with the raw speed of grep
 - [sd](https://github.com/chmln/sd): Intuitive find & replace
 - [zoxide](https://github.com/ajeetdsouza/zoxide): A smarter cd command for your terminal
@@ -56,8 +54,8 @@ The apps and tools I actually use and interact with. This includes my browsers, 
 - [scx-scheds](https://github.com/sched-ext/scx): sched_ext schedulers and tools
 - [starship](https://starship.rs/): The cross-shell prompt for astronauts
 - [stow](https://www.gnu.org/software/stow/): Manage installation of multiple softwares in the same directory tree
-- [stress](https://github.com/resurrecting-open-source-projects/stress): A tool that stress tests your system (CPU, memory, I/O, disks)
 - [television](https://github.com/alexpasmantier/television): A general purpose fuzzy finder for your terminal
+- [vite-plus](https://github.com/voidzero-dev/vite-plus): The Unified Toolchain for the Web
 - [wiremix](https://github.com/tsowell/wiremix): A simple TUI audio mixer for PipeWire
 
 ## System Packages
@@ -71,6 +69,7 @@ The underlying stack required for hardware and display management. This includes
 - [hypridle](https://github.com/hyprwm/hypridle): hyprland’s idle daemon
 - [hyprpaper](https://github.com/hyprwm/hyprpaper): a blazing fast wayland wallpaper utility with IPC controls
 - [qt5-wayland](https://www.qt.io): Provides APIs for Wayland
+- [oblique-cursor](https://github.com/kayxean/oblique-cursor) - A simple hyprcursor theme with a slightly oblique look
 - [slurp](https://github.com/emersion/slurp): Select a region in a Wayland compositor
 - [uwsm](https://github.com/Vladimir-csp/uwsm): A standalone Wayland session manager
 - [wev](https://git.sr.ht/~sircmpwn/wev): A tool for debugging wayland events on a Wayland window, analagous to the X11 tool xev

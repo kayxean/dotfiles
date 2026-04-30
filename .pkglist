@@ -36,7 +36,6 @@ iptables
 iw
 iwd
 jq
-just
 less
 libdeep_filter_ladspa-git
 libinput
@@ -67,7 +66,6 @@ pipewire-jack
 pipewire-pulse
 playerctl
 polkit
-pueue
 qt5-wayland
 ripgrep
 scx-scheds
@@ -76,7 +74,6 @@ slurp
 sof-firmware
 starship
 stow
-stress
 television
 uwsm
 vulkan-radeon

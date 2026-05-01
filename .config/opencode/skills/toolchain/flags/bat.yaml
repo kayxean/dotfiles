@@ -1,0 +1,48 @@
+# Bat Flags Reference
+# Derived strictly from bat.ts
+
+arguments:
+  - name: filepath
+    type: string
+    required: true
+    description: The path to the file to read.
+
+  - name: lineRange
+    type: string
+    required: false
+    description: Specify range (e.g., '30:40', '40:', or '30:+10').
+
+  - name: language
+    type: string
+    required: false
+    description: Explicitly set the language for syntax detection.
+
+  - name: showAll
+    type: boolean
+    required: false
+    description: Show non-printable characters like tabs or newlines (-A).
+
+  - name: diff
+    type: boolean
+    required: false
+    description: Only show lines that have been modified with respect to Git index.
+
+  - name: highlightLine
+    type: string
+    required: false
+    description: Highlight the specified line ranges (--highlight-line).
+
+  - name: fileName
+    type: string
+    required: false
+    description: Specify the name to display for a file.
+
+  - name: plain
+    type: boolean
+    required: false
+    description: Only show plain style, no decorations (-p).
+
+  - name: listLanguages
+    type: boolean
+    required: false
+    description: List all supported languages (--list-languages).

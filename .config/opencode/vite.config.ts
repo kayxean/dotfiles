@@ -64,10 +64,6 @@ export default defineConfig({
       "typescript/prefer-readonly-parameter-types": [
         "error",
         {
-          allow: [
-            { from: "lib", name: ["Float32Array"] },
-            { from: "file", name: ["Color", "Space"] },
-          ],
           checkParameterProperties: true,
           ignoreInferredTypes: true,
           treatMethodsAsReadonly: true,

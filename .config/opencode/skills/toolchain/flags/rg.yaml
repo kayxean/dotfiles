@@ -1,0 +1,121 @@
+# Rg Flags Reference
+# Derived strictly from rg.ts
+
+arguments:
+  - name: pattern
+    type: string
+    required: true
+    description: The regex or literal pattern to search for.
+
+  - name: paths
+    type: string[]
+    required: false
+    description: Files or directories to search. Defaults to current directory.
+
+  - name: fixedStrings
+    type: boolean
+    required: false
+    description: Treat pattern as a literal string instead of a regex (-F).
+
+  - name: engine
+    type: enum
+    required: false
+    description: Specify the regex engine (--engine).
+    options:
+      - default
+      - pcre2
+      - auto
+
+  - name: caseStrategy
+    type: enum
+    required: false
+    description: Case sensitivity strategy (-s, -i, or -S).
+    options:
+      - sensitive
+      - ignore
+      - smart
+
+  - name: globs
+    type: string[]
+    required: false
+    description: Include/exclude files/directories using glob patterns (-g).
+
+  - name: hidden
+    type: boolean
+    required: false
+    description: Search hidden files and directories (-.).
+
+  - name: maxDepth
+    type: number
+    required: false
+    description: Limit directory traversal depth (-d).
+
+  - name: multiline
+    type: boolean
+    required: false
+    description: Enable searching across multiple lines (-U).
+
+  - name: context
+    type: number
+    required: false
+    description: Show NUM lines before and after matches (-C).
+
+  - name: maxCount
+    type: number
+    required: false
+    description: Limit the number of matching lines per file (-m).
+
+  - name: invertMatch
+    type: boolean
+    required: false
+    description: Print lines that do NOT match (-v).
+
+  - name: noIgnore
+    type: boolean
+    required: false
+    description: Search ignored files/directories (--no-ignore).
+
+  - name: typeList
+    type: boolean
+    required: false
+    description: Show all supported file types (--type-list).
+
+  - name: count
+    type: boolean
+    required: false
+    description: Only show count of matching lines per file (--count).
+
+  - name: filesWithMatches
+    type: boolean
+    required: false
+    description: Only show files containing matches (--files-with-matches).
+
+  - name: onlyMatching
+    type: boolean
+    required: false
+    description: Show only matching parts (--only-matching).
+
+  - name: replace
+    type: string
+    required: false
+    description: Replace matches with string (--replace).
+
+  - name: passthru
+    type: boolean
+    required: false
+    description: Print both matching and non-matching lines (--passthru).
+
+  - name: wordRegexp
+    type: boolean
+    required: false
+    description: Match full words only (-w).
+
+  - name: follow
+    type: boolean
+    required: false
+    description: Follow symbolic links (--follow).
+
+  - name: maxFilesize
+    type: string
+    required: false
+    description: Ignore files larger than size (--max-filesize).

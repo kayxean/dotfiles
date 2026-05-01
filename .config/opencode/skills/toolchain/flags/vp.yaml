@@ -1,0 +1,60 @@
+# Vp Flags Reference
+# Derived strictly from vp.ts
+
+arguments:
+  - name: command
+    type: enum
+    required: true
+    description: The Vite+ subcommand to execute.
+    options:
+      - create
+      - migrate
+      - config
+      - staged
+      - install
+      - i
+      - env
+      - dev
+      - check
+      - lint
+      - fmt
+      - test
+      - run
+      - exec
+      - node
+      - dlx
+      - cache
+      - build
+      - pack
+      - preview
+      - add
+      - remove
+      - rm
+      - un
+      - uninstall
+      - update
+      - up
+      - dedupe
+      - outdated
+      - list
+      - ls
+      - why
+      - explain
+      - info
+      - view
+      - show
+      - link
+      - ln
+      - unlink
+      - rebuild
+      - pm
+
+  - name: args
+    type: string[]
+    required: false
+    description: Additional arguments or flags for the command.
+
+  - name: cwd
+    type: string
+    required: false
+    description: The directory to run the command in. Useful for monorepo sub-packages.

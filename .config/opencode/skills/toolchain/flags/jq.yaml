@@ -1,0 +1,103 @@
+# Jq Flags Reference
+# Derived strictly from jq.ts
+
+arguments:
+  - name: filter
+    type: string
+    required: true
+    description: The jq filter to apply (e.g., '.scripts' or '.[0].name').
+
+  - name: filepath
+    type: string
+    required: true
+    description: The path to the JSON file to process.
+
+  - name: compact
+    type: boolean
+    required: false
+    description: Compact instead of pretty-printed output (-c).
+
+  - name: rawOutput
+    type: boolean
+    required: false
+    description: Output strings without escapes and quotes (-r).
+
+  - name: slurp
+    type: boolean
+    required: false
+    description: Read all inputs into an array (-s).
+
+  - name: sortKeys
+    type: boolean
+    required: false
+    description: Sort keys of each object on output (-S).
+
+  - name: rawInput
+    type: boolean
+    required: false
+    description: Read each line as a string instead of JSON (-R).
+
+  - name: nullInput
+    type: boolean
+    required: false
+    description: Use `null` as the single input value (-n).
+
+  - name: rawOutput0
+    type: boolean
+    required: false
+    description: Implies -r and output NUL after each output.
+
+  - name: joinOutput
+    type: boolean
+    required: false
+    description: Implies -r and output without newline (-j).
+
+  - name: asciiOutput
+    type: boolean
+    required: false
+    description: Output strings by only ASCII characters (-a).
+
+  - name: colorOutput
+    type: boolean
+    required: false
+    description: Colorize JSON output (-C).
+
+  - name: tab
+    type: boolean
+    required: false
+    description: Use tabs for indentation (--tab).
+
+  - name: indent
+    type: number
+    required: false
+    description: Use N spaces for indentation (--indent N).
+
+  - name: unbufferd
+    type: boolean
+    required: false
+    description: Flush output stream after each output (--unbuffered).
+
+  - name: stream
+    type: boolean
+    required: false
+    description: Parse the input value in streaming fashion (--stream).
+
+  - name: arg
+    type: string[]
+    required: false
+    description: Set jq variables (--arg name value).
+
+  - name: argjson
+    type: string[]
+    required: false
+    description: Set jq variables as JSON (--argjson name value).
+
+  - name: rawfile
+    type: string
+    required: false
+    description: Read input from file (--rawfile).
+
+  - name: seq
+    type: boolean
+    required: false
+    description: Use seq encoding (--seq).

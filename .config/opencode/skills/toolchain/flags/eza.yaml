@@ -1,0 +1,213 @@
+# Eza Flags Reference
+# Derived strictly from eza.ts
+
+arguments:
+  - name: path
+    type: string
+    required: false
+    description: The directory or file to list. Defaults to current directory.
+
+  - name: all
+    type: boolean
+    required: false
+    description: Show hidden and 'dot' files (-a).
+
+  - name: long
+    type: boolean
+    required: false
+    description: Display extended file metadata as a table (-l).
+
+  - name: tree
+    type: boolean
+    required: false
+    description: Recurse into directories as a tree (-T).
+
+  - name: icons
+    type: boolean
+    required: false
+    description: Display icons (--icons).
+
+  - name: git
+    type: boolean
+    required: false
+    description: List each file's Git status, if tracked (--git).
+
+  - name: sort
+    type: enum
+    required: false
+    description: Which field to sort by (-s).
+    options:
+      - name
+      - Name
+      - extension
+      - Extension
+      - size
+      - type
+      - modified
+      - accessed
+      - created
+      - inode
+      - none
+
+  - name: reverse
+    type: boolean
+    required: false
+    description: Reverse the sort order (-r).
+
+  - name: groupDirsFirst
+    type: boolean
+    required: false
+    description: List directories before other files (--group-directories-first).
+
+  - name: level
+    type: number
+    required: false
+    description: Limit the depth of recursion (-L).
+
+  - name: ignoreGlob
+    type: string[]
+    required: false
+    description: Glob patterns of files to ignore (-I).
+
+  - name: gitIgnore
+    type: boolean
+    required: false
+    description: Ignore files mentioned in '.gitignore' (--git-ignore).
+
+  - name: oneline
+    type: boolean
+    required: false
+    description: Display one entry per line (-1).
+
+  - name: classify
+    type: boolean
+    required: false
+    description: Display type indicator by file names (-F).
+
+  - name: grid
+    type: boolean
+    required: false
+    description: Display entries as a grid (-G).
+
+  - name: across
+    type: boolean
+    required: false
+    description: Sort the grid across, rather than downwards (-x).
+
+  - name: recurse
+    type: boolean
+    required: false
+    description: Recurse into directories (-R).
+
+  - name: dereference
+    type: boolean
+    required: false
+    description: Dereference symbolic links (-X).
+
+  - name: colorScale
+    type: boolean
+    required: false
+    description: Highlight levels of 'field' distinctly (--color-scale).
+
+  - name: noQuotes
+    type: boolean
+    required: false
+    description: Don't quote file names with spaces (--no-quotes).
+
+  - name: hyperlink
+    type: boolean
+    required: false
+    description: Display entries as hyperlinks (--hyperlink).
+
+  - name: absolute
+    type: enum
+    required: false
+    description: Display entries with absolute path (--absolute).
+    options:
+      - on
+      - follow
+      - off
+
+  - name: followSymlinks
+    type: boolean
+    required: false
+    description: Drill down into symlinks (--follow-symlinks).
+
+  - name: onlyDirs
+    type: boolean
+    required: false
+    description: List only directories (-D).
+
+  - name: onlyFiles
+    type: boolean
+    required: false
+    description: List only files (-f).
+
+  - name: groupDirsLast
+    type: boolean
+    required: false
+    description: List directories after other files (--group-directories-last).
+
+  - name: header
+    type: boolean
+    required: false
+    description: Add a header row to each column (-h).
+
+  - name: inode
+    type: boolean
+    required: false
+    description: List each file's inode number (-i).
+
+  - name: links
+    type: boolean
+    required: false
+    description: List each file's number of hard links (-H).
+
+  - name: time
+    type: enum
+    required: false
+    description: Which timestamp field to list (-t, -u, -U).
+    options:
+      - modified
+      - accessed
+      - created
+
+  - name: octal
+    type: boolean
+    required: false
+    description: List permissions in octal format (-o).
+
+  - name: noPermissions
+    type: boolean
+    required: false
+    description: Suppress the permissions field (--no-permissions).
+
+  - name: noFilesize
+    type: boolean
+    required: false
+    description: Suppress the filesize field (--no-filesize).
+
+  - name: noUser
+    type: boolean
+    required: false
+    description: Suppress the user field (--no-user).
+
+  - name: noTime
+    type: boolean
+    required: false
+    description: Suppress the time field (--no-time).
+
+  - name: noGit
+    type: boolean
+    required: false
+    description: Suppress Git status (--no-git).
+
+  - name: extended
+    type: boolean
+    required: false
+    description: List extended attributes (-@).
+
+  - name: context
+    type: boolean
+    required: false
+    description: List security context (-Z).

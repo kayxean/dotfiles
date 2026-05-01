@@ -1,0 +1,45 @@
+# Bun Flags Reference
+# Derived strictly from bun.ts
+
+arguments:
+  - name: command
+    type: enum
+    required: true
+    description: The Bun subcommand to execute.
+    options:
+      - run
+      - test
+      - x
+      - repl
+      - exec
+      - install
+      - i
+      - add
+      - a
+      - remove
+      - rm
+      - update
+      - audit
+      - outdated
+      - link
+      - unlink
+      - publish
+      - patch
+      - pm
+      - info
+      - why
+      - build
+      - init
+      - create
+      - upgrade
+      - feedback
+
+  - name: args
+    type: string[]
+    required: false
+    description: Arguments or flags (e.g., ['--watch'], ['--filter', 'pkg-a'], ['@types/node']).
+
+  - name: cwd
+    type: string
+    required: false
+    description: Directory to execute the command in. Defaults to current directory.

@@ -33,6 +33,7 @@ export OPENCODE_EXPERIMENTAL_OXFMT=true
 export OPENCODE_EXPERIMENTAL_LSP_TOOL=true
 export OPENCODE_EXPERIMENTAL_EXA=true
 export OPENCODE_EXPERIMENTAL_MARKDOWN=true
+export DFT_UNSTABLE=yes
 
 [[ -f ~/.config/zsh/functions.zsh ]] && source ~/.config/zsh/functions.zsh
 [[ -f ~/.config/zsh/aliases.zsh ]] && source ~/.config/zsh/aliases.zsh

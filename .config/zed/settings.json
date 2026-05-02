@@ -1,4 +1,5 @@
 {
+  "cli_default_open_behavior": "existing_window",
   "base_keymap": "None",
   "hide_mouse": "on_typing",
   "always_treat_brackets_as_autoclosed": true,

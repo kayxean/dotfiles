@@ -1,6 +1,6 @@
-import type { CommandResult } from '../lib/types';
 import { tool } from '@opencode-ai/plugin';
-import { execAsync, shellEscape } from '../lib/shell';
+import { argv } from '../lib/argv';
+import { stream } from '../lib/stream';
 
 export default tool({
   description:
@@ -133,89 +133,43 @@ export default tool({
         'Do not cross filesystem boundaries. Prevents the walk from entering mounted drives or network shares.',
       ),
   },
-  async execute(args, context) {
-    const { directory, worktree, abort } = context;
-    const cwd = directory || worktree;
+  execute(args, context) {
+    const searchPath = args.path ?? context.directory ?? context.worktree ?? '.';
 
-    const extensionFlags = (args.extension ?? []).map((ext) => `--extension ${shellEscape(ext)}`);
-    const excludeFlags = (args.exclude ?? []).map((p) => `--exclude ${shellEscape(p)}`);
-    const andFlags = (args.and ?? []).map((p) => `--and ${shellEscape(p)}`);
-
-    const pattern = args.pattern ? shellEscape(args.pattern) : '';
-    const searchPath = args.path ?? cwd ?? '.';
-
-    const cmd = [
-      'fd',
-      '--color=never',
-      ...(args.hidden ? ['--hidden'] : []),
-      ...(args.noIgnore ? ['--no-ignore'] : []),
-      ...(args.glob ? ['--glob'] : []),
-      ...(args.fixedStrings ? ['--fixed-strings'] : []),
-      ...(args.absolutePath ? ['--absolute-path'] : []),
-      ...(args.follow ? ['--follow'] : []),
-      ...(args.fullPath ? ['--full-path'] : []),
-      ...(args.prune ? ['--prune'] : []),
-      ...(args.oneFileSystem ? ['--one-file-system'] : []),
-      ...(args.maxDepth ? [`--max-depth ${args.maxDepth}`] : []),
-      ...(args.minDepth ? [`--min-depth ${args.minDepth}`] : []),
-      ...(args.maxResults ? [`--max-results ${args.maxResults}`] : []),
-      ...(args.fileType ? [`--type ${args.fileType}`] : []),
-      ...(args.fileSize ? [`--size ${shellEscape(args.fileSize)}`] : []),
-      ...(args.changedWithin ? [`--changed-within ${shellEscape(args.changedWithin)}`] : []),
-      ...(args.changedBefore ? [`--changed-before ${shellEscape(args.changedBefore)}`] : []),
-      ...(args.owner ? [`--owner ${shellEscape(args.owner)}`] : []),
-      ...extensionFlags,
-      ...excludeFlags,
-      ...andFlags,
-      pattern,
-      searchPath,
-    ].join(' ');
-
-    const result: CommandResult = await execAsync(cmd, {
-      cwd,
-      signal: abort,
-      timeout: 30000,
-      maxBuffer: 10 * 1024 * 1024,
-    })
-      .then((res) => ({ success: true, ...res }) as const)
-      .catch(
-        (err: unknown) =>
-          ({
-            success: false,
-            error: err instanceof Error ? err : new Error(String(err)),
-          }) as const,
-      );
-
-    if (!result.success) {
-      const err = result.error as Error & { code?: number | string; stderr?: string };
-      if (err.code === 1 || err.code === '1') {
-        return {
-          output: '',
-          metadata: {
-            info: 'No files found matching the criteria.',
-            exitCode: 1,
-            command: cmd,
-          },
-        };
-      }
-
-      return {
-        output: `Error executing fd: ${err.message}`,
-        metadata: {
-          exitCode: err.code ?? -1,
-          stderr: err.stderr,
-          command: cmd,
-        },
-      };
-    }
-
-    return {
-      output: result.stdout,
-      metadata: {
-        stderr: result.stderr || undefined,
-        command: cmd,
-        directory,
-      },
-    };
+    return stream(
+      () =>
+        Promise.resolve({
+          cmd: 'fd',
+          flags: argv(args, {
+            fixed: ['--color=never'],
+            mapping: {
+              hidden: '--hidden',
+              noIgnore: '--no-ignore',
+              glob: '--glob',
+              fixedStrings: '--fixed-strings',
+              absolutePath: '--absolute-path',
+              follow: '--follow',
+              fullPath: '--full-path',
+              prune: '--prune',
+              oneFileSystem: '--one-file-system',
+              maxDepth: '--max-depth',
+              minDepth: '--min-depth',
+              maxResults: '--max-results',
+              fileType: '--type',
+              fileSize: '--size',
+              changedWithin: '--changed-within',
+              changedBefore: '--changed-before',
+              owner: '--owner',
+              extension: { flag: '--extension', style: 'repeat' },
+              exclude: { flag: '--exclude', style: 'repeat' },
+              and: { flag: '--and', style: 'repeat' },
+            },
+            positional: [args.pattern, searchPath],
+          }),
+          cwd: context.directory || context.worktree,
+          exitCodeMap: { 0: 'success', 1: 'success' },
+        }),
+      [args, context],
+    );
   },
 });

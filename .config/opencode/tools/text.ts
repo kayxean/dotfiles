@@ -1,6 +1,6 @@
-import type { CommandResult } from '../lib/types';
 import { tool } from '@opencode-ai/plugin';
-import { execAsync, shellEscape } from '../lib/shell';
+import { argv } from '../lib/argv';
+import { stream } from '../lib/stream';
 
 export default tool({
   description:
@@ -124,89 +124,69 @@ export default tool({
         'Skip files larger than this size. Format: number + unit. Example: "1M" skips files over 1 megabyte.',
       ),
   },
-  async execute(args, context) {
-    const { directory, worktree, abort } = context;
-    const cwd = directory || worktree;
-
+  execute(args, context) {
     if (args.typeList) {
-      const cmd = 'rg --type-list';
-      const { stdout, stderr } = await execAsync(cmd, { cwd, signal: abort });
-      return { output: stdout, metadata: { stderr: stderr || undefined, command: cmd, directory } };
-    }
-
-    const globFlags = (args.globs ?? []).map((g) => `--glob ${shellEscape(g)}`);
-    const targetPaths = args.paths?.length ? args.paths.map(shellEscape) : ['.'];
-
-    const cmd = [
-      'rg',
-      '--color=never',
-      '--no-heading',
-      '--with-filename',
-      '--line-number',
-      '--column',
-      ...(args.fixedStrings ? ['--fixed-strings'] : []),
-      ...(args.hidden ? ['--hidden'] : []),
-      ...(args.noIgnore ? ['--no-ignore'] : []),
-      ...(args.multiline ? ['--multiline'] : []),
-      ...(args.invertMatch ? ['--invert-match'] : []),
-      ...(args.count ? ['--count'] : []),
-      ...(args.filesWithMatches ? ['--files-with-matches'] : []),
-      ...(args.onlyMatching ? ['--only-matching'] : []),
-      ...(args.passthru ? ['--passthru'] : []),
-      ...(args.wordRegexp ? ['--word-regexp'] : []),
-      ...(args.follow ? ['--follow'] : []),
-      ...(args.engine ? [`--engine=${args.engine}`] : []),
-      ...(args.maxDepth ? [`--max-depth ${args.maxDepth}`] : []),
-      ...(args.context ? [`--context ${args.context}`] : []),
-      ...(args.maxCount ? [`--max-count ${args.maxCount}`] : []),
-      ...(args.replace ? [`--replace ${shellEscape(args.replace)}`] : []),
-      ...(args.maxFilesize ? [`--max-filesize ${shellEscape(args.maxFilesize)}`] : []),
-      ...(args.caseStrategy === 'ignore'
-        ? ['--ignore-case']
-        : args.caseStrategy === 'smart'
-          ? ['--smart-case']
-          : args.caseStrategy === 'sensitive'
-            ? ['--case-sensitive']
-            : []),
-      ...globFlags,
-      '--',
-      shellEscape(args.pattern),
-      ...targetPaths,
-    ].join(' ');
-
-    const result: CommandResult = await execAsync(cmd, {
-      cwd,
-      signal: abort,
-      timeout: 30000,
-      maxBuffer: 10 * 1024 * 1024,
-    })
-      .then((res) => ({ success: true, ...res }) as const)
-      .catch(
-        (err: unknown) =>
-          ({
-            success: false,
-            error: err instanceof Error ? err : new Error(String(err)),
-          }) as const,
+      return stream(
+        () =>
+          Promise.resolve({
+            cmd: 'rg',
+            flags: ['--type-list'],
+            cwd: context.directory || context.worktree,
+            timeout: 30000,
+            maxBuffer: 10 * 1024 * 1024,
+          }),
+        [args, context],
       );
-
-    if (!result.success) {
-      const err = result.error as Error & { code?: number | string; stderr?: string };
-      if (err.code === 1 || err.code === '1') {
-        return { output: '', metadata: { info: 'No matches found.', exitCode: 1, command: cmd } };
-      }
-      return {
-        output: `Error executing rg: ${err.message}`,
-        metadata: { exitCode: err.code ?? -1, command: cmd, stderr: err.stderr },
-      };
     }
 
-    return {
-      output: result.stdout,
-      metadata: {
-        stderr: result.stderr || undefined,
-        command: cmd,
-        directory,
-      },
-    };
+    const targetPaths = args.paths?.length ? args.paths : ['.'];
+    const caseFlag =
+      args.caseStrategy === 'ignore'
+        ? '--ignore-case'
+        : args.caseStrategy === 'smart'
+          ? '--smart-case'
+          : args.caseStrategy === 'sensitive'
+            ? '--case-sensitive'
+            : undefined;
+
+    return stream(
+      () =>
+        Promise.resolve({
+          cmd: 'rg',
+          flags: argv(args, {
+            fixed: [
+              '--color=never',
+              '--no-heading',
+              '--with-filename',
+              '--line-number',
+              '--column',
+            ],
+            mapping: {
+              fixedStrings: '--fixed-strings',
+              hidden: '--hidden',
+              noIgnore: '--no-ignore',
+              multiline: '--multiline',
+              invertMatch: '--invert-match',
+              count: '--count',
+              filesWithMatches: '--files-with-matches',
+              onlyMatching: '--only-matching',
+              passthru: '--passthru',
+              wordRegexp: '--word-regexp',
+              follow: '--follow',
+              engine: '--engine',
+              maxDepth: '--max-depth',
+              context: '--context',
+              maxCount: '--max-count',
+              replace: '--replace',
+              maxFilesize: '--max-filesize',
+              globs: { flag: '--glob', style: 'repeat' },
+            },
+            positional: [caseFlag, '--', args.pattern, ...targetPaths],
+          }),
+          cwd: context.directory || context.worktree,
+          exitCodeMap: { 0: 'success', 1: 'success' },
+        }),
+      [args, context],
+    );
   },
 });

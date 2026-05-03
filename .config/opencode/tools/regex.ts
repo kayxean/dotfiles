@@ -1,6 +1,6 @@
-import type { CommandResult } from '../lib/types';
 import { tool } from '@opencode-ai/plugin';
-import { execAsync, shellEscape } from '../lib/shell';
+import { argv } from '../lib/argv';
+import { stream } from '../lib/stream';
 
 export default tool({
   description:
@@ -87,65 +87,34 @@ export default tool({
         'Produce a verbose-mode regex with whitespace and comments for readability. Compatible with the (?x) flag.',
       ),
   },
-  async execute(args, context) {
-    const { directory, worktree, abort } = context;
-    const cwd = directory || worktree;
-
-    const inputCases = (args.inputs ?? []).map((input) => shellEscape(input));
-
-    const cmd = [
-      'grex',
-      ...(args.file ? ['--file', shellEscape(args.file)] : []),
-      ...(args.digits ? ['--digits'] : []),
-      ...(args.nonDigits ? ['--non-digits'] : []),
-      ...(args.spaces ? ['--spaces'] : []),
-      ...(args.nonSpaces ? ['--non-spaces'] : []),
-      ...(args.words ? ['--words'] : []),
-      ...(args.nonWords ? ['--non-words'] : []),
-      ...(args.escape ? ['--escape'] : []),
-      ...(args.repetitions ? ['--repetitions'] : []),
-      ...(args.minRepetitions ? [`--min-repetitions ${args.minRepetitions}`] : []),
-      ...(args.minSubstringLength ? [`--min-substring-length ${args.minSubstringLength}`] : []),
-      ...(args.noAnchors ? ['--no-anchors'] : []),
-      ...(args.ignoreCase ? ['--ignore-case'] : []),
-      ...(args.captureGroups ? ['--capture-groups'] : []),
-      ...(args.verbose ? ['--verbose'] : []),
-      ...inputCases,
-    ].join(' ');
-
-    const result: CommandResult = await execAsync(cmd, {
-      cwd,
-      signal: abort,
-      timeout: 30000,
-      maxBuffer: 10 * 1024 * 1024,
-    })
-      .then((res) => ({ success: true, ...res }) as const)
-      .catch(
-        (err: unknown) =>
-          ({
-            success: false,
-            error: err instanceof Error ? err : new Error(String(err)),
-          }) as const,
-      );
-
-    if (!result.success) {
-      const err = result.error as Error & { code?: number | string; stderr?: string };
-      return {
-        output: `Error executing grex: ${err.message}`,
-        metadata: {
-          exitCode: err.code ?? -1,
-          stderr: err.stderr,
-          command: cmd,
-        },
-      };
-    }
-
-    return {
-      output: result.stdout,
-      metadata: {
-        stderr: result.stderr || undefined,
-        command: cmd,
-      },
-    };
+  execute(args, context) {
+    return stream(
+      () =>
+        Promise.resolve({
+          cmd: 'grex',
+          flags: argv(args, {
+            mapping: {
+              file: { flag: '--file', style: 'space' },
+              digits: '--digits',
+              nonDigits: '--non-digits',
+              spaces: '--spaces',
+              nonSpaces: '--non-spaces',
+              words: '--words',
+              nonWords: '--non-words',
+              escape: '--escape',
+              repetitions: '--repetitions',
+              minRepetitions: '--min-repetitions',
+              minSubstringLength: '--min-substring-length',
+              noAnchors: '--no-anchors',
+              ignoreCase: '--ignore-case',
+              captureGroups: '--capture-groups',
+              verbose: '--verbose',
+            },
+            positional: args.inputs ?? [],
+          }),
+          cwd: context.directory || context.worktree,
+        }),
+      [args, context],
+    );
   },
 });

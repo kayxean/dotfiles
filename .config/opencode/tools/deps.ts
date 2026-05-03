@@ -1,6 +1,5 @@
-import type { CommandResult } from '../lib/types';
 import { tool } from '@opencode-ai/plugin';
-import { execAsync, shellEscape } from '../lib/shell';
+import { stream } from '../lib/stream';
 
 export default tool({
   description:
@@ -73,52 +72,21 @@ export default tool({
         'Directory to run the command in. Defaults to the project root. Set this when working inside a monorepo workspace package.',
       ),
   },
-  async execute(args, context) {
-    const { directory, worktree, abort } = context;
+  execute(args, context) {
+    const { directory, worktree } = context;
     const { manager, command, args: commandArgs = [], cwd } = args;
     const managerToUse = manager ?? 'vp';
 
-    const optionalFlags = commandArgs.map((arg: string) => shellEscape(arg));
-
-    const cmd = [managerToUse, command, ...optionalFlags].join(' ');
-
-    const result: CommandResult = await execAsync(cmd, {
-      cwd: cwd ?? directory ?? worktree,
-      signal: abort,
-      timeout: 30000,
-      maxBuffer: 10 * 1024 * 1024,
-      env: { ...process.env, CI: 'true', FORCE_COLOR: '0' },
-    })
-      .then((res) => ({ success: true, ...res }) as const)
-      .catch(
-        (err: unknown) =>
-          ({
-            success: false,
-            error: err instanceof Error ? err : new Error(String(err)),
-          }) as const,
-      );
-
-    if (!result.success) {
-      const err = result.error as Error & { code?: number | string; stderr?: string };
-      return {
-        output: `Error executing ${managerToUse}: ${err.message}`,
-        metadata: {
-          exitCode: err.code ?? -1,
-          stderr: err.stderr,
-          command: cmd,
-          manager: managerToUse,
-        },
-      };
-    }
-
-    return {
-      output: result.stdout,
-      metadata: {
-        stderr: result.stderr || undefined,
-        command: cmd,
-        directory: cwd ?? directory ?? worktree,
-        manager: managerToUse,
-      },
-    };
+    return stream(
+      () =>
+        Promise.resolve({
+          cmd: managerToUse,
+          flags: [command, ...commandArgs],
+          cwd: cwd ?? directory ?? worktree,
+          // 5 min timeout for long-running commands (build, test)
+          timeout: 5 * 60 * 1000,
+        }),
+      [args, context],
+    );
   },
 });

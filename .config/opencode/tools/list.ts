@@ -1,6 +1,6 @@
-import type { CommandResult } from '../lib/types';
 import { tool } from '@opencode-ai/plugin';
-import { execAsync, shellEscape } from '../lib/shell';
+import { argv } from '../lib/argv';
+import { stream } from '../lib/stream';
 
 export default tool({
   description:
@@ -101,73 +101,39 @@ export default tool({
       .optional()
       .describe('Add a header row labeling each column. Most useful with long: true.'),
   },
-  async execute(args, context) {
-    const { directory, worktree, abort } = context;
-    const cwd = directory || worktree;
-
-    const ignoreFlags = (args.ignoreGlob ?? []).map((glob) => `--ignore-glob ${shellEscape(glob)}`);
-
-    const cmd = [
-      'eza',
-      '--color=never',
-      '--icons=never',
-      '--no-quotes',
-      ...(args.all ? ['--all'] : []),
-      ...(args.long ? ['--long'] : []),
-      ...(args.tree ? ['--tree'] : []),
-      ...(args.git ? ['--git'] : []),
-      ...(args.sort ? [`--sort ${args.sort}`] : []),
-      ...(args.reverse ? ['--reverse'] : []),
-      ...(args.groupDirsFirst ? ['--group-directories-first'] : []),
-      ...(args.level ? [`--level ${args.level}`] : []),
-      ...(args.gitIgnore ? ['--git-ignore'] : []),
-      ...(args.oneline ? ['--oneline'] : []),
-      ...(args.recurse ? ['--recurse'] : []),
-      ...(args.onlyDirs ? ['--only-dirs'] : []),
-      ...(args.onlyFiles ? ['--only-files'] : []),
-      ...(args.dereference ? ['--dereference'] : []),
-      ...(args.classify ? ['--classify'] : []),
-      ...(args.treatDirsAsFiles ? ['--treat-dirs-as-files'] : []),
-      ...(args.extended ? ['--extended'] : []),
-      ...(args.header ? ['--header'] : []),
-      ...ignoreFlags,
-      args.path ? shellEscape(args.path) : '.',
-    ].join(' ');
-
-    const result: CommandResult = await execAsync(cmd, {
-      cwd,
-      signal: abort,
-      timeout: 30000,
-      maxBuffer: 10 * 1024 * 1024,
-    })
-      .then((res) => ({ success: true, ...res }) as const)
-      .catch(
-        (err: unknown) =>
-          ({
-            success: false,
-            error: err instanceof Error ? err : new Error(String(err)),
-          }) as const,
-      );
-
-    if (!result.success) {
-      const err = result.error as Error & { code?: number | string; stderr?: string };
-      return {
-        output: `Error executing eza: ${err.message}`,
-        metadata: {
-          exitCode: err.code ?? -1,
-          stderr: err.stderr,
-          command: cmd,
-        },
-      };
-    }
-
-    return {
-      output: result.stdout,
-      metadata: {
-        stderr: result.stderr || undefined,
-        command: cmd,
-        directory,
-      },
-    };
+  execute(args, context) {
+    return stream(
+      () =>
+        Promise.resolve({
+          cmd: 'eza',
+          flags: argv(args, {
+            fixed: ['--color=never', '--icons=never', '--no-quotes'],
+            mapping: {
+              all: '--all',
+              long: '--long',
+              tree: '--tree',
+              git: '--git',
+              sort: '--sort',
+              reverse: '--reverse',
+              groupDirsFirst: '--group-directories-first',
+              level: '--level',
+              gitIgnore: '--git-ignore',
+              oneline: '--oneline',
+              recurse: '--recurse',
+              onlyDirs: '--only-dirs',
+              onlyFiles: '--only-files',
+              dereference: '--dereference',
+              classify: '--classify',
+              treatDirsAsFiles: '--treat-dirs-as-files',
+              extended: '--extended',
+              header: '--header',
+              ignoreGlob: { flag: '--ignore-glob', style: 'repeat' },
+            },
+            positional: [args.path ?? '.'],
+          }),
+          cwd: context.directory || context.worktree,
+        }),
+      [args, context],
+    );
   },
 });

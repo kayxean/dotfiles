@@ -1,6 +1,6 @@
-import type { CommandResult } from '../lib/types';
 import { tool } from '@opencode-ai/plugin';
-import { execAsync, shellEscape } from '../lib/shell';
+import { argv } from '../lib/argv';
+import { stream } from '../lib/stream';
 
 export default tool({
   description:
@@ -55,59 +55,28 @@ export default tool({
         'Hide embedded language statistics (e.g., JS inside HTML). Produces a cleaner summary table.',
       ),
   },
-  async execute(args, context) {
-    const { directory, worktree, abort } = context;
-    const cwd = directory || worktree;
-
-    const excludeFlags = (args.exclude ?? []).map((e) => `--exclude ${shellEscape(e)}`);
-    const inputPaths = (args.inputs ?? []).map((path) => shellEscape(path));
-
-    const cmd = [
-      'tokei',
-      ...excludeFlags,
-      ...(args.files ? ['--files'] : []),
-      ...(args.hidden ? ['--hidden'] : []),
-      ...(args.noIgnore ? ['--no-ignore'] : []),
-      ...(args.output ? [`--output ${shellEscape(args.output)}`] : []),
-      ...(args.sort ? [`--sort ${args.sort}`] : []),
-      ...(args.types ? [`--types ${shellEscape(args.types.join(','))}`] : []),
-      ...(args.compact ? ['--compact'] : []),
-      ...inputPaths,
-    ].join(' ');
-
-    const result: CommandResult = await execAsync(cmd, {
-      cwd,
-      signal: abort,
-      timeout: 30000,
-      maxBuffer: 10 * 1024 * 1024,
-    })
-      .then((res) => ({ success: true, ...res }) as const)
-      .catch(
-        (err: unknown) =>
-          ({
-            success: false,
-            error: err instanceof Error ? err : new Error(String(err)),
-          }) as const,
-      );
-
-    if (!result.success) {
-      const err = result.error as Error & { code?: number | string; stderr?: string };
-      return {
-        output: `Error executing tokei: ${err.message}`,
-        metadata: {
-          exitCode: err.code ?? -1,
-          stderr: err.stderr,
-          command: cmd,
-        },
-      };
-    }
-
-    return {
-      output: result.stdout,
-      metadata: {
-        stderr: result.stderr || undefined,
-        command: cmd,
-      },
-    };
+  execute(args, context) {
+    return stream(
+      () =>
+        Promise.resolve({
+          cmd: 'tokei',
+          flags: argv(args, {
+            mapping: {
+              files: '--files',
+              hidden: '--hidden',
+              noIgnore: '--no-ignore',
+              output: '--output',
+              sort: '--sort',
+              compact: '--compact',
+              exclude: { flag: '--exclude', style: 'repeat' },
+              types: { flag: '--types', style: 'comma' },
+            },
+            positional: args.inputs ?? [],
+          }),
+          cwd: context.directory || context.worktree,
+          exitCodeMap: { 0: 'success', 1: 'success' },
+        }),
+      [args, context],
+    );
   },
 });

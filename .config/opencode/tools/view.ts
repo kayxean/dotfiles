@@ -1,6 +1,6 @@
-import type { CommandResult } from '../lib/types';
 import { tool } from '@opencode-ai/plugin';
-import { execAsync, shellEscape } from '../lib/shell';
+import { argv } from '../lib/argv';
+import { stream } from '../lib/stream';
 
 export default tool({
   description:
@@ -56,60 +56,28 @@ export default tool({
         'Strip all decorations (line numbers, borders, headers) and emit raw text only. Use when the output will be processed by another tool.',
       ),
   },
-  async execute(args, context) {
-    const { directory, worktree, abort } = context;
-    const cwd = directory || worktree;
-
-    const cmd = [
-      'bat',
-      '--style=numbers',
-      '--color=never',
-      '--paging=never',
-      ...(args.lineRange ? [`--line-range ${shellEscape(args.lineRange)}`] : []),
-      ...(args.language ? [`--language ${shellEscape(args.language)}`] : []),
-      ...(args.showAll ? ['--show-all'] : []),
-      ...(args.diff ? ['--diff'] : []),
-      ...(args.diffContext ? [`--diff-context ${args.diffContext}`] : []),
-      ...(args.highlightLine ? [`--highlight-line ${shellEscape(args.highlightLine)}`] : []),
-      ...(args.fileName ? [`--file-name ${shellEscape(args.fileName)}`] : []),
-      ...(args.plain ? ['--plain'] : []),
-      shellEscape(args.filepath),
-    ].join(' ');
-
-    const result: CommandResult = await execAsync(cmd, {
-      cwd,
-      signal: abort,
-      timeout: 30000,
-      maxBuffer: 10 * 1024 * 1024,
-    })
-      .then((res) => ({ success: true, ...res }) as const)
-      .catch(
-        (err: unknown) =>
-          ({
-            success: false,
-            error: err instanceof Error ? err : new Error(String(err)),
-          }) as const,
-      );
-
-    if (!result.success) {
-      const err = result.error as Error & { code?: number | string; stderr?: string };
-      return {
-        output: `Error executing bat: ${err.message}`,
-        metadata: {
-          exitCode: err.code ?? -1,
-          stderr: err.stderr,
-          command: cmd,
-        },
-      };
-    }
-
-    return {
-      output: result.stdout,
-      metadata: {
-        stderr: result.stderr || undefined,
-        command: cmd,
-        filepath: args.filepath,
-      },
-    };
+  execute(args, context) {
+    return stream(
+      () =>
+        Promise.resolve({
+          cmd: 'bat',
+          flags: argv(args, {
+            fixed: ['--style=numbers', '--color=never', '--paging=never'],
+            mapping: {
+              lineRange: '--line-range',
+              language: '--language',
+              showAll: '--show-all',
+              diff: '--diff',
+              diffContext: '--diff-context',
+              highlightLine: '--highlight-line',
+              fileName: '--file-name',
+              plain: '--plain',
+            },
+            positional: [args.filepath],
+          }),
+          cwd: context.directory || context.worktree,
+        }),
+      [args, context],
+    );
   },
 });

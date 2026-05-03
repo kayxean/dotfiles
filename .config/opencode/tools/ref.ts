@@ -1,6 +1,6 @@
-import type { CommandResult } from '../lib/types';
 import { tool } from '@opencode-ai/plugin';
-import { execAsync, shellEscape } from '../lib/shell';
+import { argv } from '../lib/argv';
+import { stream } from '../lib/stream';
 
 export default tool({
   description:
@@ -53,59 +53,30 @@ export default tool({
         'Built-in transformation to apply to matched text instead of a replacement string. "upper"/"lower"/"titlecase" change case, "delete" removes matches, "squeeze" collapses repeated matches into one.',
       ),
   },
-  async execute(args, context) {
-    const { directory, worktree, abort } = context;
-    const cwd = directory || worktree;
-
-    const cmd =
-      [
-        'srgn',
-        ...(args.dryRun ? ['--dry-run'] : []),
-        ...(args.literal ? ['--literal-string'] : []),
-        ...(args.action ? [`--${args.action}`] : []),
-        ...(args.language && args.langScope
-          ? [`--${args.language}`, shellEscape(args.langScope)]
-          : []),
-        ...(args.glob ? ['--glob', shellEscape(args.glob)] : []),
-        shellEscape(args.scope),
-        ...(args.replacement ? ['--', shellEscape(args.replacement)] : []),
-      ].join(' ') + ' < /dev/null';
-
-    const result: CommandResult = await execAsync(cmd, {
-      cwd,
-      signal: abort,
-      timeout: 30000,
-      maxBuffer: 10 * 1024 * 1024,
-      env: { ...process.env, FORCE_COLOR: '0' },
-    })
-      .then((res) => ({ success: true, ...res }) as const)
-      .catch(
-        (err: unknown) =>
-          ({
-            success: false,
-            error: err instanceof Error ? err : new Error(String(err)),
-          }) as const,
-      );
-
-    if (!result.success) {
-      const err = result.error as Error & { code?: number | string; stderr?: string };
-      return {
-        output: `Error executing srgn: ${err.message}`,
-        metadata: {
-          exitCode: err.code ?? -1,
-          stderr: err.stderr,
-          command: cmd,
-        },
-      };
-    }
-
-    return {
-      output: result.stdout,
-      metadata: {
-        stderr: result.stderr || undefined,
-        command: cmd,
-        isDryRun: args.dryRun,
-      },
-    };
+  execute(args, context) {
+    return stream(
+      () =>
+        Promise.resolve({
+          cmd: 'srgn',
+          flags: argv(args, {
+            mapping: {
+              dryRun: '--dry-run',
+              literal: '--literal-string',
+              action: { flag: '', style: 'value-as-flag' },
+              glob: { flag: '--glob', style: 'space' },
+            },
+            positional: [
+              args.language && args.langScope ? `--${args.language}` : undefined,
+              args.language && args.langScope ? args.langScope : undefined,
+              args.scope,
+              args.replacement ? '--' : undefined,
+              args.replacement,
+            ],
+          }),
+          cwd: context.directory || context.worktree,
+          env: { ...process.env, FORCE_COLOR: '0' },
+        }),
+      [args, context],
+    );
   },
 });

@@ -1,6 +1,6 @@
-import type { CommandResult } from '../lib/types';
 import { tool } from '@opencode-ai/plugin';
-import { execAsync, shellEscape } from '../lib/shell';
+import { argv } from '../lib/argv';
+import { stream } from '../lib/stream';
 
 export default tool({
   description:
@@ -60,74 +60,28 @@ export default tool({
         'Specific files or directories to search. Defaults to the project root. Narrow this to reduce noise and speed up the scan.',
       ),
   },
-  async execute(args, context) {
-    const { directory, worktree, abort } = context;
-    const cwd = directory || worktree;
-
-    const cmdArgs: string[] = [
-      'ast-grep',
-      args.command,
-      ...(args.pattern ? ['--pattern', shellEscape(args.pattern)] : []),
-      ...(args.rewrite ? ['--rewrite', shellEscape(args.rewrite)] : []),
-      ...(args.lang ? ['--lang', shellEscape(args.lang)] : []),
-      ...(args.rule ? ['--rule', shellEscape(args.rule)] : []),
-      ...(args.inlineRules ? ['--inline-rules', shellEscape(args.inlineRules)] : []),
-      ...(args.json ? ['--json'] : []),
-      ...(args.debugQuery ? [`--debug-query=${args.debugQuery}`] : []),
-      ...(args.paths ?? []).map((path) => shellEscape(path)),
-    ];
-
-    const cmd = cmdArgs.join(' ');
-
-    const result: CommandResult = await execAsync(cmd, {
-      cwd,
-      signal: abort,
-      timeout: 30000,
-      maxBuffer: 10 * 1024 * 1024,
-    })
-      .then((res) => ({ success: true, ...res }) as const)
-      .catch(
-        (err: unknown) =>
-          ({
-            success: false,
-            error: err instanceof Error ? err : new Error(String(err)),
-          }) as const,
-      );
-
-    if (!result.success) {
-      const err = result.error as Error & {
-        code?: number | string;
-        stdout?: string;
-        stderr?: string;
-      };
-      if ((err.code === 1 || err.code === '1') && (!err.stdout || err.stdout.trim().length === 0)) {
-        return {
-          output: '',
-          metadata: {
-            stderr: err.stderr ?? undefined,
-            command: cmd,
-            commandUsed: args.command,
-            note: 'No matches found (exit code 1 from ast-grep)',
-          },
-        };
-      }
-      return {
-        output: `Error executing ast-grep: ${err.message}`,
-        metadata: {
-          exitCode: err.code ?? -1,
-          stderr: err.stderr,
-          command: cmd,
-        },
-      };
-    }
-
-    return {
-      output: result.stdout,
-      metadata: {
-        stderr: result.stderr || undefined,
-        command: cmd,
-        commandUsed: args.command,
-      },
-    };
+  execute(args, context) {
+    return stream(
+      () =>
+        Promise.resolve({
+          cmd: 'ast-grep',
+          flags: argv(args, {
+            fixed: [args.command],
+            mapping: {
+              pattern: { flag: '--pattern', style: 'space' },
+              rewrite: { flag: '--rewrite', style: 'space' },
+              lang: { flag: '--lang', style: 'space' },
+              rule: { flag: '--rule', style: 'space' },
+              inlineRules: { flag: '--inline-rules', style: 'space' },
+              json: '--json',
+              debugQuery: '--debug-query',
+            },
+            positional: [...(args.paths ?? [])],
+          }),
+          cwd: context.directory || context.worktree,
+          exitCodeMap: { 0: 'success', 1: 'success' },
+        }),
+      [args, context],
+    );
   },
 });

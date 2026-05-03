@@ -1,6 +1,5 @@
-import type { CommandResult } from '../lib/types';
 import { tool } from '@opencode-ai/plugin';
-import { execAsync, shellEscape } from '../lib/shell';
+import { stream } from '../lib/stream';
 
 export default tool({
   description:
@@ -30,57 +29,22 @@ export default tool({
         'Local path to write the fetched content. Required for binary downloads (images, archives). Optional for text — use when you need the file on disk for a subsequent tool.',
       ),
   },
-  async execute(args, context) {
-    const { directory, worktree, abort } = context;
-    const cwd = directory || worktree;
-
-    const cmdParts = [
-      'fetchkit',
-      'fetch',
-      ...(args.method ? [`--method ${shellEscape(args.method)}`] : []),
-      ...(args.asMarkdown ? ['--output', 'md'] : []),
-      ...(args.asText ? ['--output', 'json'] : []),
-      shellEscape(args.url),
-    ];
-
-    const cmd = args.saveToFile
-      ? [...cmdParts, '>', shellEscape(args.saveToFile)].join(' ')
-      : cmdParts.join(' ');
-
-    const result: CommandResult = await execAsync(cmd, {
-      cwd,
-      signal: abort,
-      timeout: 30000,
-      maxBuffer: 10 * 1024 * 1024,
-    })
-      .then((res) => ({ success: true, ...res }) as const)
-      .catch(
-        (err: unknown) =>
-          ({
-            success: false,
-            error: err instanceof Error ? err : new Error(String(err)),
-          }) as const,
-      );
-
-    if (!result.success) {
-      const err = result.error;
-      return {
-        output: `Error executing fetchkit: ${err.message}`,
-        metadata: {
-          exitCode: err.code ?? -1,
-          stderr: err.stderr,
-          command: cmd,
-        },
-      };
-    }
-
-    return {
-      output: result.stdout,
-      metadata: {
-        stderr: result.stderr || undefined,
-        command: cmd,
-        url: args.url,
-      },
-    };
+  execute(args, context) {
+    return stream(
+      () =>
+        Promise.resolve({
+          cmd: 'fetchkit',
+          flags: [
+            'fetch',
+            ...(args.method ? [`--method=${args.method}`] : []),
+            ...(args.asMarkdown ? ['--output=md'] : []),
+            ...(args.asText ? ['--output=json'] : []),
+            ...(args.saveToFile ? [`--output-file=${args.saveToFile}`] : []),
+            args.url,
+          ],
+          cwd: context.directory || context.worktree,
+        }),
+      [args, context],
+    );
   },
 });

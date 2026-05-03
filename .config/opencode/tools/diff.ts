@@ -1,6 +1,6 @@
-import type { CommandResult } from '../lib/types';
 import { tool } from '@opencode-ai/plugin';
-import { execAsync, shellEscape } from '../lib/shell';
+import { argv } from '../lib/argv';
+import { stream } from '../lib/stream';
 
 export default tool({
   description:
@@ -41,55 +41,27 @@ export default tool({
         'Exit non-zero if any difference exists, without computing or printing the full diff. Fast CI guard.',
       ),
   },
-  async execute(args, context) {
-    const { directory, worktree, abort } = context;
-    const cwd = directory || worktree;
-
-    const cmd = [
-      'difft',
-      '--color=never',
-      `--display=${args.display ?? 'side-by-side'}`,
-      `--context=${args.context ?? 3}`,
-      ...(args.ignoreComments ? ['--ignore-comments'] : []),
-      ...(args.skipUnchanged ? ['--skip-unchanged'] : []),
-      ...(args.checkOnly ? ['--check-only'] : []),
-      shellEscape(args.oldPath),
-      shellEscape(args.newPath),
-    ].join(' ');
-
-    const result: CommandResult = await execAsync(cmd, {
-      cwd,
-      signal: abort,
-      timeout: 30000,
-      maxBuffer: 10 * 1024 * 1024,
-    })
-      .then((res) => ({ success: true, ...res }) as const)
-      .catch(
-        (err: unknown) =>
-          ({
-            success: false,
-            error: err instanceof Error ? err : new Error(String(err)),
-          }) as const,
-      );
-
-    if (!result.success) {
-      const err = result.error as Error & { code?: number | string; stderr?: string };
-      return {
-        output: `Error executing difft: ${err.message}`,
-        metadata: {
-          exitCode: err.code ?? -1,
-          stderr: err.stderr,
-          command: cmd,
-        },
-      };
-    }
-
-    return {
-      output: result.stdout,
-      metadata: {
-        stderr: result.stderr || undefined,
-        command: cmd,
-      },
-    };
+  execute(args, context) {
+    return stream(
+      () =>
+        Promise.resolve({
+          cmd: 'difft',
+          flags: argv(args, {
+            fixed: [
+              '--color=never',
+              `--display=${args.display ?? 'side-by-side'}`,
+              `--context=${args.context ?? 3}`,
+            ],
+            mapping: {
+              ignoreComments: '--ignore-comments',
+              skipUnchanged: '--skip-unchanged',
+              checkOnly: '--check-only',
+            },
+            positional: [args.oldPath, args.newPath],
+          }),
+          cwd: context.directory || context.worktree,
+        }),
+      [args, context],
+    );
   },
 });

@@ -3,6 +3,7 @@
   "shell": "/bin/zsh",
   "snapshot": false,
   "autoupdate": false,
+  "lsp": true,
   "watcher": {
     "ignore": ["node_modules/**", "dist/**", ".git/**"]
   }

@@ -1,12 +1,22 @@
 {
+  "proxy": "",
   "cli_default_open_behavior": "existing_window",
   "base_keymap": "None",
   "hide_mouse": "on_typing",
   "always_treat_brackets_as_autoclosed": true,
+  "close_panel_on_toggle": true,
+  "document_folding_ranges": "on",
+  "show_signature_help_after_edits": true,
 
   "autosave": "on_focus_change",
   "restore_on_startup": "launchpad",
   "confirm_quit": false,
+
+  "prettier": {
+    "allowed": false
+  },
+
+  "linux": {},
 
   "theme": {
     "mode": "dark",
@@ -28,11 +38,6 @@
   "buffer_line_height": "comfortable",
 
   "agent_buffer_font_size": 14,
-  "agent": {
-    "enabled": false,
-    "default_width": 320,
-    "dock": "right"
-  },
 
   "terminal": {
     "button": false,
@@ -74,6 +79,11 @@
     "delay": 300
   },
 
+  "hover_popover_sticky": true,
+  "hover_popover_delay": 50,
+  "hover_popover_hiding_delay": 100,
+
+  "scroll_beyond_last_line": "vertical_scroll_margin",
   "scrollbar": {
     "git_diff": false,
     "diagnostics": "warning"
@@ -97,7 +107,7 @@
   },
 
   "status_bar": {
-    "experimental.show": false
+    "experimental.show": true
   },
 
   "node": {
@@ -106,9 +116,76 @@
     "ignore_system_version": true
   },
 
+  "agent": {
+    "enabled": true,
+    "default_width": 480,
+    "dock": "right",
+    "sidebar_side": "right",
+    "flexible": false,
+    "tool_permissions": {
+      "default": "allow",
+      "tools": {
+        "terminal": {
+          "default": "confirm",
+          "always_allow": [
+            { "pattern": "^cargo\\s+(build|test|check|clippy|fmt)" },
+            { "pattern": "^npm\\s+(install|test|run|build)" },
+            { "pattern": "^git\\s+(status|log|diff|branch)" },
+            { "pattern": "^ls\\b" },
+            { "pattern": "^cat\\s" }
+          ],
+          "always_deny": [{ "pattern": "rm\\s+-rf\\s+(/|~)" }, { "pattern": "sudo\\s+rm" }],
+          "always_confirm": [{ "pattern": "sudo\\s" }, { "pattern": "git\\s+push" }]
+        },
+        "edit_file": {
+          "default": "confirm",
+          "always_allow": [{ "pattern": "\\.(md|txt|json)$" }, { "pattern": "^src/" }],
+          "always_deny": [
+            { "pattern": "\\.env" },
+            { "pattern": "secrets?/" },
+            { "pattern": "\\.(pem|key)$" }
+          ]
+        },
+        "delete_path": {
+          "default": "confirm",
+          "always_deny": [
+            { "pattern": "^/etc" },
+            { "pattern": "^/usr" },
+            { "pattern": "\\.git/?$" },
+            { "pattern": "node_modules/?$" }
+          ]
+        }
+      }
+    }
+  },
+
+  "agent_servers": {
+    "gemini": {
+      "default_mode": "yolo",
+      "favorite_models": ["gemini-3-flash-preview", "gemini-3.1-flash-lite-preview"],
+      "type": "registry"
+    },
+    "opencode": {
+      "favorite_config_option_values": {
+        "model": [
+          "github-copilot/claude-haiku-4.5",
+          "opencode/hy3-preview-free",
+          "openrouter/google/gemma-4-31b-it",
+          "openrouter/google/gemma-4-31b-it:free",
+          "openrouter/google/gemma-4-26b-a4b-it",
+          "openrouter/google/gemma-4-26b-a4b-it:free"
+        ]
+      },
+      "type": "registry"
+    }
+  },
+
   "edit_predictions": {
-    "mode": "eager",
-    "provider": "copilot"
+    "copilot": {
+      "enable_next_edit_suggestions": false
+    },
+    "mode": "subtle",
+    "provider": "zed"
   },
   "edit_predictions_disabled_in": ["comment"],
 
@@ -124,6 +201,18 @@
   "semantic_tokens": "combined",
 
   "lsp": {
+    "rust-analyzer": {
+      "binary": {
+        "path": "/home/rsp/.cargo/bin/rust-analyzer",
+        "arguments": [],
+        "ignore_system_version": true
+      },
+      "initialization_options": {
+        "check": {
+          "command": "clippy"
+        }
+      }
+    },
     "vtsls": {
       "settings": {
         "typescript": {
@@ -163,11 +252,6 @@
       "prettier": { "allowed": false },
       "formatter": [{ "language_server": { "name": "oxfmt" } }]
     },
-    "GraphQL": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }]
-    },
     "HTML": {
       "format_on_save": "on",
       "prettier": { "allowed": false },
@@ -192,21 +276,12 @@
       "formatter": [{ "language_server": { "name": "oxfmt" } }]
     },
     "JSONC": {
+      "show_edit_predictions": false,
       "format_on_save": "on",
       "prettier": { "allowed": false },
       "formatter": [{ "language_server": { "name": "oxfmt" } }]
     },
     "Markdown": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }]
-    },
-    "MDX": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }]
-    },
-    "SCSS": {
       "format_on_save": "on",
       "prettier": { "allowed": false },
       "formatter": [{ "language_server": { "name": "oxfmt" } }]
@@ -217,11 +292,6 @@
       "formatter": [{ "language_server": { "name": "oxfmt" } }]
     },
     "TSX": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }]
-    },
-    "Vue.js": {
       "format_on_save": "on",
       "prettier": { "allowed": false },
       "formatter": [{ "language_server": { "name": "oxfmt" } }]

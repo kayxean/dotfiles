@@ -9,5 +9,8 @@ hosts.yml
 # Ignore hyprpaper config
 .config/hypr/hyprpaper.conf
 
-# Ignore local lint and format
-node_modules
+# Ignore opencode deps
+.config/opencode/.gitignore
+.config/opencode/node_modules
+.config/opencode/package.json
+.config/opencode/package-lock.json

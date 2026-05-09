@@ -5,7 +5,6 @@ antigravity
 auto-cpufreq
 base
 base-devel
-bat
 bluez
 brightnessctl
 btop
@@ -15,8 +14,6 @@ calf
 dnscrypt-proxy
 easyeffects
 efibootmgr
-eza
-fd
 fwupd
 git
 github-cli
@@ -35,7 +32,6 @@ impala
 iptables
 iw
 iwd
-jq
 less
 libdeep_filter_ladspa-git
 libinput
@@ -67,9 +63,6 @@ pipewire-pulse
 playerctl
 polkit
 qt5-wayland
-ripgrep
-scx-scheds
-sd
 slurp
 sof-firmware
 starship
@@ -87,7 +80,6 @@ xorg-xwayland
 zam-plugins-lv2
 zapret-git
 zed
-zoxide
 zram-generator
 zsh
 zsh-autosuggestions

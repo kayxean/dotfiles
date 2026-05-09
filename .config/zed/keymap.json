@@ -31,7 +31,6 @@
       "enter": "editor::Newline",
       "ctrl-a": "editor::SelectAll",
       "ctrl-d": ["editor::SelectNext", { "replace_newest": false }],
-      "ctrl-enter": "assistant::InlineAssist",
       "ctrl-up": "editor::LineUp",
       "ctrl-down": "editor::LineDown",
       "ctrl-left": "editor::MoveToPreviousWordStart",
@@ -58,7 +57,10 @@
       "ctrl-alt-o": "workspace::Open",
       "ctrl-shift-o": ["projects::OpenRecent", { "create_new_window": false }],
       "ctrl-s": "workspace::Save",
-      "alt-0": "workspace::ResetOpenDocksSize",
+      "alt-0": [
+        "action::Sequence",
+        ["workspace::ResetActiveDockSize", "workspace::ResetOpenDocksSize"]
+      ],
       "ctrl-.": ["app_menu::OpenApplicationMenu", "Zed"],
       "ctrl-,": "zed::OpenSettings",
       "ctrl-=": ["zed::IncreaseBufferFontSize", { "persist": false }],
@@ -73,12 +75,10 @@
       "ctrl-shift-f": "workspace::NewSearch",
       "ctrl-j": "workspace::NewCenterTerminal",
       "ctrl-w": "pane::CloseActiveItem",
-      "alt-t": ["task::Spawn", { "task_name": "TV: Search Text", "reveal_target": "center" }],
-      "alt-f": ["task::Spawn", { "task_name": "TV: Select File", "reveal_target": "center" }],
-      "alt-c": ["task::Spawn", { "task_name": "TV: Select Channel", "reveal_target": "center" }],
       "alt-e": "project_panel::ToggleFocus",
       "alt-g": "git_panel::ToggleFocus",
-      "alt-b": "outline_panel::ToggleFocus"
+      "alt-b": "outline_panel::ToggleFocus",
+      "alt-c": "agent::ToggleFocus"
     }
   },
   {

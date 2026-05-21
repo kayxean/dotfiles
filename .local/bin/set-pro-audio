@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+device_id=$(wpctl status | sed -n '/Devices:/,/Sinks:/p' | grep "Ryzen HD Audio Controller" | grep -oE '[0-9]+' | head -n 1)
+
+if [[ -n "$device_id" ]]; then
+    wpctl set-profile "$device_id" 3
+fi

@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+dotfiles="$HOME/.local/dotfiles"
+
+paru -Syu --needed --cleanafter
+
+pacman -Qtdq | xargs -r sudo pacman -Rns --noconfirm
+
+sudo rm -rf /var/cache/pacman/pkg/download-*(N)
+
+paru -Sc --noconfirm
+sudo journalctl --vacuum-time=7d
+
+pacman -Qeq > "$dotfiles/.pkglist"

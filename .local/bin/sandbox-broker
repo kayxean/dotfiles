@@ -1,0 +1,245 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+BUN="$HOME/.local/bin/sandbox-bun"
+SHARE="$HOME/.local/share"
+lockfiles=(bun.lock bun.lockb package-lock.json pnpm-lock.yaml yarn.lock)
+
+R=$(tput setaf 1)
+G=$(tput setaf 2)
+Y=$(tput setaf 3)
+B=$(tput setaf 4)
+M=$(tput setaf 5)
+C=$(tput setaf 6)
+W=$(tput setaf 7)
+A=$(tput setaf 8)
+N=$(tput sgr0)
+
+SCRIPT_NAME="${0##*/}"
+
+usage() {
+  cat <<EOF
+${W}Usage:${N} ${G}$SCRIPT_NAME${N} ${A}<command>${N}
+
+${W}Commands:${N}
+  ${M}check${N}     ${W}List directories containing package.json manifests${N}
+  ${M}init${N}      ${W}Purge cached data and lockfiles, then install dependencies${N}
+  ${B}migrate${N}   ${W}Convert existing lockfiles to bun.lock and set packageManager${N}
+  ${B}audit${N}     ${W}Scan dependencies for known security vulnerabilities${N}
+  ${B}clear${N}     ${W}Delete cached data and lockfiles without reinstalling${N}
+  ${C}update${N}    ${W}Bump all packages to their newest registry tag${N}
+  ${C}outdated${N}  ${W}Display packages eclipsed by newer registry releases${N}
+  ${Y}trust${N}     ${W}Override restrictions on postinstall script execution${N}
+  ${Y}untrusted${N} ${W}List scripts the runtime declined to run${N}
+EOF
+}
+
+clean() {
+  local dir="$1"
+  echo "  ${G}cleaning${N}: ${B}$dir${N}"
+  rm -rf "$dir/node_modules"
+  for f in $lockfiles; do rm -f "$dir/$f"; done
+}
+
+install_deps() {
+  local dir="$1"
+  echo "  ${G}installing dependencies in${N}: ${B}$dir${N}"
+  if (cd "$dir" && "$BUN" install); then
+    echo "  ${C}ok${N}"
+  else
+    echo "  ${R}FAIL${N}" >&2
+  fi
+}
+
+trust_deps() {
+  local dir="$1"
+  echo "  ${G}trusting dependencies in${N}: ${B}$dir${N}"
+  if (cd "$dir" && "$BUN" pm trust --all); then
+    echo "  ${C}ok${N}"
+  else
+    echo "  ${R}FAIL${N}" >&2
+  fi
+}
+
+update_deps() {
+  local dir="$1"
+  echo "  ${G}updating dependencies in${N}: ${B}$dir${N}"
+  if (cd "$dir" && "$BUN" update --latest); then
+    echo "  ${C}ok${N}"
+  else
+    echo "  ${R}FAIL${N}" >&2
+  fi
+}
+
+audit_deps() {
+  local dir="$1"
+  echo "  ${G}auditing${N}: ${B}$dir${N}"
+  if (cd "$dir" && "$BUN" audit); then
+    echo "  ${C}ok${N}"
+  else
+    echo "  ${R}FAIL${N}" >&2
+  fi
+}
+
+outdated_deps() {
+  local dir="$1"
+  echo "  ${G}checking outdated in${N}: ${B}$dir${N}"
+  if (cd "$dir" && "$BUN" outdated); then
+    echo "  ${C}ok${N}"
+  else
+    echo "  ${R}FAIL${N}" >&2
+  fi
+}
+
+untrusted_deps() {
+  local dir="$1"
+  echo "  ${G}untrusted deps in${N}: ${B}$dir${N}"
+  if (cd "$dir" && "$BUN" pm untrusted); then
+    echo "  ${C}ok${N}"
+  else
+    echo "  ${R}FAIL${N}" >&2
+  fi
+}
+
+migrate_deps() {
+  local dir="$1" old_lock version
+  local -a locks=()
+
+  if [[ -f "$dir/bun.lock" ]]; then
+    echo "  ${Y}WARNING: bun.lock already exists, skipping${N}" >&2
+    return
+  fi
+
+  for f in package-lock.json pnpm-lock.yaml yarn.lock; do
+    [[ -f "$dir/$f" ]] && locks+=("$f")
+  done
+
+  [[ ${#locks[@]} -eq 0 ]] && return
+
+  if [[ ${#locks[@]} -gt 1 ]]; then
+    echo "  ${Y}WARNING: multiple lockfiles found: ${locks[*]}${N}" >&2
+  fi
+
+  old_lock="${locks[1]}"
+
+  echo "  ${G}migrating lockfile in${N}: ${B}$dir${N}"
+  if (cd "$dir" && "$BUN" pm migrate); then
+    echo "  ${C}ok${N}"
+    rm -f "$dir/$old_lock"
+    if ! rg -q '"packageManager"' "$dir/package.json" 2>/dev/null; then
+      version=$("$BUN" --version)
+      (cd "$dir" && "$BUN" pm pkg set "packageManager=bun@$version") 2>/dev/null || true
+    fi
+  else
+    echo "  ${R}FAIL${N}" >&2
+  fi
+}
+
+process_dir() {
+  local dir="$1" action="$2"
+  [[ -d "$dir" ]] || return
+  if [[ "$action" == "check" ]]; then
+    echo "  ${G}checking${N}: ${B}$dir${N}"
+    return
+  fi
+  case "$action" in
+    clear)     clean "$dir" ;;
+    init)      clean "$dir"; install_deps "$dir" ;;
+    trust)     trust_deps "$dir" ;;
+    update)    update_deps "$dir" ;;
+    audit)     audit_deps "$dir" ;;
+    outdated)  outdated_deps "$dir" ;;
+    untrusted) untrusted_deps "$dir" ;;
+    migrate)   migrate_deps "$dir" ;;
+  esac
+}
+
+process_opencode() {
+  local action="$1"
+  local target="$HOME/.config/opencode"
+
+  while IFS= read -r d; do
+    process_dir "$d" "$action"
+  done < <(
+    fd --no-ignore -t f -g 'package.json' "$target" --max-depth 1 --exec dirname {} \
+      2>/dev/null || true
+  )
+}
+
+process_zed() {
+  local action="$1"
+
+  while IFS= read -r d; do
+    process_dir "$d" "$action"
+  done < <(
+    fd --no-ignore -t f -g 'package.json' "$SHARE/zed" --exec dirname {} \
+      | rg -v '/node_modules/' | sort -u 2>/dev/null || true
+  )
+}
+
+cmd_init() {
+  echo "${C}==> sandbox-broker:${N} init"
+  process_opencode "init"
+  process_zed "init"
+}
+
+cmd_clear() {
+  echo "${C}==> sandbox-broker:${N} clear"
+  process_opencode "clear"
+  process_zed "clear"
+}
+
+cmd_check() {
+  echo "${C}==> sandbox-broker:${N} check"
+  process_opencode "check"
+  process_zed "check"
+}
+
+cmd_trust() {
+  echo "${C}==> sandbox-broker:${N} trust"
+  process_opencode "trust"
+  process_zed "trust"
+}
+
+cmd_update() {
+  echo "${C}==> sandbox-broker:${N} update"
+  process_opencode "update"
+  process_zed "update"
+}
+
+cmd_audit() {
+  echo "${C}==> sandbox-broker:${N} audit"
+  process_opencode "audit"
+  process_zed "audit"
+}
+
+cmd_outdated() {
+  echo "${C}==> sandbox-broker:${N} outdated"
+  process_opencode "outdated"
+  process_zed "outdated"
+}
+
+cmd_untrusted() {
+  echo "${C}==> sandbox-broker:${N} untrusted"
+  process_opencode "untrusted"
+  process_zed "untrusted"
+}
+
+cmd_migrate() {
+  echo "${C}==> sandbox-broker:${N} migrate"
+  process_opencode "migrate"
+  process_zed "migrate"
+}
+
+main() {
+  case "${1:-}" in
+    init|clear|check|trust|update|audit|outdated|untrusted|migrate) "cmd_$1"; exit $? ;;
+    "")   usage; exit 0 ;;
+    *)
+      echo "${R}error:${N} unknown command '$1'" >&2
+      exit 1
+      ;;
+  esac
+}
+
+main "$@"

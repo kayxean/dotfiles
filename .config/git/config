@@ -1,0 +1,35 @@
+[user]
+	name = kayxean
+	email = 36327242+kayxean@users.noreply.github.com
+	signingkey = ~/.ssh/id_ed25519.pub
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+[init]
+	defaultBranch = main
+[color]
+	ui = auto
+[diff]
+	algorithm = histogram
+[merge]
+	conflictstyle = zdiff3
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true
+[status]
+	showUntrackedFiles = normal
+[rebase]
+	autoSquash = true
+	autoStash = true
+[rerere]
+	enabled = true
+[fetch]
+	prune = true
+[log]
+	decorate = auto
+[core]
+	editor = zeditor --wait
+[credential]
+	helper = /usr/lib/git-core/git-credential-libsecret

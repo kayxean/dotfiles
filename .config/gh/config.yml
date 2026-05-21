@@ -1,11 +1,11 @@
 version: 1
 git_protocol: ssh
-editor: nano
+editor: zeditor --wait
 prompt: enabled
 prefer_editor_prompt: disabled
 pager: bat --paging=always --style=plain
 http_unix_socket:
-browser: google-chrome-stable
+browser: google-chrome-beta
 color_labels: enabled
 accessible_colors: disabled
 accessible_prompter: disabled

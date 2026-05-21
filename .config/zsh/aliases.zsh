@@ -1,18 +1,34 @@
-alias list="eza --across --group-directories-first --classify=auto"
-alias ls="list"
-alias la="list --all"
-alias ll="list --all --long --git --git-repos-no-status --time-style='relative' --total-size"
-alias lr="list --recurse"
-alias lt="list --recurse --tree"
+typeset -ga EZA_FLAGS=(--across --group-directories-first --classify=auto)
+
+alias ls="eza $EZA_FLAGS"
+alias la="eza $EZA_FLAGS --all"
+alias ll="eza $EZA_FLAGS --all --long --git --git-repos-no-status --time-style='relative' --total-size"
+alias lr="eza $EZA_FLAGS --recurse"
+alias lt="eza $EZA_FLAGS --recurse --tree"
 
 alias view="bat --style=plain"
 alias help="bat --language=help --style=plain"
 
-alias now="date +'%I:%M %p, %a, %b %d'"
-alias service="systemctl list-units --type=service --all --no-legend --plain"
+alias now="date +'%b %d, %Y, %I:%M %p GMT%-:::z'"
+
+alias shutdown="hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown -P 0'"
+alias reboot="hyprshutdown -t 'Restarting...' --post-cmd 'reboot'"
+alias reload="source $ZDOTDIR/.zshrc && hyprctl reload"
 
 alias net-status="systemctl status systemd-networkd systemd-resolved dnscrypt-proxy zapret"
 alias net-restart="sudo resolvectl flush-caches && sudo systemctl restart dnscrypt-proxy zapret systemd-resolved"
 alias net-log="sudo journalctl -u dnscrypt-proxy -u zapret -f"
 alias net-service="ss -tulpn | grep :53"
 alias zap-rules="sudo nft list table inet zapret"
+
+alias watch-audio="watch -n0.1 pactl list sources short"
+alias check-audio="pw-top"
+
+alias bun="sandbox-bun"
+alias bunx="sandbox-bunx"
+alias vp="sandbox-vp"
+alias vpr="sandbox-vpr"
+alias vpx="sandbox-vpx"
+alias node="sandbox-node"
+alias npm="sandbox-npm"
+alias npx="sandbox-npx"

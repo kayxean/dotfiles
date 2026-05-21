@@ -19,9 +19,7 @@
         "editor::MoveToBeginningOfLine",
         { "stop_at_soft_wraps": true, "stop_at_indent": true }
       ],
-      "end": ["editor::MoveToEndOfLine", { "stop_at_soft_wraps": true }],
-      "tab": "editor::Tab",
-      "shift-tab": "editor::Backtab"
+      "end": ["editor::MoveToEndOfLine", { "stop_at_soft_wraps": true }]
     }
   },
   {
@@ -47,7 +45,11 @@
       "alt-down": "editor::MoveLineDown",
       "alt-shift-up": "editor::AddSelectionAbove",
       "alt-shift-down": "editor::AddSelectionBelow",
-      "ctrl-l": "editor::OpenSelectionsInMultibuffer"
+      "alt-shift-right": "editor::SelectLargerSyntaxNode",
+      "alt-shift-left": "editor::SelectSmallerSyntaxNode",
+      "ctrl-l": "editor::OpenSelectionsInMultibuffer",
+      "ctrl-{": "editor::Fold",
+      "ctrl-}": "editor::UnfoldLines"
     }
   },
   {
@@ -88,15 +90,21 @@
     }
   },
   {
-    "context": "Workspace && left_dock == GitPanel",
+    "context": "Workspace && right_dock == GitPanel",
     "bindings": {
-      "alt-g": "workspace::ToggleLeftDock"
+      "alt-g": "workspace::ToggleRightDock"
     }
   },
   {
-    "context": "Workspace && left_dock == OutlinePanel",
+    "context": "Workspace && right_dock == OutlinePanel",
     "bindings": {
-      "alt-b": "workspace::ToggleLeftDock"
+      "alt-b": "workspace::ToggleRightDock"
+    }
+  },
+  {
+    "context": "Workspace && left_dock == AgentPanel",
+    "bindings": {
+      "alt-c": "workspace::ToggleLeftDock"
     }
   },
   {
@@ -119,7 +127,9 @@
       "alt-6": ["pane::ActivateItem", 5],
       "alt-7": ["pane::ActivateItem", 6],
       "alt-8": ["pane::ActivateItem", 7],
-      "alt-9": ["pane::ActivateItem", 8]
+      "alt-9": ["pane::ActivateItem", 8],
+      "ctrl-pageup": "pane::ActivatePreviousItem",
+      "ctrl-pagedown": "pane::ActivateNextItem"
     }
   },
   {
@@ -196,7 +206,6 @@
       "ctrl-v": "project_panel::Paste",
       "ctrl-x": "project_panel::Cut",
       "enter": "project_panel::Rename",
-      "f2": "project_panel::Rename",
       "backspace": ["project_panel::Trash", { "skip_prompt": false }],
       "delete": ["project_panel::Delete", { "skip_prompt": true }]
     }

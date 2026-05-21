@@ -1,5 +1,5 @@
 # Ignore gh-cli known hosts file
-hosts.yml
+.config/gh/hosts.yml
 
 # Ignore easyeffects generated config files
 .local/share/easyeffects/autoload
@@ -14,3 +14,6 @@ hosts.yml
 .config/opencode/node_modules
 .config/opencode/package.json
 .config/opencode/package-lock.json
+
+# Ignore nix build output
+result

@@ -4,7 +4,8 @@ description = "Select a television channel"
 requirements = ["eza"]
 
 [source]
-command = "eza --oneline ${XDG_CONFIG_HOME:-$HOME/.config}/television/cable | sed 's/\\.toml$//'"
+command = "eza --sort name --oneline ${XDG_CONFIG_HOME:-$HOME/.config}/television/cable | sed 's/\\.toml$//' | grep -Fvx channels"
+no_sort = true
 
 [ui]
 layout = "portrait"

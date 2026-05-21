@@ -1,7 +1,7 @@
-tick_rate = 50
+tick_rate = 32
 default_channel = "channels"
 history_size = 200
-global_history = false
+global_history = true
 
 [ui]
 ui_scale = 100
@@ -35,14 +35,14 @@ padding = { left = 1, right = 1, top = 0, bottom = 0 }
 border_type = "rounded"
 
 [ui.status_bar]
-hidden = true
+hidden = false
 
 [ui.results_panel]
 border_type = "rounded"
 padding = { left = 1, right = 1, top = 0, bottom = 0 }
 
 [ui.preview_panel]
-size = 50
+size = 70
 scrollbar = true
 border_type = "rounded"
 hidden = false

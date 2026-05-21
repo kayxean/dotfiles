@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+wallpaper="$1"
+monitor="eDP-1"
+gallery="$HOME/pictures/.wallpaper"
+config="$HOME/.config/hypr/hyprpaper.conf"
+
+if [[ -n "$wallpaper" ]]; then
+    #killall hyprpaper 2>/dev/null || true
+
+    mkdir -p "$(dirname "$config")"
+    printf "wallpaper {\n  monitor = $monitor\n  path = $gallery/$wallpaper\n  fit_mode = fill\n}\n\nsplash = false" > "$config"
+
+    #systemctl --user start hyprpaper
+
+    hyprctl hyprpaper wallpaper "$monitor,$gallery/$wallpaper,fill"
+fi

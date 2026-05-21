@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+HISTFILE="${HISTFILE:-$XDG_STATE_HOME/zsh/history}"
+TMPFILE="/tmp/.zsh_hist_new"
+
+if [[ -z "$1" ]]; then
+  echo "Usage: $0 <entry to delete>"
+  exit 1
+fi
+
+if [[ ! -f "$HISTFILE" ]]; then
+  echo "Error: History file not found at $HISTFILE"
+  exit 1
+fi
+
+entry="$1"
+clean_entry="${entry##*;}"
+
+grep -vF -- "$clean_entry" "$HISTFILE" >| "$TMPFILE" && cp -f "$TMPFILE" "$HISTFILE"

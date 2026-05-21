@@ -13,7 +13,7 @@ command = "bat -n --color=always --line-range :256 '{strip_ansi|split:\\::0}'"
 offset = '{strip_ansi|split:\::1}'
 
 [ui]
-preview_panel = { header = '{strip_ansi|split:\::..2}' }
+preview_panel = { header = '{strip_ansi|split:\::..2}', size = 70 }
 
 [keybindings]
 enter = "actions:edit"

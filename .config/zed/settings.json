@@ -1,171 +1,14 @@
 {
-  "proxy": "",
-  "cli_default_open_behavior": "existing_window",
-  "base_keymap": "None",
-  "hide_mouse": "on_typing",
-  "always_treat_brackets_as_autoclosed": true,
-  "close_panel_on_toggle": true,
-  "document_folding_ranges": "on",
-  "show_signature_help_after_edits": true,
-
-  "autosave": "on_focus_change",
-  "restore_on_startup": "launchpad",
-  "confirm_quit": false,
-
-  "prettier": {
-    "allowed": false
-  },
-
-  "linux": {},
-
-  "theme": {
-    "mode": "dark",
-    "light": "One Light",
-    "dark": "Midnight Shell Dark"
-  },
-  "icon_theme": "Zed (Default)",
-
-  "ui_font_family": "Geist",
-  "ui_font_size": 14,
-  "ui_font_weight": 400,
-
-  "buffer_font_features": {
-    "calt": false,
-    "liga": false
-  },
-  "buffer_font_family": "Geist Mono",
-  "buffer_font_size": 14,
-  "buffer_line_height": "comfortable",
-
-  "agent_buffer_font_size": 14,
-
-  "terminal": {
-    "button": false,
-    "blinking": "on",
-    "cursor_shape": "bar",
-    "font_family": "Geist Mono",
-    "minimum_contrast": 0
-  },
-
-  "project_panel": {
-    "diagnostic_badges": true,
-    "git_status_indicator": true,
-    "default_width": 320,
-    "dock": "right",
-    "file_icons": false,
-    "folder_icons": false,
-    "hide_root": true
-  },
-
-  "toolbar": {
-    "breadcrumbs": false,
-    "quick_actions": false,
-    "selections_menu": false,
-    "agent_review": false,
-    "code_actions": false
-  },
-  "tab_bar": {
-    "show_nav_history_buttons": false
-  },
-
-  "search": {
-    "center_on_match": true,
-    "include_ignored": true
-  },
-  "use_smartcase_search": true,
-
-  "drag_and_drop_selection": {
-    "enabled": true,
-    "delay": 300
-  },
-
-  "hover_popover_sticky": true,
-  "hover_popover_delay": 50,
-  "hover_popover_hiding_delay": 100,
-
-  "scroll_beyond_last_line": "vertical_scroll_margin",
-  "scrollbar": {
-    "git_diff": false,
-    "diagnostics": "warning"
-  },
-
-  "git_panel": {
-    "status_style": "icon",
-    "collapse_untracked_diff": true,
-    "tree_view": true,
-    "show_count_badge": true,
-    "dock": "left",
-    "default_width": 320
-  },
-  "git": {
-    "git_gutter": "tracked_files",
-    "hunk_style": "unstaged_hollow"
-  },
-  "outline_panel": {
-    "dock": "left",
-    "default_width": 320
-  },
-
-  "status_bar": {
-    "experimental.show": true
-  },
-
-  "node": {
-    "path": "/home/rsp/.vite-plus/bin/node",
-    "npm_path": "/home/rsp/.vite-plus/bin/npm",
-    "ignore_system_version": true
-  },
-
-  "agent": {
-    "enabled": true,
-    "default_width": 480,
-    "dock": "right",
-    "sidebar_side": "right",
-    "flexible": false,
-    "tool_permissions": {
-      "default": "allow",
-      "tools": {
-        "terminal": {
-          "default": "confirm",
-          "always_allow": [
-            { "pattern": "^cargo\\s+(build|test|check|clippy|fmt)" },
-            { "pattern": "^npm\\s+(install|test|run|build)" },
-            { "pattern": "^git\\s+(status|log|diff|branch)" },
-            { "pattern": "^ls\\b" },
-            { "pattern": "^cat\\s" }
-          ],
-          "always_deny": [{ "pattern": "rm\\s+-rf\\s+(/|~)" }, { "pattern": "sudo\\s+rm" }],
-          "always_confirm": [{ "pattern": "sudo\\s" }, { "pattern": "git\\s+push" }]
-        },
-        "edit_file": {
-          "default": "confirm",
-          "always_allow": [{ "pattern": "\\.(md|txt|json)$" }, { "pattern": "^src/" }],
-          "always_deny": [
-            { "pattern": "\\.env" },
-            { "pattern": "secrets?/" },
-            { "pattern": "\\.(pem|key)$" }
-          ]
-        },
-        "delete_path": {
-          "default": "confirm",
-          "always_deny": [
-            { "pattern": "^/etc" },
-            { "pattern": "^/usr" },
-            { "pattern": "\\.git/?$" },
-            { "pattern": "node_modules/?$" }
-          ]
-        }
-      }
-    }
-  },
-
   "agent_servers": {
     "gemini": {
-      "default_mode": "yolo",
+      "default_mode": "autoEdit",
       "favorite_models": ["gemini-3-flash-preview", "gemini-3.1-flash-lite-preview"],
       "type": "registry"
     },
     "opencode": {
+      "default_config_options": {
+        "mode": "plan"
+      },
       "favorite_config_option_values": {
         "model": [
           "github-copilot/claude-haiku-4.5",
@@ -173,13 +16,14 @@
           "openrouter/google/gemma-4-31b-it",
           "openrouter/google/gemma-4-31b-it:free",
           "openrouter/google/gemma-4-26b-a4b-it",
-          "openrouter/google/gemma-4-26b-a4b-it:free"
+          "openrouter/google/gemma-4-26b-a4b-it:free",
+          "opencode/deepseek-v4-flash-free",
+          "opencode/qwen3.6-plus-free"
         ]
       },
       "type": "registry"
     }
   },
-
   "edit_predictions": {
     "copilot": {
       "enable_next_edit_suggestions": false
@@ -187,8 +31,6 @@
     "mode": "subtle",
     "provider": "zed"
   },
-  "edit_predictions_disabled_in": ["comment"],
-
   "completions": {
     "words": "enabled",
     "words_min_length": 2,
@@ -197,9 +39,328 @@
     "lsp_insert_mode": "replace_subsequence"
   },
 
-  "enable_language_server": true,
-  "semantic_tokens": "combined",
+  "use_smartcase_search": true,
+  "auto_signature_help": true,
+  "multi_cursor_modifier": "alt",
+  "code_lens": "on",
+  "formatter": "language_server",
+  "lsp_highlight_debounce": 50,
 
+  "base_keymap": "None",
+  "hide_mouse": "on_typing",
+  "autosave": "on_focus_change",
+  "restore_on_startup": "launchpad",
+  "cli_default_open_behavior": "existing_window",
+  "confirm_quit": false,
+  "close_panel_on_toggle": true,
+
+  "hover_popover_sticky": true,
+  "hover_popover_delay": 50,
+  "hover_popover_hiding_delay": 200,
+  "drag_and_drop_selection": {
+    "enabled": true,
+    "delay": 200
+  },
+
+  "agent_buffer_font_size": 14,
+  "agent_ui_font_size": 14,
+  "ui_font_family": "Geist",
+  "ui_font_size": 14,
+  "ui_font_weight": 400,
+  "buffer_font_family": "Geist Mono",
+  "buffer_font_size": 14,
+  "buffer_line_height": "comfortable",
+  "buffer_font_features": {
+    "calt": false,
+    "liga": false
+  },
+  "icon_theme": "Zed (Default)",
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "Midnight Shell Dark"
+  },
+
+  "window_decorations": "server",
+  "title_bar": {
+    "show_branch_status_icon": true
+  },
+  "tab_bar": {
+    "show_tab_bar_buttons": false,
+    "show_nav_history_buttons": false
+  },
+  "tabs": {
+    "activate_on_close": "history",
+    "show_diagnostics": "all",
+    "file_icons": true,
+    "git_status": false
+  },
+  "preview_tabs": {
+    "enable_preview_from_file_finder": true
+  },
+  "file_finder": {
+    "modal_max_width": "small",
+    "include_channels": true
+  },
+  "search": {
+    "regex": true,
+    "button": true,
+    "center_on_match": true,
+    "include_ignored": false
+  },
+  "toolbar": {
+    "quick_actions": false,
+    "breadcrumbs": false,
+    "selections_menu": false,
+    "agent_review": false,
+    "code_actions": false
+  },
+  "status_bar": {
+    "cursor_position_button": true,
+    "active_language_button": true,
+    "experimental.show": true
+  },
+  "scrollbar": {
+    "git_diff": false
+  },
+
+  "git": {
+    "git_gutter": "tracked_files",
+    "hunk_style": "unstaged_hollow"
+  },
+  "git_panel": {
+    "status_style": "icon",
+    "collapse_untracked_diff": true,
+    "tree_view": true,
+    "show_count_badge": true,
+    "dock": "right",
+    "default_width": 320,
+    "folder_icons": false
+  },
+  "project_panel": {
+    "button": true,
+    "diagnostic_badges": true,
+    "git_status_indicator": true,
+    "default_width": 320,
+    "dock": "right",
+    "file_icons": false,
+    "folder_icons": false,
+    "hide_root": true
+  },
+  "outline_panel": {
+    "dock": "right",
+    "button": true,
+    "default_width": 320
+  },
+  "collaboration_panel": {
+    "dock": "right",
+    "button": false,
+    "default_width": 320
+  },
+  "debugger": {
+    "dock": "right",
+    "button": false
+  },
+  "terminal": {
+    "button": false,
+    "blinking": "on",
+    "cursor_shape": "bar",
+    "font_family": "Geist Mono",
+    "minimum_contrast": 0,
+    "copy_on_select": true
+  },
+  "agent": {
+    "default_model": {
+      "provider": "google",
+      "model": "gemini-3-flash-preview",
+      "enable_thinking": false
+    },
+    "default_profile": "ask",
+    "profiles": {
+      "write": {
+        "name": "Write",
+        "enable_all_context_servers": true,
+        "tools": {
+          "copy_path": true,
+          "create_directory": true,
+          "delete_path": true,
+          "diagnostics": true,
+          "apply_code_action": true,
+          "edit_file": true,
+          "fetch": true,
+          "find_path": true,
+          "find_references": true,
+          "get_code_actions": true,
+          "go_to_definition": true,
+          "list_directory": true,
+          "project_notifications": false,
+          "move_path": true,
+          "now": true,
+          "rename_symbol": true,
+          "read_file": true,
+          "restore_file_from_disk": true,
+          "save_file": true,
+          "open": true,
+          "grep": true,
+          "spawn_agent": true,
+          "terminal": true,
+          "thinking": true,
+          "update_plan": true,
+          "search_web": true
+        }
+      },
+      "ask": {
+        "name": "Ask",
+        "tools": {
+          "diagnostics": true,
+          "fetch": true,
+          "list_directory": true,
+          "project_notifications": false,
+          "now": true,
+          "find_path": true,
+          "find_references": true,
+          "get_code_actions": true,
+          "go_to_definition": true,
+          "read_file": true,
+          "open": true,
+          "grep": true,
+          "spawn_agent": true,
+          "thinking": true,
+          "update_plan": true,
+          "search_web": true
+        }
+      }
+    },
+    "tool_permissions": {
+      "default": "allow",
+      "tools": {
+        "terminal": {
+          "default": "allow",
+          "always_allow": [
+            { "pattern": "^bun\\s" },
+            { "pattern": "^vp\\s" },
+            { "pattern": "^cargo\\s" }
+          ],
+          "always_deny": [
+            { "pattern": "^sudo\\s" },
+            { "pattern": "^sudo\\s+-pacman\\s" },
+            { "pattern": "^paru\\s" },
+            { "pattern": "^systemctl\\s" },
+            { "pattern": "^rm\\s+-rf\\s+/" },
+            { "pattern": "^npm\\s" },
+            { "pattern": "^npx\\s" }
+          ]
+        },
+        "edit_file": {
+          "default": "allow",
+          "always_deny": [
+            { "pattern": "^/etc/" },
+            { "pattern": "^/usr/" },
+            { "pattern": "^/boot/" },
+            { "pattern": "^/var/" },
+            { "pattern": "\\.env" },
+            { "pattern": "secrets?/" },
+            { "pattern": "\\.(pem|key)$" }
+          ]
+        },
+        "delete_path": {
+          "default": "allow",
+          "always_deny": [
+            { "pattern": "^/etc/" },
+            { "pattern": "^/usr/" },
+            { "pattern": "^/boot/" },
+            { "pattern": "^/var/" },
+            { "pattern": "\\.git/?$" },
+            { "pattern": "node_modules/?$" }
+          ]
+        },
+        "copy_path": {
+          "default": "allow",
+          "always_deny": [
+            { "pattern": "^/etc/" },
+            { "pattern": "^/usr/" },
+            { "pattern": "^/boot/" },
+            { "pattern": "^/var/" }
+          ]
+        },
+        "move_path": {
+          "default": "allow",
+          "always_deny": [
+            { "pattern": "^/etc/" },
+            { "pattern": "^/usr/" },
+            { "pattern": "^/boot/" },
+            { "pattern": "^/var/" },
+            { "pattern": "\\.git/?$" },
+            { "pattern": "node_modules/?$" }
+          ]
+        },
+        "create_directory": {
+          "default": "allow",
+          "always_deny": [
+            { "pattern": "^/etc/" },
+            { "pattern": "^/usr/" },
+            { "pattern": "^/boot/" },
+            { "pattern": "^/var/" }
+          ]
+        },
+        "save_file": {
+          "default": "allow",
+          "always_deny": [
+            { "pattern": "^/etc/" },
+            { "pattern": "^/usr/" },
+            { "pattern": "^/boot/" },
+            { "pattern": "^/var/" },
+            { "pattern": "\\.env" },
+            { "pattern": "secrets?/" },
+            { "pattern": "\\.(pem|key)$" }
+          ]
+        },
+        "restore_file_from_disk": {
+          "default": "allow",
+          "always_deny": [
+            { "pattern": "^/etc/" },
+            { "pattern": "^/usr/" },
+            { "pattern": "^/boot/" },
+            { "pattern": "^/var/" }
+          ]
+        },
+        "fetch": {
+          "default": "allow",
+          "always_deny": [
+            { "pattern": "localhost" },
+            { "pattern": "127\\.0\\.0\\.1" },
+            { "pattern": "10\\.\\d+\\.\\d+\\.\\d+" },
+            { "pattern": "192\\.168\\.\\d+\\.\\d+" },
+            { "pattern": "169\\.254\\.\\d+\\.\\d+" }
+          ]
+        },
+        "search_web": {
+          "default": "allow"
+        }
+      }
+    },
+    "single_file_review": true,
+    "enable_feedback": false,
+    "inline_assistant_use_streaming_tools": false,
+    "enabled": true,
+    "default_width": 768,
+    "max_content_width": 768,
+    "dock": "left",
+    "sidebar_side": "left",
+    "flexible": false,
+    "show_turn_stats": true,
+    "use_modifier_to_send": true,
+    "thinking_display": "always_expanded"
+  },
+
+  "diagnostics": {
+    "button": false,
+    "include_warnings": true,
+    "inline": { "enabled": true, "update_debounce_ms": 50 },
+    "lsp_pull_diagnostics": {
+      "debounce_ms": 50
+    }
+  },
   "lsp": {
     "rust-analyzer": {
       "binary": {
@@ -300,14 +461,19 @@
       "format_on_save": "on",
       "prettier": { "allowed": false },
       "formatter": [{ "language_server": { "name": "oxfmt" } }]
+    },
+    "Lua": {
+      "format_on_save": "on",
+      "formatter": "language_server"
     }
   },
-
-  "diagnostics": {
-    "include_warnings": true,
-    "inline": { "enabled": true },
-    "lsp_pull_diagnostics": {
-      "debounce_ms": 300
-    }
+  "load_direnv": "direct",
+  "node": {
+    "path": "/home/rsp/.local/bin/sandbox-node",
+    "npm_path": "/home/rsp/.local/bin/sandbox-npm",
+    "ignore_system_version": true
+  },
+  "prettier": {
+    "allowed": false
   }
 }

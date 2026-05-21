@@ -1,0 +1,15 @@
+[metadata]
+name = "history"
+description = "A channel to select from your zsh history"
+requirements = ["zsh"]
+
+[source]
+command = "sed '1!G;h;$!d' ${HISTFILE:-${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history}"
+
+[keybindings]
+ctrl-d = ["actions:remove", "reload_source"]
+
+[actions.remove]
+description = "Remove the selected history entry"
+command = "$HOME/.local/bin/tv-history {}"
+mode = "fork"

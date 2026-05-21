@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+t=$(readlink -f "$HOME/.nix-profile/bin/rustup")
+exec bwrap \
+  --ro-bind /nix /nix \
+  --ro-bind /usr /usr \
+  --ro-bind /etc /etc \
+  --symlink usr/lib /lib \
+  --symlink usr/lib64 /lib64 \
+  --symlink usr/bin /bin \
+  --proc /proc \
+  --dev /dev \
+  --dir /tmp \
+  --bind "$(pwd)" "$(pwd)" \
+  --chdir "$(pwd)" \
+  --unshare-all --share-net --die-with-parent \
+  --setenv HOME "$HOME" \
+  --setenv PATH "/usr/bin" \
+  --bind "$HOME/.rustup" "$HOME/.rustup" \
+  --bind "$HOME/.cargo" "$HOME/.cargo" \
+  "$t" "$@"

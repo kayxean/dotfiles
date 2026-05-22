@@ -14,8 +14,8 @@ exec bwrap \
   --chdir "$(pwd)" \
   --unshare-all --share-net --die-with-parent \
   --setenv HOME "$HOME" \
-  --setenv PATH "/usr/bin" \
+  --setenv PATH "$HOME/.cache/vite-plus/bin:/usr/bin" \
   --ro-bind "$HOME/.config/opencode" "$HOME/.config/opencode" \
-  --ro-bind "$HOME/.local/share/zed" "$HOME/.local/share/zed" \
-  --bind "$HOME/.vite-plus" "$HOME/.vite-plus" \
-  "$HOME/.vite-plus/bin/node" "$@"
+  --bind "$HOME/.local/share/zed" "$HOME/.local/share/zed" \
+  --bind "$HOME/.cache/vite-plus" "$HOME/.cache/vite-plus" \
+  "$HOME/.cache/vite-plus/bin/node" "$@"

@@ -16,4 +16,6 @@ exec bwrap \
   --unshare-all --share-net --die-with-parent \
   --setenv HOME "$HOME" \
   --setenv PATH "/usr/bin" \
+  --setenv ZIG_CACHE_DIR "$HOME/.cache/zig" \
+  --bind "$HOME/.cache/zig" "$HOME/.cache/zig" \
   "$t" "$@"

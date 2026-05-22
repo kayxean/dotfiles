@@ -14,6 +14,8 @@ exec bwrap \
   --chdir "$(pwd)" \
   --unshare-all --share-net --die-with-parent \
   --setenv HOME "$HOME" \
-  --setenv PATH "/usr/bin" \
-  --bind "$HOME/.vite-plus" "$HOME/.vite-plus" \
-  "$HOME/.vite-plus/bin/npx" "$@"
+  --setenv PATH "$HOME/.cache/vite-plus/bin:/usr/bin" \
+  --setenv NPM_CONFIG_CACHE "$HOME/.cache/npm" \
+  --bind "$HOME/.cache/vite-plus" "$HOME/.cache/vite-plus" \
+  --bind "$HOME/.cache/npm" "$HOME/.cache/npm" \
+  "$HOME/.cache/vite-plus/bin/npx" "$@"

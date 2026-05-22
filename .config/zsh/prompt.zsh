@@ -1,49 +1,72 @@
-HISTFILE="$XDG_STATE_HOME/zsh/history"
-HISTSIZE=10000
-SAVEHIST=10000
-
-unsetopt extended_history
-setopt append_history
-setopt inc_append_history
-unsetopt share_history
-setopt hist_ignore_all_dups
-setopt hist_save_no_dups
-setopt hist_reduce_blanks
-
-setopt auto_cd
-setopt auto_list
-setopt auto_menu
-setopt auto_param_slash
-setopt auto_pushd
-setopt chase_links
-setopt combining_chars
-setopt correct
-setopt extended_glob
-setopt flow_control
-setopt globdots
-setopt interactive_comments
-setopt long_list_jobs
-setopt no_bang_hist
-setopt nobeep
-setopt numeric_glob_sort
-setopt pushd_ignore_dups
-setopt pushd_minus
-
-autoload -Uz compinit
-compinit -d "$XDG_CACHE_HOME/zsh/zcompdump"
-
-zstyle ":completion:*" menu select
-zstyle ":completion:*" matcher-list "m:{a-z}={A-Z}"
-zstyle ':completion:*' rehash true
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*:descriptions' format '[%d]'
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,%mem,comm'
-
-precmd() { print -Pn "\e]0;%1~\a" }
+precmd() {
+  if (( ! _plugins_loaded )); then
+    typeset -g _plugins_loaded=1
+    if [[ -d "/usr/share/zsh/plugins/" ]]; then
+      source "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+      source "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    fi
+  fi
+  vcs_info
+  _precmd_set_dir
+  [[ -n "$_seen_prompt" ]] && print || typeset -g _seen_prompt=1
+  print -Pn "\e]0;%1~\a"
+}
 preexec() { print -Pn "\e]0;$1 — %1~\a" }
 
-autoload -Uz url-quote-magic
-zle -N self-insert url-quote-magic
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' max-exports 3
+zstyle ':vcs_info:git:*' formats '%F{blue}git:(%F{red}%b%F{blue})%f ' '%r' '%R'
+zstyle ':vcs_info:*' enable git
 
-autoload -Uz zsh-mime-setup && zsh-mime-setup
+setopt PROMPT_SUBST
+
+typeset -g _prompt_dir
+
+_precmd_set_dir() {
+  local trunc_len=2
+
+  if [[ -n "${vcs_info_msg_1_}" ]]; then
+    local repo_name="${vcs_info_msg_1_}"
+    local repo_root="${vcs_info_msg_2_}"
+    local rel_path="${PWD#$repo_root}"
+    rel_path="${rel_path#/}"
+    if [[ -z "$rel_path" ]]; then
+      _prompt_dir="$repo_name"
+    else
+      local full_path="$repo_name/$rel_path"
+      local -a parts=("${(s:/:)full_path}")
+      if (( ${#parts} <= trunc_len )); then
+        _prompt_dir="$full_path"
+      else
+        local start=$((${#parts} - trunc_len + 1))
+        _prompt_dir="${(j:/:)parts[start,-1]}"
+      fi
+    fi
+  else
+    local trunc_path track_tilde=0
+    if [[ "$PWD" == "$HOME" ]]; then
+      _prompt_dir="~"
+      return
+    elif [[ "$PWD" == "/" ]]; then
+      _prompt_dir="/"
+      return
+    elif [[ "$PWD" == "$HOME"/* ]]; then
+      trunc_path="${PWD#$HOME/}"
+      track_tilde=1
+    else
+      trunc_path="${PWD#/}"
+    fi
+
+    local -a parts=("${(s:/:)trunc_path}")
+    if (( track_tilde && ${#parts} == 1 )); then
+      _prompt_dir="~/$trunc_path"
+    elif (( ${#parts} <= trunc_len )); then
+      _prompt_dir="$trunc_path"
+    else
+      local start=$((${#parts} - trunc_len + 1))
+      _prompt_dir="${(j:/:)parts[start,-1]}"
+    fi
+  fi
+}
+
+PROMPT='%(?.%F{white}󰣇.%F{red}󰀦)%f %F{cyan}${_prompt_dir}%f ${vcs_info_msg_0_}'

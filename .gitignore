@@ -20,3 +20,4 @@ result
 
 # Ignore zsh compiled bytecode
 .config/zsh/*.zwc
+.config/zsh/zcompdump

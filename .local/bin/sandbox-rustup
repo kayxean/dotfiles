@@ -16,6 +16,8 @@ exec bwrap \
   --unshare-all --share-net --die-with-parent \
   --setenv HOME "$HOME" \
   --setenv PATH "/usr/bin" \
-  --bind "$HOME/.rustup" "$HOME/.rustup" \
-  --bind "$HOME/.cargo" "$HOME/.cargo" \
+  --setenv RUSTUP_HOME "$HOME/.cache/rustup" \
+  --setenv CARGO_HOME "$HOME/.cache/cargo" \
+  --bind "$HOME/.cache/rustup" "$HOME/.cache/rustup" \
+  --bind "$HOME/.cache/cargo" "$HOME/.cache/cargo" \
   "$t" "$@"

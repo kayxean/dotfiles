@@ -1,15 +1,17 @@
 {
-  description = "Isolated multi-language toolchain profile";
+  description = "isolated-toolchain";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs }:
+  outputs =
+    { self, nixpkgs }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-    in {
+    in
+    {
       packages.${system} = {
         vp = pkgs.stdenv.mkDerivation rec {
           pname = "vp";
@@ -21,56 +23,82 @@
           };
 
           nativeBuildInputs = [ pkgs.autoPatchelfHook ];
-          buildInputs = [ pkgs.stdenv.cc.cc.lib pkgs.glibc ];
+          buildInputs = [
+            pkgs.stdenv.cc.cc.lib
+            pkgs.glibc
+          ];
 
           dontUnpack = true;
           installPhase = ''
-            mkdir -p $out/bin $out/lib/vite-plus
+                        mkdir -p $out/bin $out/lib/vite-plus
 
-            tar -xzf $src -C $out/bin --strip-components=1 package/vp
-            autoPatchelf $out/bin/vp
-            chmod +x $out/bin/vp
+                        tar -xzf $src -C $out/bin --strip-components=1 package/vp
+                        autoPatchelf $out/bin/vp
+                        chmod +x $out/bin/vp
 
-            echo '${builtins.toJSON {
-              name = "vp-global";
-              version = version;
-              private = true;
-              packageManager = "pnpm@10.33.0";
-              dependencies = {"vite-plus" = version;};
-            }}' > $out/lib/vite-plus/package.json
+                        echo '${
+                          builtins.toJSON {
+                            name = "vp-global";
+                            version = version;
+                            private = true;
+                            packageManager = "pnpm@10.33.0";
+                            dependencies = {
+                              "vite-plus" = version;
+                            };
+                          }
+                        }' > $out/lib/vite-plus/package.json
 
-            cat > $out/bin/vp-init << 'INITEOF'
-#!/usr/bin/env bash
-set -euo pipefail
-STORE_PATH="@STORE_PATH@"
-VP_VERSION="@VP_VERSION@"
-INSTALL_DIR="''${VP_HOME:-$HOME/.vite-plus}"
-VERSION_DIR="$INSTALL_DIR/$VP_VERSION"
-BIN_DIR="$VERSION_DIR/bin"
-mkdir -p "$BIN_DIR"
-ln -sf "$STORE_PATH/bin/vp" "$BIN_DIR/vp"
-install -m 644 "$STORE_PATH/lib/vite-plus/package.json" "$VERSION_DIR/"
-ln -sfn "$VP_VERSION" "$INSTALL_DIR/current"
-mkdir -p "$INSTALL_DIR/bin"
-ln -sf "../current/bin/vp" "$INSTALL_DIR/bin/vp"
-(cd "$VERSION_DIR" && "$BIN_DIR/vp" install) 2>&1 || true
-"$BIN_DIR/vp" env setup 2>&1 || true
-INITEOF
-            sed -i "s|@STORE_PATH@|$out|g; s|@VP_VERSION@|${version}|g" $out/bin/vp-init
-            chmod +x $out/bin/vp-init
+                        cat > $out/bin/vp-init << 'INITEOF'
+            #!/usr/bin/env bash
+            set -euo pipefail
+            STORE_PATH="@STORE_PATH@"
+            VP_VERSION="@VP_VERSION@"
+            INSTALL_DIR="''${VP_HOME:-$HOME/.cache/vite-plus}"
+            VERSION_DIR="$INSTALL_DIR/$VP_VERSION"
+            BIN_DIR="$VERSION_DIR/bin"
+            mkdir -p "$BIN_DIR"
+            ln -sf "$STORE_PATH/bin/vp" "$BIN_DIR/vp"
+            install -m 644 "$STORE_PATH/lib/vite-plus/package.json" "$VERSION_DIR/"
+            ln -sfn "$VP_VERSION" "$INSTALL_DIR/current"
+            mkdir -p "$INSTALL_DIR/bin"
+            ln -sf "../current/bin/vp" "$INSTALL_DIR/bin/vp"
+            (cd "$VERSION_DIR" && "$BIN_DIR/vp" install) 2>&1 || true
+            "$BIN_DIR/vp" env setup 2>&1 || true
+            INITEOF
+                        sed -i "s|@STORE_PATH@|$out|g; s|@VP_VERSION@|${version}|g" $out/bin/vp-init
+                        chmod +x $out/bin/vp-init
           '';
         };
+
+        devrel-env = pkgs.runCommand "devrel-env" { } ''
+                    mkdir -p $out/share/devrel
+                    cat > $out/share/devrel/env.sh << 'ENVEOF'
+          export GOPATH="$HOME/.cache/go"
+          export GOMODCACHE="$HOME/.cache/go/pkg/mod"
+          export GOCACHE="$HOME/.cache/go-build"
+          export CARGO_HOME="$HOME/.cache/cargo"
+          export RUSTUP_HOME="$HOME/.cache/rustup"
+          export NPM_CONFIG_CACHE="$HOME/.cache/npm"
+          export VP_HOME="$HOME/.cache/vite-plus"
+          export ZIG_CACHE_DIR="$HOME/.cache/zig"
+          ENVEOF
+        '';
 
         default = pkgs.symlinkJoin {
           name = "devrel";
           paths = [
             self.packages.${system}.vp
+            self.packages.${system}.devrel-env
             pkgs.bun
             pkgs.rustup
             pkgs.zig
             pkgs.go
+            pkgs.gopls
             pkgs.python3
+            pkgs.python3Packages.pip
             pkgs.lua
+            pkgs.nil
+            pkgs.nixd
           ];
         };
       };

@@ -50,6 +50,7 @@ mda.lv2
 nano
 nautilus
 nftables
+nodejs-sandbox
 opencode-bin
 pacman-contrib
 paru
@@ -72,10 +73,10 @@ starship
 stow
 television
 tor
+unzip
 uwsm
 vulkan-radeon
 wev
-wiremix
 wireplumber
 wl-clipboard
 x42-plugins-lv2

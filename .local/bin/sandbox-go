@@ -16,6 +16,8 @@ exec bwrap \
   --unshare-all --share-net --die-with-parent \
   --setenv HOME "$HOME" \
   --setenv PATH "/usr/bin" \
-  --bind "$HOME/go" "$HOME/go" \
+  --setenv GOPATH "$HOME/.cache/go" \
+  --setenv GOCACHE "$HOME/.cache/go-build" \
   --bind "$HOME/.cache/go" "$HOME/.cache/go" \
+  --bind "$HOME/.cache/go-build" "$HOME/.cache/go-build" \
   "$t" "$@"

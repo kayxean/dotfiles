@@ -16,4 +16,5 @@ exec bwrap \
   --unshare-all --share-net --die-with-parent \
   --setenv HOME "$HOME" \
   --setenv PATH "/usr/bin" \
+  --bind "$HOME/.cache/bun" "$HOME/.cache/bun" \
   "$t" "$@"

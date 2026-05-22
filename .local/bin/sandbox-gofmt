@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 set -euo pipefail
+t=$(readlink -f "$HOME/.nix-profile/bin/gofmt")
 exec bwrap \
   --ro-bind /nix /nix \
   --ro-bind /usr /usr \
@@ -15,7 +16,4 @@ exec bwrap \
   --unshare-all --share-net --die-with-parent \
   --setenv HOME "$HOME" \
   --setenv PATH "/usr/bin" \
-  --setenv VP_HOME "$HOME/.cache/vite-plus" \
-  --bind "$HOME/.cache/vite-plus" "$HOME/.cache/vite-plus" \
-  --bind "$HOME/.cache/pnpm" "$HOME/.cache/pnpm" \
-  "$HOME/.cache/vite-plus/bin/vp" "$@"
+  "$t" "$@"

@@ -1,29 +1,4 @@
 {
-  "agent_servers": {
-    "gemini": {
-      "default_mode": "autoEdit",
-      "favorite_models": ["gemini-3-flash-preview", "gemini-3.1-flash-lite-preview"],
-      "type": "registry"
-    },
-    "opencode": {
-      "default_config_options": {
-        "mode": "plan"
-      },
-      "favorite_config_option_values": {
-        "model": [
-          "github-copilot/claude-haiku-4.5",
-          "opencode/hy3-preview-free",
-          "openrouter/google/gemma-4-31b-it",
-          "openrouter/google/gemma-4-31b-it:free",
-          "openrouter/google/gemma-4-26b-a4b-it",
-          "openrouter/google/gemma-4-26b-a4b-it:free",
-          "opencode/deepseek-v4-flash-free",
-          "opencode/qwen3.6-plus-free"
-        ]
-      },
-      "type": "registry"
-    }
-  },
   "edit_predictions": {
     "copilot": {
       "enable_next_edit_suggestions": false
@@ -45,10 +20,14 @@
   "code_lens": "on",
   "formatter": "language_server",
   "lsp_highlight_debounce": 50,
+  "prettier": {
+    "allowed": false
+  },
 
   "base_keymap": "None",
   "hide_mouse": "on_typing",
   "autosave": "on_focus_change",
+  "load_direnv": "disabled",
   "restore_on_startup": "launchpad",
   "cli_default_open_behavior": "existing_window",
   "confirm_quit": false,
@@ -353,6 +332,39 @@
     "thinking_display": "always_expanded"
   },
 
+  "agent_servers": {
+    "qwen-code": {
+      "type": "registry"
+    },
+    "kimi": {
+      "type": "registry"
+    },
+    "opencode": {
+      "type": "registry"
+    },
+    "nova": {
+      "type": "registry"
+    },
+    "mistral-vibe": {
+      "type": "registry"
+    },
+    "kilo": {
+      "type": "registry"
+    },
+    "junie": {
+      "type": "registry"
+    },
+    "cursor": {
+      "type": "registry"
+    },
+    "codex-acp": {
+      "type": "registry"
+    },
+    "codebuddy-code": {
+      "type": "registry"
+    }
+  },
+
   "diagnostics": {
     "button": false,
     "include_warnings": true,
@@ -361,17 +373,132 @@
       "debounce_ms": 50
     }
   },
+
+  "languages": {
+    "CSS": {
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "language_servers": ["tailwindcss-language-server"]
+    },
+    "HTML": {
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "enable_language_server": false
+    },
+    "JavaScript": {
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": [
+        { "language_server": { "name": "oxfmt" } },
+        { "code_action": "source.fixAll.oxc" }
+      ],
+      "language_servers": ["tsgo", "..."]
+    },
+    "JSON": {
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "language_servers": ["json-language-server"]
+    },
+    "JSON5": {
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": [{ "language_server": { "name": "oxfmt" } }]
+    },
+    "JSONC": {
+      "show_edit_predictions": false,
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "language_servers": ["json-language-server"]
+    },
+    "Markdown": {
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "enable_language_server": false
+    },
+    "TypeScript": {
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "language_servers": ["tsgo", "..."]
+    },
+    "TSX": {
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "language_servers": ["tsgo", "..."]
+    },
+    "YAML": {
+      "format_on_save": "on",
+      "prettier": { "allowed": false },
+      "formatter": [{ "language_server": { "name": "oxfmt" } }]
+    },
+    "Lua": {
+      "format_on_save": "on",
+      "formatter": "language_server",
+      "language_servers": ["lua-language-server"]
+    },
+    "Python": {
+      "format_on_save": "on",
+      "formatter": [{ "language_server": { "name": "ruff" } }],
+      "language_servers": ["basedpyright", "ruff"]
+    },
+    "Nix": {
+      "language_servers": ["nil", "nixd"]
+    },
+    "Shell Script": {
+      "language_servers": ["bash-language-server"]
+    }
+  },
+
   "lsp": {
-    "rust-analyzer": {
-      "binary": {
-        "path": "/home/rsp/.cargo/bin/rust-analyzer",
-        "arguments": [],
-        "ignore_system_version": true
-      },
+    "oxlint": {
       "initialization_options": {
-        "check": {
-          "command": "clippy"
+        "settings": {
+          "configPath": null,
+          "run": "onType",
+          "disableNestedConfig": false,
+          "fixKind": "safe_fix",
+          "unusedDisableDirectives": "deny",
+          "typeAware": true
         }
+      },
+      "binary": {
+        "path": "/home/rsp/.cache/vite-plus/bin/node",
+        "arguments": [
+          "/home/rsp/.local/share/zed/extensions/work/oxc/node_modules/oxlint/bin/oxlint",
+          "--lsp"
+        ]
+      }
+    },
+    "oxfmt": {
+      "initialization_options": {
+        "settings": {
+          "fmt.configPath": null,
+          "run": "onSave",
+          "typeAware": true
+        }
+      },
+      "binary": {
+        "path": "/home/rsp/.cache/vite-plus/bin/node",
+        "arguments": [
+          "/home/rsp/.local/share/zed/extensions/work/oxc/node_modules/oxfmt/bin/oxfmt",
+          "--lsp"
+        ]
+      }
+    },
+    "tsgo": {
+      "binary": {
+        "path": "/home/rsp/.cache/vite-plus/bin/node",
+        "arguments": [
+          "/home/rsp/.local/share/zed/extensions/work/tsgo/node_modules/@typescript/native-preview/bin/tsgo.js",
+          "--lsp",
+          "--stdio"
+        ]
       }
     },
     "vtsls": {
@@ -383,97 +510,104 @@
           "updateImportsOnFileMove": { "enabled": "always" }
         }
       },
-      "enable_lsp_tasks": true
+      "enable_lsp_tasks": true,
+      "binary": {
+        "path": "/home/rsp/.cache/vite-plus/bin/node",
+        "arguments": [
+          "/home/rsp/.local/share/zed/languages/vtsls/node_modules/@vtsls/language-server/bin/vtsls.js",
+          "--stdio"
+        ]
+      }
     },
-    "oxlint": {
+    "eslint": {
+      "binary": {
+        "path": "/home/rsp/.cache/vite-plus/bin/node",
+        "arguments": [
+          "/home/rsp/.local/share/zed/languages/eslint/vscode-eslint-3.0.24/vscode-eslint/server/out/eslintServer.js",
+          "--stdio"
+        ]
+      }
+    },
+    "tailwindcss-language-server": {
+      "binary": {
+        "path": "/home/rsp/.cache/vite-plus/bin/node",
+        "arguments": [
+          "/home/rsp/.local/share/zed/languages/tailwindcss-language-server/node_modules/@tailwindcss/language-server/bin/tailwindcss-language-server",
+          "--stdio"
+        ]
+      }
+    },
+    "rust-analyzer": {
+      "binary": {
+        "path": "/home/rsp/.cache/cargo/bin/rust-analyzer",
+        "arguments": [],
+        "ignore_system_version": true
+      },
       "initialization_options": {
-        "settings": {
-          "configPath": null,
-          "run": "onType",
-          "disableNestedConfig": false,
-          "fixKind": "safe_fix",
-          "unusedDisableDirectives": "deny",
-          "typeAware": true
+        "check": {
+          "command": "clippy"
         }
       }
     },
-    "oxfmt": {
-      "initialization_options": {
-        "settings": {
-          "fmt.configPath": null,
-          "run": "onSave",
-          "typeAware": true
-        }
+    "lua-language-server": {
+      "binary": {
+        "path": "/home/rsp/.local/share/zed/extensions/work/lua/lua-language-server-3.18.2/bin/lua-language-server"
+      }
+    },
+    "nil": {
+      "binary": {
+        "path": "/home/rsp/.nix-profile/bin/nil"
+      }
+    },
+    "nixd": {
+      "binary": {
+        "path": "/home/rsp/.nix-profile/bin/nixd"
+      }
+    },
+    "gopls": {
+      "binary": {
+        "path": "/home/rsp/.nix-profile/bin/gopls",
+        "ignore_system_version": true
+      }
+    },
+    "ruff": {
+      "binary": {
+        "path": "/home/rsp/.local/share/zed/languages/ruff/ruff-0.15.14/ruff-x86_64-unknown-linux-gnu/ruff",
+        "arguments": ["server"]
+      }
+    },
+    "basedpyright": {
+      "binary": {
+        "path": "/home/rsp/.cache/vite-plus/bin/node",
+        "arguments": [
+          "/home/rsp/.local/share/zed/languages/basedpyright/node_modules/.bin/basedpyright-langserver",
+          "--stdio"
+        ]
+      }
+    },
+    "json-language-server": {
+      "binary": {
+        "path": "/home/rsp/.cache/vite-plus/bin/node",
+        "arguments": [
+          "/home/rsp/.local/share/zed/languages/json-language-server/node_modules/vscode-langservers-extracted/bin/vscode-json-language-server",
+          "--stdio"
+        ]
+      }
+    },
+    "bash-language-server": {
+      "binary": {
+        "path": "/home/rsp/.cache/vite-plus/bin/node",
+        "arguments": [
+          "/home/rsp/.local/share/zed/languages/bash-language-server/node_modules/bash-language-server/out/cli.js",
+          "start"
+        ]
       }
     }
   },
-  "languages": {
-    "CSS": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }]
-    },
-    "HTML": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }]
-    },
-    "JavaScript": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [
-        { "language_server": { "name": "oxfmt" } },
-        { "code_action": "source.fixAll.oxc" }
-      ]
-    },
-    "JSON": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }]
-    },
-    "JSON5": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }]
-    },
-    "JSONC": {
-      "show_edit_predictions": false,
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }]
-    },
-    "Markdown": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }]
-    },
-    "TypeScript": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }]
-    },
-    "TSX": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }]
-    },
-    "YAML": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }]
-    },
-    "Lua": {
-      "format_on_save": "on",
-      "formatter": "language_server"
-    }
-  },
-  "load_direnv": "direct",
+
   "node": {
     "path": "/home/rsp/.local/bin/sandbox-node",
     "npm_path": "/home/rsp/.local/bin/sandbox-npm",
     "ignore_system_version": true
-  },
-  "prettier": {
-    "allowed": false
   }
 }

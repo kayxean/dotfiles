@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+exec chromium \
+  --user-data-dir='/home/rsp/.cache/chromium-private' \
+  --disk-cache-dir='/run/user/1000/chromium-private' \
+  --proxy-server='socks5://127.0.0.1:9050' \
+  --host-resolver-rules='MAP * ~NOTFOUND , EXCLUDE 127.0.0.1' \
+  --test-type \
+  "$@"

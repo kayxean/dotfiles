@@ -9,12 +9,13 @@
 .ssh/
 .git/
 .antigravity/
+.nix-defexpr/
+.nix-profile/
+.shared/
+.archive/
 
 .config/Antigravity/
-.config/google-chrome/
-.config/google-chrome-beta/
-.config/google-chrome-canary/
-.config/google-chrome-unstable/
+.config/chromium/
 .config/pnpm/
 .config/go/
 .config/easyeffects/

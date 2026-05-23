@@ -1,14 +1,41 @@
 autoload -Uz compinit
+zmodload zsh/complist
 zcompdump="$XDG_CACHE_HOME/zsh/zcompdump"
 compinit -C -d "$zcompdump"
-[[ ! -f "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc" ]] && zcompile "$zcompdump" 2>/dev/null
+if [[ ! -f "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc" ]]; then
+  zcompile "$zcompdump" 2>/dev/null
+fi
 
-zstyle ":completion:*" menu select
-zstyle ":completion:*" matcher-list "m:{a-z}={A-Z}"
-zstyle ':completion:*' rehash true
-zstyle ':completion:*' list-dirs-first true
-zstyle ':completion:*' file-sort modification
-zstyle ':completion:*' special-dirs false
-zstyle ':completion:*' insert-tab pending
-zstyle ':completion:*' ignored-patterns '.*'
-zstyle ':completion:*' file-patterns '%p(.^@):glob:regular-files' '*(-/):glob:directories' '%p(^@):glob:all-files'
+tv-files() {
+  zle push-input
+  BUFFER="tv files"
+  zle accept-line
+}
+
+tv-dirs() {
+  zle push-input
+  BUFFER="tv dirs"
+  zle accept-line
+}
+
+tv-history() {
+  zle push-input
+  BUFFER="tv history"
+  zle accept-line
+}
+
+tv-zoxide() {
+  zle push-input
+  BUFFER="tv zoxide"
+  zle accept-line
+}
+
+zle -N tv-files
+zle -N tv-dirs
+zle -N tv-history
+zle -N tv-zoxide
+
+bindkey '^E' tv-files
+bindkey '^G' tv-dirs
+bindkey '^R' tv-history
+bindkey '^@' tv-zoxide

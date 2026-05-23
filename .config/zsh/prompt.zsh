@@ -1,5 +1,5 @@
 precmd() {
-  if (( ! _plugins_loaded )); then
+  if ((!_plugins_loaded)); then
     typeset -g _plugins_loaded=1
     if [[ -d "/usr/share/zsh/plugins/" ]]; then
       source "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
@@ -11,7 +11,7 @@ precmd() {
   [[ -n "$_seen_prompt" ]] && print || typeset -g _seen_prompt=1
   print -Pn "\e]0;%1~\a"
 }
-preexec() { print -Pn "\e]0;$1 — %1~\a" }
+preexec() { print -Pn "\e]0;$1 — %1~\a"; }
 
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' max-exports 3
@@ -35,7 +35,7 @@ _precmd_set_dir() {
     else
       local full_path="$repo_name/$rel_path"
       local -a parts=("${(s:/:)full_path}")
-      if (( ${#parts} <= trunc_len )); then
+      if ((${#parts} <= trunc_len)); then
         _prompt_dir="$full_path"
       else
         local start=$((${#parts} - trunc_len + 1))
@@ -58,9 +58,9 @@ _precmd_set_dir() {
     fi
 
     local -a parts=("${(s:/:)trunc_path}")
-    if (( track_tilde && ${#parts} == 1 )); then
+    if ((track_tilde && ${#parts} == 1)); then
       _prompt_dir="~/$trunc_path"
-    elif (( ${#parts} <= trunc_len )); then
+    elif ((${#parts} <= trunc_len)); then
       _prompt_dir="$trunc_path"
     else
       local start=$((${#parts} - trunc_len + 1))

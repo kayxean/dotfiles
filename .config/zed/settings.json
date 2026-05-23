@@ -376,86 +376,187 @@
 
   "languages": {
     "CSS": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
       "formatter": [{ "language_server": { "name": "oxfmt" } }],
-      "language_servers": ["tailwindcss-language-server"]
+      "language_servers": ["oxfmt"]
     },
     "HTML": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
       "formatter": [{ "language_server": { "name": "oxfmt" } }],
-      "enable_language_server": false
+      "language_servers": ["oxfmt"]
+    },
+    "JSON": {
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "language_servers": ["oxfmt", "json-language-server"]
+    },
+    "JSON5": {
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "language_servers": ["oxfmt", "json-language-server"]
+    },
+    "JSONC": {
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "language_servers": ["oxfmt", "json-language-server"]
     },
     "JavaScript": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
       "formatter": [
         { "language_server": { "name": "oxfmt" } },
         { "code_action": "source.fixAll.oxc" }
       ],
-      "language_servers": ["tsgo", "..."]
-    },
-    "JSON": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }],
-      "language_servers": ["json-language-server"]
-    },
-    "JSON5": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }]
-    },
-    "JSONC": {
-      "show_edit_predictions": false,
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }],
-      "language_servers": ["json-language-server"]
-    },
-    "Markdown": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }],
-      "enable_language_server": false
-    },
-    "TypeScript": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }],
-      "language_servers": ["tsgo", "..."]
-    },
-    "TSX": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }],
-      "language_servers": ["tsgo", "..."]
-    },
-    "YAML": {
-      "format_on_save": "on",
-      "prettier": { "allowed": false },
-      "formatter": [{ "language_server": { "name": "oxfmt" } }]
+      "language_servers": ["tsgo", "oxlint"]
     },
     "Lua": {
-      "format_on_save": "on",
-      "formatter": "language_server",
+      "inlay_hints": {
+        "enabled": true,
+        "show_type_hints": true,
+        "show_parameter_hints": true,
+        "show_other_hints": true
+      },
+      "formatter": {
+        "external": {
+          "command": "stylua",
+          "arguments": [
+            "--syntax=Lua54",
+            "--respect-ignores",
+            "--stdin-filepath",
+            "{buffer_path}",
+            "-"
+          ]
+        }
+      },
       "language_servers": ["lua-language-server"]
     },
-    "Python": {
-      "format_on_save": "on",
-      "formatter": [{ "language_server": { "name": "ruff" } }],
-      "language_servers": ["basedpyright", "ruff"]
+    "Markdown": {
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "language_servers": ["oxfmt"]
+    },
+    "MDX": {
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "language_servers": ["oxfmt"]
     },
     "Nix": {
+      "formatter": "language_server",
       "language_servers": ["nil", "nixd"]
     },
+    "Python": {
+      "code_actions_on_format": {
+        "source.organizeImports.ruff": true
+      },
+      "formatter": { "language_server": { "name": "ruff" } },
+      "language_servers": ["basedpyright", "ruff"]
+    },
     "Shell Script": {
-      "language_servers": ["bash-language-server"]
+      "formatter": {
+        "external": {
+          "command": "shfmt",
+          "arguments": ["--filename", "{buffer_path}", "--indent", "2"]
+        }
+      },
+      "language_servers": ["bash-language-server", "..."]
+    },
+    "TSX": {
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "language_servers": ["tsgo", "oxlint"]
+    },
+    "TypeScript": {
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "language_servers": ["tsgo", "oxlint"]
+    },
+    "YAML": {
+      "formatter": [{ "language_server": { "name": "oxfmt" } }],
+      "language_servers": ["oxfmt"]
     }
   },
 
   "lsp": {
+    "basedpyright": {
+      "settings": {
+        "basedpyright.analysis": {
+          "diagnosticMode": "workspace",
+          "inlayHints": {
+            "callArgumentNames": false
+          }
+        }
+      },
+      "binary": {
+        "path": "/home/rsp/.cache/vite-plus/bin/node",
+        "arguments": [
+          "/home/rsp/.local/share/zed/languages/basedpyright/node_modules/.bin/basedpyright-langserver",
+          "--stdio"
+        ]
+      }
+    },
+    "bash-language-server": {
+      "binary": {
+        "path": "/home/rsp/.cache/vite-plus/bin/node",
+        "arguments": [
+          "/home/rsp/.local/share/zed/languages/bash-language-server/node_modules/bash-language-server/out/cli.js",
+          "start"
+        ]
+      }
+    },
+    "eslint": {
+      "binary": {
+        "path": "/home/rsp/.cache/vite-plus/bin/node",
+        "arguments": [
+          "/home/rsp/.local/share/zed/languages/eslint/vscode-eslint-3.0.24/vscode-eslint/server/out/eslintServer.js",
+          "--stdio"
+        ]
+      }
+    },
+    "gopls": {
+      "initialization_options": {
+        "codelenses": {
+          "test": true,
+          "generate": true,
+          "regenerate_cgo": true,
+          "tidy": true,
+          "upgrade_dependency": true,
+          "vendor": true
+        }
+      },
+      "binary": {
+        "path": "/home/rsp/.nix-profile/bin/gopls",
+        "ignore_system_version": true
+      }
+    },
+    "json-language-server": {
+      "binary": {
+        "path": "/home/rsp/.cache/vite-plus/bin/node",
+        "arguments": [
+          "/home/rsp/.local/share/zed/languages/json-language-server/node_modules/vscode-langservers-extracted/bin/vscode-json-language-server",
+          "--stdio"
+        ]
+      }
+    },
+    "lua-language-server": {
+      "binary": {
+        "path": "/home/rsp/.local/share/zed/extensions/work/lua/lua-language-server-3.18.2/bin/lua-language-server"
+      }
+    },
+    "nil": {
+      "binary": {
+        "path": "/home/rsp/.nix-profile/bin/nil"
+      }
+    },
+    "nixd": {
+      "binary": {
+        "path": "/home/rsp/.nix-profile/bin/nixd"
+      }
+    },
+    "oxfmt": {
+      "initialization_options": {
+        "settings": {
+          "fmt.configPath": null,
+          "run": "onSave",
+          "typeAware": true
+        }
+      },
+      "binary": {
+        "path": "/home/rsp/.cache/vite-plus/bin/node",
+        "arguments": [
+          "/home/rsp/.local/share/zed/extensions/work/oxc/node_modules/oxfmt/bin/oxfmt",
+          "--lsp"
+        ]
+      }
+    },
     "oxlint": {
       "initialization_options": {
         "settings": {
@@ -475,19 +576,56 @@
         ]
       }
     },
-    "oxfmt": {
+    "ruff": {
       "initialization_options": {
         "settings": {
-          "fmt.configPath": null,
-          "run": "onSave",
-          "typeAware": true
+          "exclude": ["*"]
         }
       },
       "binary": {
+        "path": "/home/rsp/.local/share/zed/languages/ruff/ruff-0.15.14/ruff-x86_64-unknown-linux-gnu/ruff",
+        "arguments": ["server"]
+      }
+    },
+    "rust-analyzer": {
+      "enable_lsp_tasks": true,
+      "initialization_options": {
+        "diagnostics": {
+          "experimental": {
+            "enable": true
+          }
+        },
+        "checkOnSave": false,
+        "cargo": {
+          "allTargets": false
+        },
+        "check": {
+          "command": "clippy",
+          "workspace": false
+        },
+        "inlayHints": {
+          "maxLength": null,
+          "lifetimeElisionHints": {
+            "enable": "skip_trivial",
+            "useParameterNames": true
+          },
+          "closureReturnTypeHints": {
+            "enable": "always"
+          }
+        }
+      },
+      "binary": {
+        "path": "/home/rsp/.cache/cargo/bin/rust-analyzer",
+        "arguments": [],
+        "ignore_system_version": true
+      }
+    },
+    "tailwindcss-language-server": {
+      "binary": {
         "path": "/home/rsp/.cache/vite-plus/bin/node",
         "arguments": [
-          "/home/rsp/.local/share/zed/extensions/work/oxc/node_modules/oxfmt/bin/oxfmt",
-          "--lsp"
+          "/home/rsp/.local/share/zed/languages/tailwindcss-language-server/node_modules/@tailwindcss/language-server/bin/tailwindcss-language-server",
+          "--stdio"
         ]
       }
     },
@@ -516,90 +654,6 @@
         "arguments": [
           "/home/rsp/.local/share/zed/languages/vtsls/node_modules/@vtsls/language-server/bin/vtsls.js",
           "--stdio"
-        ]
-      }
-    },
-    "eslint": {
-      "binary": {
-        "path": "/home/rsp/.cache/vite-plus/bin/node",
-        "arguments": [
-          "/home/rsp/.local/share/zed/languages/eslint/vscode-eslint-3.0.24/vscode-eslint/server/out/eslintServer.js",
-          "--stdio"
-        ]
-      }
-    },
-    "tailwindcss-language-server": {
-      "binary": {
-        "path": "/home/rsp/.cache/vite-plus/bin/node",
-        "arguments": [
-          "/home/rsp/.local/share/zed/languages/tailwindcss-language-server/node_modules/@tailwindcss/language-server/bin/tailwindcss-language-server",
-          "--stdio"
-        ]
-      }
-    },
-    "rust-analyzer": {
-      "binary": {
-        "path": "/home/rsp/.cache/cargo/bin/rust-analyzer",
-        "arguments": [],
-        "ignore_system_version": true
-      },
-      "initialization_options": {
-        "check": {
-          "command": "clippy"
-        }
-      }
-    },
-    "lua-language-server": {
-      "binary": {
-        "path": "/home/rsp/.local/share/zed/extensions/work/lua/lua-language-server-3.18.2/bin/lua-language-server"
-      }
-    },
-    "nil": {
-      "binary": {
-        "path": "/home/rsp/.nix-profile/bin/nil"
-      }
-    },
-    "nixd": {
-      "binary": {
-        "path": "/home/rsp/.nix-profile/bin/nixd"
-      }
-    },
-    "gopls": {
-      "binary": {
-        "path": "/home/rsp/.nix-profile/bin/gopls",
-        "ignore_system_version": true
-      }
-    },
-    "ruff": {
-      "binary": {
-        "path": "/home/rsp/.local/share/zed/languages/ruff/ruff-0.15.14/ruff-x86_64-unknown-linux-gnu/ruff",
-        "arguments": ["server"]
-      }
-    },
-    "basedpyright": {
-      "binary": {
-        "path": "/home/rsp/.cache/vite-plus/bin/node",
-        "arguments": [
-          "/home/rsp/.local/share/zed/languages/basedpyright/node_modules/.bin/basedpyright-langserver",
-          "--stdio"
-        ]
-      }
-    },
-    "json-language-server": {
-      "binary": {
-        "path": "/home/rsp/.cache/vite-plus/bin/node",
-        "arguments": [
-          "/home/rsp/.local/share/zed/languages/json-language-server/node_modules/vscode-langservers-extracted/bin/vscode-json-language-server",
-          "--stdio"
-        ]
-      }
-    },
-    "bash-language-server": {
-      "binary": {
-        "path": "/home/rsp/.cache/vite-plus/bin/node",
-        "arguments": [
-          "/home/rsp/.local/share/zed/languages/bash-language-server/node_modules/bash-language-server/out/cli.js",
-          "start"
         ]
       }
     }

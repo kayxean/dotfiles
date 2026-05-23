@@ -99,6 +99,11 @@
             pkgs.lua
             pkgs.nil
             pkgs.nixd
+            pkgs.shellcheck
+            pkgs.shfmt
+            pkgs.delve
+            pkgs.stylua
+            pkgs.python3Packages.debugpy
           ];
         };
       };

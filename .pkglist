@@ -2,7 +2,6 @@ alacritty
 alsa-tools
 alsa-utils
 amd-ucode
-auto-cpufreq
 base
 base-devel
 bat
@@ -11,6 +10,7 @@ brightnessctl
 btop
 btrfs-progs
 calf
+chromium
 dnscrypt-proxy
 easyeffects
 efibootmgr
@@ -19,10 +19,6 @@ fd
 git
 github-cli
 gnome-keyring
-google-chrome
-google-chrome-beta
-google-chrome-canary
-google-chrome-dev
 grim
 gst-plugin-pipewire
 hypridle
@@ -35,7 +31,6 @@ iptables
 iwd
 jq
 less
-libdeep_filter_ladspa-git
 libinput
 libnewt
 libnotify
@@ -49,12 +44,9 @@ lsp-plugins-lv2
 mda.lv2
 nano
 nautilus
+ncdu
 nftables
-nodejs-sandbox
-opencode-bin
 pacman-contrib
-paru
-paru-debug
 pavucontrol
 pipewire
 pipewire-alsa
@@ -84,7 +76,6 @@ xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
 xorg-xwayland
 zam-plugins-lv2
-zapret-git
 zed
 zita-convolver
 zoxide
@@ -92,3 +83,13 @@ zram-generator
 zsh
 zsh-autosuggestions
 zsh-syntax-highlighting
+
+auto-cpufreq
+chromium-widevine
+hyprland-protocols-git
+libdeep_filter_ladspa-git
+nodejs-sandbox
+opencode-bin
+paru
+paru-debug
+zapret-git

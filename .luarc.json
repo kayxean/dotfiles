@@ -12,5 +12,6 @@
   },
   "diagnostics": {
     "globals": ["hl"]
-  }
+  },
+  "hint.enable": true
 }

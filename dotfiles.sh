@@ -17,11 +17,10 @@ STOW_ARGS=(
   -t "$HOME"
   -d "$DOTFILES"
   --ignore='^\.git'
-  --ignore='^result$'
-  --ignore='\.md$'
   --ignore='\.sh$'
   --ignore='\.nix$'
   --ignore='\.lock$'
+  --ignore='PKGBUILD$'
   --ignore='^\.pkglist$'
   --ignore='^\.luarc\.json$'
   --ignore='^dotfiles\.sh$'
@@ -29,6 +28,9 @@ STOW_ARGS=(
   --ignore='\.config/hypr/hyprpaper\.conf$'
   --ignore='\.config/opencode/(\.gitignore|node_modules|package(-lock)?\.json)$'
   --ignore='\.local/share/easyeffects/(autoload|irs|rnnoise)$'
+  --ignore='^result$'
+  --ignore='^docs$'
+  --ignore='\.md$'
 )
 
 usage() {
@@ -48,19 +50,28 @@ EOF
 }
 
 entries() {
-  fd --no-ignore -t d --max-depth 1 . "$DOTFILES/.config" 2>/dev/null \
-    | while read d; do rel="${d#"$DOTFILES"/}"; echo "${rel%/}"; done
-  fd --no-ignore -t f --max-depth 1 . "$DOTFILES/.config" 2>/dev/null \
-    | while read f; do rel="${f#"$DOTFILES"/}"; echo "$rel"; done
+  fd --no-ignore -t d --max-depth 1 . "$DOTFILES/.config" 2>/dev/null |
+    while read -r d; do
+      rel="${d#"$DOTFILES"/}"
+      echo "${rel%/}"
+    done
+  fd --no-ignore -t f --max-depth 1 . "$DOTFILES/.config" 2>/dev/null |
+    while read -r f; do
+      rel="${f#"$DOTFILES"/}"
+      echo "$rel"
+    done
   [[ -d "$DOTFILES/.local/bin" ]] && echo ".local/bin"
-  fd --no-ignore -t d --max-depth 1 . "$DOTFILES/.local/share" 2>/dev/null \
-    | while read d; do rel="${d#"$DOTFILES"/}"; echo "${rel%/}"; done
+  fd --no-ignore -t d --max-depth 1 . "$DOTFILES/.local/share" 2>/dev/null |
+    while read -r d; do
+      rel="${d#"$DOTFILES"/}"
+      echo "${rel%/}"
+    done
 }
 
 cmd_check() {
   echo "${C}==> dotfiles:${N} check"
 
-  while read entry; do
+  while read -r entry; do
     echo "  ${G}checking${N}: ${B}$entry${N}"
   done < <(entries)
 
@@ -91,19 +102,20 @@ cmd_stow() {
   echo "${C}==> dotfiles:${N} $verb"
 
   if [[ "$flag" == "-R" ]]; then
-    while read entry; do
+    while read -r entry; do
       echo "  ${G}${verb}${N}: ${B}$entry${N}"
     done < <(entries)
     if stow -R "${STOW_ARGS[@]}" .; then
       echo "  ${C}ok${N}"
     else
-      echo "  ${R}FAIL${N}" >&2; return 1
+      echo "  ${R}FAIL${N}" >&2
+      return 1
     fi
     return
   fi
 
   local needs_action=() skipped=0
-  while read entry; do
+  while read -r entry; do
     if [[ "$flag" == "-D" ]] && is_stowed "$entry"; then
       needs_action+=("$entry")
     elif [[ "$flag" != "-D" ]] && ! is_stowed "$entry"; then
@@ -134,17 +146,18 @@ cmd_stow() {
     fi
   fi
 
-  if stow $flag "${STOW_ARGS[@]}" .; then
+  if stow "$flag" "${STOW_ARGS[@]}" .; then
     echo "  ${C}ok${N}"
   else
-    echo "  ${R}FAIL${N}" >&2; return 1
+    echo "  ${R}FAIL${N}" >&2
+    return 1
   fi
 }
 
 cmd_diff() {
   echo "${C}==> dotfiles:${N} diff"
   local has_diff=0
-  while read entry; do
+  while read -r entry; do
     local source="$DOTFILES/$entry"
     local target="$HOME/$entry"
     if [[ -d "$source" ]] && [[ -d "$target" ]]; then
@@ -167,7 +180,7 @@ cmd_diff() {
 cmd_stats() {
   echo "${C}==> dotfiles:${N} stats"
   local stowed=0 divergent=0 broken=0 unstowed=0
-  while read entry; do
+  while read -r entry; do
     local target="$HOME/$entry"
     if is_stowed "$entry"; then
       echo "  ${G}stowed${N}: ${B}$entry${N}"
@@ -198,7 +211,7 @@ cmd_prune() {
     local abs_target
     abs_target="$(readlink -f "$symlink" 2>/dev/null)" || continue
     [[ "$abs_target" == "$DOTFILES"* ]] || continue
-    local rel="${symlink#$HOME/}"
+    local rel="${symlink#"$HOME/"}"
     grep -qxF "$rel" <<<"$known_entries" && continue
     echo "  ${R}removing${N}: $rel"
     rm "$symlink"
@@ -224,7 +237,7 @@ cmd_install() {
 
   if [[ -f "$DOTFILES/.pkglist" ]]; then
     echo "  ${G}installing${N}: packages from .pkglist"
-    paru -S --needed --cleanafter - < "$DOTFILES/.pkglist"
+    paru -S --needed --cleanafter - <"$DOTFILES/.pkglist"
   else
     echo "  ${Y}WARNING: .pkglist not found, skipping packages${N}" >&2
   fi
@@ -235,19 +248,46 @@ cmd_install() {
 
 main() {
   case "${1:-}" in
-    check)          cmd_check;    exit $? ;;
-    stow)           cmd_stow;     exit $? ;;
-    destow)         cmd_stow "-D"; exit $? ;;
-    restow)         cmd_stow "-R"; exit $? ;;
-    diff)           cmd_diff;     exit $? ;;
-    stats)          cmd_stats;    exit $? ;;
-    prune)          cmd_prune;    exit $? ;;
-    install)        cmd_install;  exit $? ;;
-    "")             usage;        exit 0 ;;
-    *)
-      echo "${R}error:${N} unknown command '$1'" >&2
-      exit 1
-      ;;
+  check)
+    cmd_check
+    exit $?
+    ;;
+  stow)
+    cmd_stow
+    exit $?
+    ;;
+  destow)
+    cmd_stow "-D"
+    exit $?
+    ;;
+  restow)
+    cmd_stow "-R"
+    exit $?
+    ;;
+  diff)
+    cmd_diff
+    exit $?
+    ;;
+  stats)
+    cmd_stats
+    exit $?
+    ;;
+  prune)
+    cmd_prune
+    exit $?
+    ;;
+  install)
+    cmd_install
+    exit $?
+    ;;
+  "")
+    usage
+    exit 0
+    ;;
+  *)
+    echo "${R}error:${N} unknown command '$1'" >&2
+    exit 1
+    ;;
   esac
 }
 

@@ -8,7 +8,7 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export TERMINAL="alacritty"
 export VISUAL="zeditor"
 export EDITOR="zeditor --wait"
-export BROWSER="google-chrome-beta"
+export BROWSER="helium-browser"
 
 typeset -U path
 

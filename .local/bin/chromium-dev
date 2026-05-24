@@ -1,6 +1,0 @@
-#!/usr/bin/env zsh
-set -euo pipefail
-exec chromium \
-  --user-data-dir='/home/rsp/.cache/chromium-dev' \
-  --disk-cache-dir='/run/user/1000/chromium-dev' \
-  "$@"

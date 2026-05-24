@@ -41,3 +41,5 @@ alias zig="sandbox-zig"
 alias rustup="sandbox-rustup"
 alias cargo="sandbox-cargo"
 alias rustc="sandbox-rustc"
+
+alias helium-private="helium-browser --proxy-server='socks5://127.0.0.1:9050' --host-resolver-rules='MAP * ~NOTFOUND , EXCLUDE 127.0.0.1' --test-type"

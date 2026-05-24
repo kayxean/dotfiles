@@ -1,40 +1,10 @@
 #!/usr/bin/env zsh
-set -euo pipefail
+name="$*"
 
-active=$(hyprctl activewindow -j 2>/dev/null || echo '{}')
-class=$(echo "$active" | jq -r '.class // empty')
-title=$(echo "$active" | jq -r '.title // empty')
-pid=$(echo "$active" | jq -r '.pid // 0')
+file=$(rg -l "^Name=$name$" ~/.local/share/applications/*.desktop 2>/dev/null | head -1)
 
-dir="$HOME"
+[ -z "$file" ] && exit 1
 
-if [[ "$class" =~ ^(zed|dev\.zed\.Zed|zed-editor)$ ]]; then
-    project=$(echo "$title" | sed -n 's/^\([^—]*\) — .*/\1/p' | xargs)
-    if [[ -n "$project" ]]; then
-        for base in "$HOME/dev" "$HOME/.local"; do
-            candidate="$base/$project"
-            if [[ -d "$candidate" ]]; then
-                dir="$candidate"
-                break
-            fi
-        done
-    fi
-fi
+cmd=$(rg '^Exec=' "$file" 2>/dev/null | sed 's/^Exec=//')
 
-if [[ "$dir" == "$HOME" && "$pid" != "0" ]]; then
-    case "$class" in
-        Alacritty|kitty|foot|wezterm)
-            cwd=$(readlink "/proc/$pid/cwd" 2>/dev/null || true)
-            [[ -n "$cwd" ]] && dir="$cwd" ;;
-    esac
-fi
-
-if [[ "$dir" == "$HOME" ]]; then
-    zed_pid=$(pgrep -x "zed" -o 2>/dev/null || pgrep -f "zed-editor" -o 2>/dev/null || true)
-    if [[ -n "$zed_pid" ]]; then
-        cwd=$(readlink "/proc/$zed_pid/cwd" 2>/dev/null || true)
-        [[ -n "$cwd" ]] && dir="$cwd"
-    fi
-fi
-
-alacritty msg create-window --class float-window --working-directory "$dir" -e tv
+exec zsh -c "$cmd"

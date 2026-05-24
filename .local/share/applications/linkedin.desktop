@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=LinkedIn
+Exec=uwsm-app -- helium-browser --app=https://www.linkedin.com/in/the-room/
+Terminal=false

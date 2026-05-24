@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Twitter
+Exec=uwsm-app -- helium-browser --app=https://x.com/
+Terminal=false

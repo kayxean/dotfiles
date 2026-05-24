@@ -55,11 +55,11 @@ hl.config({
 })
 
 hl.bind("SUPER + RETURN", hl.dsp.exec_cmd("uwsm-app -- alacritty msg create-window --class terminal"))
-hl.bind("SUPER + S", hl.dsp.exec_cmd("uwsm-app -- chromium-personal"))
-hl.bind("SUPER + I", hl.dsp.exec_cmd("uwsm-app -- chromium-private"))
-hl.bind("SUPER + B", hl.dsp.exec_cmd("uwsm-app -- chromium-dev"))
 hl.bind("SUPER + E", hl.dsp.exec_cmd("uwsm-app -- zeditor"))
 hl.bind("SUPER + G", hl.dsp.exec_cmd("uwsm-app -- antigravity"))
+
+hl.bind("SUPER + B", hl.dsp.exec_cmd("uwsm-app -- helium-browser"))
+hl.bind("SUPER + I", hl.dsp.exec_cmd("uwsm-app -- helium-browser --incognito"))
 
 hl.bind("SUPER + U", hl.dsp.exec_cmd("uwsm-app -- easyeffects"))
 hl.bind("SUPER + F", hl.dsp.exec_cmd("uwsm-app -- nautilus --new-window"))

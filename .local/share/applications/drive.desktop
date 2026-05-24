@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Drive
+Exec=uwsm-app -- helium-browser --app=https://drive.google.com/drive/u/1/
+Terminal=false

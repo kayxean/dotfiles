@@ -15,5 +15,5 @@ preview_panel = { hidden = true }
 enter = "actions:select"
 
 [actions.select]
-command = "tv {}"
+command = "tv '{}'"
 mode = "execute"

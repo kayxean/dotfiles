@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=DeepSeek
+Exec=uwsm-app -- helium-browser --app=https://chat.deepseek.com/
+Terminal=false

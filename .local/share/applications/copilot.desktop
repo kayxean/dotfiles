@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Copilot
+Exec=uwsm-app -- helium-browser --app=https://copilot.microsoft.com/
+Terminal=false

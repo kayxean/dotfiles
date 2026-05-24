@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=T3 Chat
+Exec=uwsm-app -- helium-browser --app=https://t3.chat/
+Terminal=false

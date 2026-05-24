@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Instagram
+Exec=uwsm-app -- helium-browser --app=https://www.instagram.com/
+Terminal=false

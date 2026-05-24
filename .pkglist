@@ -86,6 +86,7 @@ zsh-syntax-highlighting
 
 auto-cpufreq
 chromium-widevine
+helium-browser-bin
 hyprland-protocols-git
 libdeep_filter_ladspa-git
 nodejs-sandbox

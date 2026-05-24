@@ -11,5 +11,5 @@ ctrl-d = ["actions:remove", "reload_source"]
 
 [actions.remove]
 description = "Remove the selected history entry"
-command = "$HOME/.local/bin/tv-history {}"
+command = "tv-history '{}'"
 mode = "fork"

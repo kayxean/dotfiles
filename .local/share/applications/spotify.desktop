@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Spotify
+Exec=uwsm-app -- helium-browser --app=https://open.spotify.com/
+Terminal=false

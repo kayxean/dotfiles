@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Keep
+Exec=uwsm-app -- helium-browser --app=https://keep.google.com/u/1/
+Terminal=false

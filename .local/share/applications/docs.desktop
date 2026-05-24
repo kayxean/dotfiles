@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Docs
+Exec=uwsm-app -- helium-browser --app=https://docs.google.com/document/u/1/
+Terminal=false

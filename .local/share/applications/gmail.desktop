@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Gmail
+Exec=uwsm-app -- helium-browser --app=https://mail.google.com/mail/u/0/
+Terminal=false

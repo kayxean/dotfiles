@@ -1,0 +1,15 @@
+[metadata]
+name = "apps"
+description = "Launch web app shortcuts"
+
+[source]
+command = "rg '^Name=' ~/.local/share/applications/*.desktop 2>/dev/null | sed 's/.*:Name=//' | sort"
+no_sort = true
+
+[keybindings]
+enter = "actions:launch"
+
+[actions.launch]
+description = "Launch the selected app"
+command = "tv-watch '{}'"
+mode = "execute"

@@ -5,6 +5,7 @@ requirements = ["eza", "hyprpaper"]
 
 [source]
 command = "eza --oneline ~/pictures/.wallpaper"
+no_sort = true
 
 [ui]
 layout = "portrait"
@@ -14,5 +15,5 @@ preview_panel = { hidden = true }
 enter = "actions:select"
 
 [actions.select]
-command = "zsh -c '$HOME/.local/bin/set-wallpaper \"{}\"'"
+command = "set-wallpaper '{}'"
 mode = "execute"

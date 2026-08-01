@@ -1,4 +1,4 @@
-[[ -t 0 ]] && export GPG_TTY=$TTY
+[[ -t 0 ]] && export GPG_TTY="$TTY"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -10,9 +10,4 @@ export VISUAL="zeditor"
 export EDITOR="zeditor --wait"
 export BROWSER="helium-browser"
 
-typeset -U path
-
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.nix-profile/bin:$PATH"
-
-[[ -f "$HOME/.nix-profile/share/devrel/env.sh" ]] && source "$HOME/.nix-profile/share/devrel/env.sh"

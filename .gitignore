@@ -1,26 +1,4 @@
-# Ignore gh-cli known hosts file
-.config/gh/hosts.yml
-
-# Ignore easyeffects generated config files
-.local/share/easyeffects/autoload
-.local/share/easyeffects/irs
-.local/share/easyeffects/rnnoise
-
-# Ignore hyprpaper config
-.config/hypr/hyprpaper.conf
-
-# Ignore opencode deps
-.config/opencode/.gitignore
-.config/opencode/node_modules
-.config/opencode/package.json
-.config/opencode/package-lock.json
-
-# Ignore nix build output
-result
-
-# Ignore zsh compiled bytecode
-.config/zsh/*.zwc
-.config/zsh/zcompdump
-
-# Ignore local docs
-docs/
+# Ignore makepkg artifacts
+src/
+pkg/
+*.pkg.tar.*

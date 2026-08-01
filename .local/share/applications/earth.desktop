@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Earth
-Exec=uwsm-app -- helium-browser --app=https://earth.google.com/web/?authuser=1
-Terminal=false

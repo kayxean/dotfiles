@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/dx-lib"
+
+ACTIONS=(check status fetch update remove use switch)
+
+C_RST='' C_RUNT='' C_SYS='' C_DESK='' C_ACT=''
+if [[ -t 1 ]]; then
+  C_RST=$(tput sgr0 2>/dev/null) || true
+  C_RUNT=$(tput setaf 5 2>/dev/null) || true
+  C_SYS=$(tput setaf 4 2>/dev/null) || true
+  C_DESK=$(tput setaf 2 2>/dev/null) || true
+  C_ACT=$(tput setaf 8 2>/dev/null) || true
+fi
+
+usage() {
+  printf "Usage:\n"
+
+  printf "\n%sRUNTIMES%s\n" "$C_RUNT" "$C_RST"
+  printf "  %-12s %s%s%s\n" pnpm "$C_ACT" "check / update" "$C_RST"
+  printf "  %-12s %s%s%s\n" node "$C_ACT" "check / update / use" "$C_RST"
+  printf "  %-12s %s%s%s\n" bun "$C_ACT" "check / update / use" "$C_RST"
+  printf "  %-12s %s%s%s\n" deno "$C_ACT" "check / update / use" "$C_RST"
+
+  printf "\n%sSYSTEM%s\n" "$C_SYS" "$C_RST"
+  printf "  %-12s %s%s%s\n" pkg "$C_ACT" "check / update" "$C_RST"
+  printf "  %-12s %s%s%s\n" paru "$C_ACT" "update" "$C_RST"
+  printf "  %-12s %s%s%s\n" shims "$C_ACT" "check / update / remove" "$C_RST"
+  printf "  %-12s %s%s%s\n" daemon "$C_ACT" "check / status" "$C_RST"
+
+  printf "\n%sDESKTOP%s\n" "$C_DESK" "$C_RST"
+  printf "  %-12s %s%s%s\n" wallpaper "$C_ACT" "update" "$C_RST"
+  printf "  %-12s %s%s%s\n" audio "$C_ACT" "switch" "$C_RST"
+  printf "  %-12s %s%s%s\n" fonts "$C_ACT" "check / fetch / remove" "$C_RST"
+}
+
+is_action() {
+  local a
+  for a in "${ACTIONS[@]}"; do
+    [[ "$1" == "$a" ]] && return 0
+  done
+  return 1
+}
+
+case "${1:-}" in
+"")
+  usage
+  ;;
+*)
+  if is_action "$1"; then
+    action="$1"
+    target="${2:-}"
+    if [[ -z "$target" ]]; then
+      echo "error: missing target" >&2
+      exit 1
+    fi
+    shift 2
+    exec_path="$(dx_root)/.local/bin/dx-$target"
+    if [[ ! -x "$exec_path" ]]; then
+      echo "error: unknown target '$target'" >&2
+      exit 1
+    fi
+    exec "$exec_path" "$action" "$@"
+  else
+    target="$1"
+    shift
+    exec_path="$(dx_root)/.local/bin/dx-$target"
+    if [[ ! -x "$exec_path" ]]; then
+      echo "error: unknown command '$target'" >&2
+      exit 1
+    fi
+    if [[ $# -eq 0 ]]; then
+      usage
+    else
+      exec "$exec_path" "$@"
+    fi
+  fi
+  ;;
+esac

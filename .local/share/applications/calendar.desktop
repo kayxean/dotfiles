@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Calendar
-Exec=uwsm-app -- helium-browser --app=https://calendar.google.com/calendar/u/1/
-Terminal=false

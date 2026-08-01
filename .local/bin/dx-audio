@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/dx-lib"
+
+cmd_switch() {
+  local mode="${1:-}"
+  case "$mode" in
+  iem)
+    amixer -c 1 sset 'Speaker' mute >/dev/null
+    amixer -c 1 sset 'Headphone' unmute >/dev/null
+    pactl set-sink-volume @DEFAULT_SINK@ 100%
+    easyeffects -l iem
+    echo "Switched into Headphone"
+    ;;
+  int)
+    amixer -c 1 sset 'Headphone' mute >/dev/null
+    amixer -c 1 sset 'Speaker' unmute >/dev/null
+    pactl set-sink-volume @DEFAULT_SINK@ 50%
+    easyeffects -l int
+    echo "Switched into Speaker"
+    ;;
+  *)
+    echo "error: unknown mode '${mode}' (use iem or int)" >&2
+    exit 1
+    ;;
+  esac
+}
+
+case "${1:-}" in
+"")
+  echo "usage: dx switch audio <iem|int>" >&2
+  exit 1
+  ;;
+switch) shift && cmd_switch "$@" ;;
+*)
+  echo "error: unknown command '${1:-}'" >&2
+  exit 1
+  ;;
+esac

@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Discord
-Exec=uwsm-app -- helium-browser --app=https://discord.com/channels/@me
-Terminal=false

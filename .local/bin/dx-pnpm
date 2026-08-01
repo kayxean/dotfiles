@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/dx-lib"
+
+cmd_check() {
+  pnpm outdated -g
+}
+
+cmd_update() {
+  pnpm update -g
+}
+
+case "${1:-}" in
+check) cmd_check ;;
+update) cmd_update ;;
+*)
+  echo "error: unknown command '${1:-}'" >&2
+  exit 1
+  ;;
+esac

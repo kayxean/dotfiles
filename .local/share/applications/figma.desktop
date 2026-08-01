@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Figma
-Exec=uwsm-app -- helium-browser --app=https://www.figma.com/
-Terminal=false

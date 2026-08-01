@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Claude
-Exec=uwsm-app -- helium-browser --app=https://claude.ai/new
-Terminal=false

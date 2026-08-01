@@ -1,414 +1,325 @@
 {
-  "edit_predictions": {
-    "copilot": {
-      "enable_next_edit_suggestions": false
-    },
-    "mode": "subtle",
-    "provider": "zed"
-  },
-  "completions": {
-    "words": "enabled",
-    "words_min_length": 2,
-    "lsp": true,
-    "lsp_fetch_timeout_ms": 0,
-    "lsp_insert_mode": "replace_subsequence"
-  },
-
-  "use_smartcase_search": true,
-  "auto_signature_help": true,
-  "multi_cursor_modifier": "alt",
-  "code_lens": "on",
-  "formatter": "language_server",
-  "lsp_highlight_debounce": 50,
-  "prettier": {
-    "allowed": false
-  },
-
   "base_keymap": "None",
-  "hide_mouse": "on_typing",
-  "autosave": "on_focus_change",
-  "load_direnv": "disabled",
-  "restore_on_startup": "launchpad",
-  "cli_default_open_behavior": "existing_window",
-  "confirm_quit": false,
-  "close_panel_on_toggle": true,
-
-  "hover_popover_sticky": true,
-  "hover_popover_delay": 50,
-  "hover_popover_hiding_delay": 200,
-  "drag_and_drop_selection": {
-    "enabled": true,
-    "delay": 200
+  "vim_mode": true,
+  "command_aliases": {
+    "join": "pane::JoinAll",
+    "swap": "workspace::SwapPaneAdjacent",
+    "split": "workspace::MoveItemToPaneInDirection",
+    "alt": "pane::AlternateFile"
   },
-
-  "agent_buffer_font_size": 14,
-  "agent_ui_font_size": 14,
-  "ui_font_family": "Geist",
-  "ui_font_size": 14,
-  "ui_font_weight": 400,
-  "buffer_font_family": "Geist Mono",
-  "buffer_font_size": 14,
-  "buffer_line_height": "comfortable",
-  "buffer_font_features": {
-    "calt": false,
-    "liga": false
+  "disable_ai": true,
+  "auto_update": false,
+  "node": {
+    "path": "/home/dev/.local/share/pnpm/bin/node",
+    "npm_path": "/home/dev/.local/share/pnpm/bin/npm",
+    "ignore_system_version": false
   },
-  "icon_theme": "Zed (Default)",
-  "theme": {
-    "mode": "dark",
-    "light": "One Light",
-    "dark": "Midnight Shell Dark"
+  "git": {
+    "inline_blame": {
+      "enabled": false,
+      "padding": 1
+    },
+    "git_gutter": "hide"
   },
-
-  "window_decorations": "server",
+  "git_panel": {
+    "dock": "right",
+    "default_width": 320,
+    "collapse_untracked_diff": true
+  },
+  "project_panel": {
+    "dock": "right",
+    "default_width": 320,
+    "file_icons": false,
+    "folder_icons": false,
+    "git_status_indicator": true,
+    "diagnostic_badges": true,
+    "sticky_scroll": false
+  },
+  "terminal": {
+    "dock": "right",
+    "cursor_shape": "bar",
+    "blinking": "on",
+    "copy_on_select": true,
+    "font_features": { "calt": false, "liga": false },
+    "minimum_contrast": 0
+  },
+  "debugger": {
+    "dock": "right"
+  },
+  "status_bar": {
+    "experimental.show": false
+  },
   "title_bar": {
-    "show_branch_status_icon": true
+    "show_onboarding_banner": false
   },
   "tab_bar": {
-    "show_tab_bar_buttons": false,
-    "show_nav_history_buttons": false
+    "show_nav_history_buttons": false,
+    "show_tab_bar_buttons": false
   },
   "tabs": {
-    "activate_on_close": "history",
-    "show_diagnostics": "all",
     "file_icons": true,
-    "git_status": false
+    "show_diagnostics": "all"
   },
   "preview_tabs": {
-    "enable_preview_from_file_finder": true
-  },
-  "file_finder": {
-    "modal_max_width": "small",
-    "include_channels": true
-  },
-  "search": {
-    "regex": true,
-    "button": true,
-    "center_on_match": true,
-    "include_ignored": false
+    "enabled": false
   },
   "toolbar": {
-    "quick_actions": false,
     "breadcrumbs": false,
+    "quick_actions": false,
     "selections_menu": false,
     "agent_review": false,
     "code_actions": false
   },
-  "status_bar": {
-    "cursor_position_button": true,
-    "active_language_button": true,
-    "experimental.show": true
-  },
-  "scrollbar": {
-    "git_diff": false
-  },
-
-  "git": {
-    "git_gutter": "tracked_files",
-    "hunk_style": "unstaged_hollow"
-  },
-  "git_panel": {
-    "status_style": "icon",
-    "collapse_untracked_diff": true,
-    "tree_view": true,
-    "show_count_badge": true,
-    "dock": "right",
-    "default_width": 320,
-    "folder_icons": false
-  },
-  "project_panel": {
-    "button": true,
-    "diagnostic_badges": true,
-    "git_status_indicator": true,
-    "default_width": 320,
-    "dock": "right",
-    "file_icons": false,
-    "folder_icons": false,
-    "hide_root": true
-  },
   "outline_panel": {
     "dock": "right",
-    "button": true,
     "default_width": 320
   },
   "collaboration_panel": {
     "dock": "right",
-    "button": false,
     "default_width": 320
   },
-  "debugger": {
-    "dock": "right",
-    "button": false
-  },
-  "terminal": {
-    "button": false,
-    "blinking": "on",
-    "cursor_shape": "bar",
-    "font_family": "Geist Mono",
-    "minimum_contrast": 0,
-    "copy_on_select": true
-  },
   "agent": {
-    "default_model": {
-      "provider": "google",
-      "model": "gemini-3-flash-preview",
-      "enable_thinking": false
-    },
-    "default_profile": "ask",
-    "profiles": {
-      "write": {
-        "name": "Write",
-        "enable_all_context_servers": true,
-        "tools": {
-          "copy_path": true,
-          "create_directory": true,
-          "delete_path": true,
-          "diagnostics": true,
-          "apply_code_action": true,
-          "edit_file": true,
-          "fetch": true,
-          "find_path": true,
-          "find_references": true,
-          "get_code_actions": true,
-          "go_to_definition": true,
-          "list_directory": true,
-          "project_notifications": false,
-          "move_path": true,
-          "now": true,
-          "rename_symbol": true,
-          "read_file": true,
-          "restore_file_from_disk": true,
-          "save_file": true,
-          "open": true,
-          "grep": true,
-          "spawn_agent": true,
-          "terminal": true,
-          "thinking": true,
-          "update_plan": true,
-          "search_web": true
-        }
-      },
-      "ask": {
-        "name": "Ask",
-        "tools": {
-          "diagnostics": true,
-          "fetch": true,
-          "list_directory": true,
-          "project_notifications": false,
-          "now": true,
-          "find_path": true,
-          "find_references": true,
-          "get_code_actions": true,
-          "go_to_definition": true,
-          "read_file": true,
-          "open": true,
-          "grep": true,
-          "spawn_agent": true,
-          "thinking": true,
-          "update_plan": true,
-          "search_web": true
-        }
-      }
-    },
-    "tool_permissions": {
-      "default": "allow",
-      "tools": {
-        "terminal": {
-          "default": "allow",
-          "always_allow": [
-            { "pattern": "^bun\\s" },
-            { "pattern": "^vp\\s" },
-            { "pattern": "^cargo\\s" }
-          ],
-          "always_deny": [
-            { "pattern": "^sudo\\s" },
-            { "pattern": "^sudo\\s+-pacman\\s" },
-            { "pattern": "^paru\\s" },
-            { "pattern": "^systemctl\\s" },
-            { "pattern": "^rm\\s+-rf\\s+/" },
-            { "pattern": "^npm\\s" },
-            { "pattern": "^npx\\s" }
-          ]
+    "dock": "right",
+    "default_width": 320,
+    "limit_content_width": false,
+    "flexible": true,
+    "sidebar_side": "right"
+  },
+  "close_panel_on_toggle": true,
+  "close_on_file_delete": true,
+  "extend_comment_on_newline": false,
+  "seed_search_query_from_cursor": "selection",
+  "focus_follows_mouse": { "enabled": true },
+  "gutter": {
+    "min_line_number_digits": 3,
+    "runnables": false,
+    "folds": false
+  },
+  "scrollbar": { "show": "never" },
+  "relative_line_numbers": "enabled",
+  "soft_wrap": "none",
+  "vertical_scroll_margin": 0,
+  "scroll_beyond_last_line": "off",
+  "show_whitespaces": "none",
+  "current_line_highlight": "none",
+  "reduce_motion": "on",
+  "buffer_font_features": { "calt": false, "liga": false },
+  "buffer_line_height": "comfortable",
+  "buffer_font_family": "Geist Mono",
+  "ui_font_family": "Geist",
+  "buffer_font_size": 14,
+  "ui_font_size": 14,
+  "theme": "Midnight Shell Dark",
+  "auto_install_extensions": {
+    "tsgo": true,
+    "deno": true,
+    "lua": true,
+    "oxc": true,
+    "mdx": true,
+    "astro": true,
+    "svelte": true,
+    "vue": true,
+    "html": true,
+    "toml": true,
+    "elisp": true
+  },
+  "lsp": {
+    "rust-analyzer": {
+      "enable_lsp_tasks": true,
+      "initialization_options": {
+        "diagnostics": {
+          "experimental": { "enable": true }
         },
-        "edit_file": {
-          "default": "allow",
-          "always_deny": [
-            { "pattern": "^/etc/" },
-            { "pattern": "^/usr/" },
-            { "pattern": "^/boot/" },
-            { "pattern": "^/var/" },
-            { "pattern": "\\.env" },
-            { "pattern": "secrets?/" },
-            { "pattern": "\\.(pem|key)$" }
-          ]
+        "checkOnSave": false,
+        "cargo": { "allTargets": false },
+        "check": {
+          "command": "clippy",
+          "workspace": false
         },
-        "delete_path": {
-          "default": "allow",
-          "always_deny": [
-            { "pattern": "^/etc/" },
-            { "pattern": "^/usr/" },
-            { "pattern": "^/boot/" },
-            { "pattern": "^/var/" },
-            { "pattern": "\\.git/?$" },
-            { "pattern": "node_modules/?$" }
-          ]
-        },
-        "copy_path": {
-          "default": "allow",
-          "always_deny": [
-            { "pattern": "^/etc/" },
-            { "pattern": "^/usr/" },
-            { "pattern": "^/boot/" },
-            { "pattern": "^/var/" }
-          ]
-        },
-        "move_path": {
-          "default": "allow",
-          "always_deny": [
-            { "pattern": "^/etc/" },
-            { "pattern": "^/usr/" },
-            { "pattern": "^/boot/" },
-            { "pattern": "^/var/" },
-            { "pattern": "\\.git/?$" },
-            { "pattern": "node_modules/?$" }
-          ]
-        },
-        "create_directory": {
-          "default": "allow",
-          "always_deny": [
-            { "pattern": "^/etc/" },
-            { "pattern": "^/usr/" },
-            { "pattern": "^/boot/" },
-            { "pattern": "^/var/" }
-          ]
-        },
-        "save_file": {
-          "default": "allow",
-          "always_deny": [
-            { "pattern": "^/etc/" },
-            { "pattern": "^/usr/" },
-            { "pattern": "^/boot/" },
-            { "pattern": "^/var/" },
-            { "pattern": "\\.env" },
-            { "pattern": "secrets?/" },
-            { "pattern": "\\.(pem|key)$" }
-          ]
-        },
-        "restore_file_from_disk": {
-          "default": "allow",
-          "always_deny": [
-            { "pattern": "^/etc/" },
-            { "pattern": "^/usr/" },
-            { "pattern": "^/boot/" },
-            { "pattern": "^/var/" }
-          ]
-        },
-        "fetch": {
-          "default": "allow",
-          "always_deny": [
-            { "pattern": "localhost" },
-            { "pattern": "127\\.0\\.0\\.1" },
-            { "pattern": "10\\.\\d+\\.\\d+\\.\\d+" },
-            { "pattern": "192\\.168\\.\\d+\\.\\d+" },
-            { "pattern": "169\\.254\\.\\d+\\.\\d+" }
-          ]
-        },
-        "search_web": {
-          "default": "allow"
+        "inlayHints": {
+          "maxLength": null,
+          "lifetimeElisionHints": {
+            "enable": "skip_trivial",
+            "useParameterNames": true
+          },
+          "closureReturnTypeHints": { "enable": "always" }
         }
       }
     },
-    "single_file_review": true,
-    "enable_feedback": false,
-    "inline_assistant_use_streaming_tools": false,
-    "enabled": true,
-    "default_width": 768,
-    "max_content_width": 768,
-    "dock": "left",
-    "sidebar_side": "left",
-    "flexible": false,
-    "show_turn_stats": true,
-    "use_modifier_to_send": true,
-    "thinking_display": "always_expanded"
-  },
-
-  "agent_servers": {
-    "qwen-code": {
-      "type": "registry"
+    "oxlint": {
+      "initialization_options": {
+        "settings": {
+          "configPath": null,
+          "run": "onType",
+          "disableNestedConfig": false,
+          "fixKind": "safe_fix",
+          "unusedDisableDirectives": "deny"
+        }
+      }
     },
-    "kimi": {
-      "type": "registry"
+    "oxfmt": {
+      "initialization_options": {
+        "settings": {
+          "fmt.configPath": null,
+          "run": "onSave"
+        }
+      }
     },
-    "opencode": {
-      "type": "registry"
+    "typescript-ls": {
+      "settings": {
+        "typescript": {
+          "inlayHints": {
+            "parameterNames": { "enabled": "all", "suppressWhenArgumentMatchesName": false },
+            "parameterTypes": { "enabled": true },
+            "variableTypes": { "enabled": true, "suppressWhenTypeMatchesName": true },
+            "propertyDeclarationTypes": { "enabled": true },
+            "functionLikeReturnTypes": { "enabled": true },
+            "enumMemberValues": { "enabled": true }
+          },
+          "implementationsCodeLens": {
+            "enabled": true,
+            "showOnAllClassMethods": true,
+            "showOnInterfaceMethods": true
+          },
+          "referencesCodeLens": { "enabled": true, "showOnAllFunctions": true }
+        },
+        "javascript": {
+          "inlayHints": {
+            "parameterNames": { "enabled": "all", "suppressWhenArgumentMatchesName": false },
+            "parameterTypes": { "enabled": true },
+            "variableTypes": { "enabled": true, "suppressWhenTypeMatchesName": true },
+            "propertyDeclarationTypes": { "enabled": true },
+            "functionLikeReturnTypes": { "enabled": true },
+            "enumMemberValues": { "enabled": true }
+          },
+          "implementationsCodeLens": {
+            "enabled": true,
+            "showOnAllClassMethods": true,
+            "showOnInterfaceMethods": true
+          },
+          "referencesCodeLens": { "enabled": true, "showOnAllFunctions": true }
+        }
+      }
     },
-    "nova": {
-      "type": "registry"
+    "mdx-analyzer": {
+      "initialization_options": {
+        "typescript": {
+          "enabled": true
+        }
+      }
     },
-    "mistral-vibe": {
-      "type": "registry"
+    "astro-language-server": {
+      "settings": {
+        "astro": {
+          "format": {
+            "enable": true,
+            "indentFrontmatter": true
+          }
+        }
+      }
     },
-    "kilo": {
-      "type": "registry"
+    "svelte-language-server": {
+      "initialization_options": {
+        "configuration": {
+          "typescript": {
+            "inlayHints": {
+              "parameterNames": { "enabled": "all", "suppressWhenArgumentMatchesName": false },
+              "parameterTypes": { "enabled": true },
+              "variableTypes": { "enabled": true, "suppressWhenTypeMatchesName": true },
+              "propertyDeclarationTypes": { "enabled": true },
+              "functionLikeReturnTypes": { "enabled": true },
+              "enumMemberValues": { "enabled": true }
+            }
+          }
+        }
+      }
     },
-    "junie": {
-      "type": "registry"
+    "vue-language-server": {
+      "settings": {
+        "vue": {
+          "inlayHints": {
+            "inlineHandlerLeading": true,
+            "missingProps": true,
+            "optionsWrapper": true,
+            "vBindShorthand": true
+          }
+        }
+      }
     },
-    "cursor": {
-      "type": "registry"
+    "vtsls": {
+      "settings": {
+        "typescript": {
+          "updateImportsOnFileMove": { "enabled": "always" }
+        },
+        "javascript": {
+          "updateImportsOnFileMove": { "enabled": "always" }
+        }
+      }
     },
-    "codex-acp": {
-      "type": "registry"
+    "vscode-html-language-server": {
+      "settings": {
+        "html": {
+          "format": {
+            "indentInnerHtml": true,
+            "wrapLineLength": 120,
+            "preserveNewLines": true,
+            "extraLiners": "head,body,/html"
+          }
+        }
+      }
     },
-    "codebuddy-code": {
-      "type": "registry"
+    "tailwindcss-language-server": {
+      "settings": {
+        "experimental": {
+          "classRegex": ["class=\"([^\"]*)\""]
+        }
+      }
+    },
+    "eslint": {
+      "settings": {
+        "rulesCustomizations": [{ "rule": "*", "severity": "warn" }],
+        "problems": {
+          "shortenToSingleLine": true
+        }
+      }
+    },
+    "deno": {
+      "settings": {
+        "deno": {
+          "enable": true,
+          "lint": true,
+          "unstable": false
+        }
+      }
+    },
+    "json-language-server": {
+      "settings": {
+        "json": {
+          "schemas": [
+            {
+              "fileMatch": ["deno.json", "deno.jsonc"],
+              "url": "https://raw.githubusercontent.com/denoland/deno/refs/heads/main/cli/schemas/config-file.v1.json"
+            }
+          ]
+        }
+      }
+    },
+    "bash-language-server": {
+      "settings": {
+        "bashIde": {
+          "shellcheckPath": "shellcheck",
+          "highlightParsingErrors": true
+        }
+      }
     }
   },
-
-  "diagnostics": {
-    "button": false,
-    "include_warnings": true,
-    "inline": { "enabled": true, "update_debounce_ms": 50 },
-    "lsp_pull_diagnostics": {
-      "debounce_ms": 50
-    }
-  },
-
   "languages": {
-    "CSS": {
-      "formatter": [{ "language_server": { "name": "oxfmt" } }],
-      "language_servers": ["oxfmt"]
-    },
-    "HTML": {
-      "formatter": [{ "language_server": { "name": "oxfmt" } }],
-      "language_servers": ["oxfmt"]
-    },
-    "JSON": {
-      "formatter": [{ "language_server": { "name": "oxfmt" } }],
-      "language_servers": ["oxfmt", "json-language-server"]
-    },
-    "JSON5": {
-      "formatter": [{ "language_server": { "name": "oxfmt" } }],
-      "language_servers": ["oxfmt", "json-language-server"]
-    },
-    "JSONC": {
-      "formatter": [{ "language_server": { "name": "oxfmt" } }],
-      "language_servers": ["oxfmt", "json-language-server"]
-    },
-    "JavaScript": {
-      "formatter": [
-        { "language_server": { "name": "oxfmt" } },
-        { "code_action": "source.fixAll.oxc" }
-      ],
-      "language_servers": ["tsgo", "oxlint"]
+    "Rust": {
+      "language_servers": ["rust-analyzer", "..."],
+      "formatter": { "language_server": { "name": "rust-analyzer" } }
     },
     "Lua": {
-      "inlay_hints": {
-        "enabled": true,
-        "show_type_hints": true,
-        "show_parameter_hints": true,
-        "show_other_hints": true
-      },
+      "language_servers": ["lua-language-server"],
       "formatter": {
         "external": {
           "command": "stylua",
@@ -420,248 +331,87 @@
             "-"
           ]
         }
-      },
-      "language_servers": ["lua-language-server"]
+      }
+    },
+    "TypeScript": {
+      "language_servers": ["typescript-ls", "!vtsls", "!typescript-language-server", "..."],
+      "formatter": [
+        { "language_server": { "name": "oxfmt" } },
+        { "code_action": "source.fixAll.oxc" }
+      ]
+    },
+    "TSX": {
+      "language_servers": ["typescript-ls", "!vtsls", "!typescript-language-server", "..."],
+      "formatter": [
+        { "language_server": { "name": "oxfmt" } },
+        { "code_action": "source.fixAll.oxc" }
+      ]
+    },
+    "JavaScript": {
+      "language_servers": ["deno", "!vtsls", "!typescript-language-server", "!eslint"],
+      "formatter": [
+        { "language_server": { "name": "oxfmt" } },
+        { "code_action": "source.fixAll.oxc" }
+      ]
     },
     "Markdown": {
-      "formatter": [{ "language_server": { "name": "oxfmt" } }],
-      "language_servers": ["oxfmt"]
+      "language_servers": ["oxfmt"],
+      "formatter": [{ "language_server": { "name": "oxfmt" } }]
     },
     "MDX": {
-      "formatter": [{ "language_server": { "name": "oxfmt" } }],
-      "language_servers": ["oxfmt"]
+      "language_servers": ["oxfmt", "mdx-analyzer", "..."],
+      "formatter": [{ "language_server": { "name": "oxfmt" } }]
     },
-    "Nix": {
-      "formatter": "language_server",
-      "language_servers": ["nil", "nixd"]
+    "Astro": {
+      "language_servers": ["oxfmt", "astro-language-server", "..."],
+      "formatter": [{ "language_server": { "name": "oxfmt" } }]
     },
-    "Python": {
-      "code_actions_on_format": {
-        "source.organizeImports.ruff": true
-      },
-      "formatter": { "language_server": { "name": "ruff" } },
-      "language_servers": ["basedpyright", "ruff"]
+    "Svelte": {
+      "language_servers": ["oxfmt", "svelte-language-server", "..."],
+      "formatter": [{ "language_server": { "name": "oxfmt" } }]
+    },
+    "Vue.js": {
+      "language_servers": ["oxfmt", "vue-language-server", "..."],
+      "formatter": [{ "language_server": { "name": "oxfmt" } }]
+    },
+    "HTML": {
+      "language_servers": ["oxfmt", "vscode-html-language-server", "..."],
+      "formatter": [{ "language_server": { "name": "oxfmt" } }]
+    },
+    "CSS": {
+      "language_servers": ["oxfmt", "..."],
+      "formatter": [{ "language_server": { "name": "oxfmt" } }]
+    },
+    "JSON": {
+      "language_servers": ["oxfmt", "json-language-server"],
+      "formatter": [{ "language_server": { "name": "oxfmt" } }]
+    },
+    "JSONC": {
+      "language_servers": ["oxfmt", "json-language-server"],
+      "formatter": [{ "language_server": { "name": "oxfmt" } }]
+    },
+    "TOML": {
+      "language_servers": ["oxfmt"],
+      "formatter": [{ "language_server": { "name": "oxfmt" } }]
+    },
+    "YAML": {
+      "language_servers": ["oxfmt"],
+      "formatter": [{ "language_server": { "name": "oxfmt" } }]
     },
     "Shell Script": {
+      "tab_size": 2,
+      "language_servers": ["bash-language-server", "..."],
       "formatter": {
         "external": {
           "command": "shfmt",
           "arguments": ["--filename", "{buffer_path}", "--indent", "2"]
         }
-      },
-      "language_servers": ["bash-language-server", "..."]
-    },
-    "TSX": {
-      "formatter": [{ "language_server": { "name": "oxfmt" } }],
-      "language_servers": ["tsgo", "oxlint"]
-    },
-    "TypeScript": {
-      "formatter": [{ "language_server": { "name": "oxfmt" } }],
-      "language_servers": ["tsgo", "oxlint"]
-    },
-    "YAML": {
-      "formatter": [{ "language_server": { "name": "oxfmt" } }],
-      "language_servers": ["oxfmt"]
-    }
-  },
-
-  "lsp": {
-    "basedpyright": {
-      "settings": {
-        "basedpyright.analysis": {
-          "diagnosticMode": "workspace",
-          "inlayHints": {
-            "callArgumentNames": false
-          }
-        }
-      },
-      "binary": {
-        "path": "/home/rsp/.cache/vite-plus/bin/node",
-        "arguments": [
-          "/home/rsp/.local/share/zed/languages/basedpyright/node_modules/.bin/basedpyright-langserver",
-          "--stdio"
-        ]
-      }
-    },
-    "bash-language-server": {
-      "binary": {
-        "path": "/home/rsp/.cache/vite-plus/bin/node",
-        "arguments": [
-          "/home/rsp/.local/share/zed/languages/bash-language-server/node_modules/bash-language-server/out/cli.js",
-          "start"
-        ]
-      }
-    },
-    "eslint": {
-      "binary": {
-        "path": "/home/rsp/.cache/vite-plus/bin/node",
-        "arguments": [
-          "/home/rsp/.local/share/zed/languages/eslint/vscode-eslint-3.0.24/vscode-eslint/server/out/eslintServer.js",
-          "--stdio"
-        ]
-      }
-    },
-    "gopls": {
-      "initialization_options": {
-        "codelenses": {
-          "test": true,
-          "generate": true,
-          "regenerate_cgo": true,
-          "tidy": true,
-          "upgrade_dependency": true,
-          "vendor": true
-        }
-      },
-      "binary": {
-        "path": "/home/rsp/.nix-profile/bin/gopls",
-        "ignore_system_version": true
-      }
-    },
-    "json-language-server": {
-      "binary": {
-        "path": "/home/rsp/.cache/vite-plus/bin/node",
-        "arguments": [
-          "/home/rsp/.local/share/zed/languages/json-language-server/node_modules/vscode-langservers-extracted/bin/vscode-json-language-server",
-          "--stdio"
-        ]
-      }
-    },
-    "lua-language-server": {
-      "binary": {
-        "path": "/home/rsp/.local/share/zed/extensions/work/lua/lua-language-server-3.18.2/bin/lua-language-server"
-      }
-    },
-    "nil": {
-      "binary": {
-        "path": "/home/rsp/.nix-profile/bin/nil"
-      }
-    },
-    "nixd": {
-      "binary": {
-        "path": "/home/rsp/.nix-profile/bin/nixd"
-      }
-    },
-    "oxfmt": {
-      "initialization_options": {
-        "settings": {
-          "fmt.configPath": null,
-          "run": "onSave",
-          "typeAware": true
-        }
-      },
-      "binary": {
-        "path": "/home/rsp/.cache/vite-plus/bin/node",
-        "arguments": [
-          "/home/rsp/.local/share/zed/extensions/work/oxc/node_modules/oxfmt/bin/oxfmt",
-          "--lsp"
-        ]
-      }
-    },
-    "oxlint": {
-      "initialization_options": {
-        "settings": {
-          "configPath": null,
-          "run": "onType",
-          "disableNestedConfig": false,
-          "fixKind": "safe_fix",
-          "unusedDisableDirectives": "deny",
-          "typeAware": true
-        }
-      },
-      "binary": {
-        "path": "/home/rsp/.cache/vite-plus/bin/node",
-        "arguments": [
-          "/home/rsp/.local/share/zed/extensions/work/oxc/node_modules/oxlint/bin/oxlint",
-          "--lsp"
-        ]
-      }
-    },
-    "ruff": {
-      "initialization_options": {
-        "settings": {
-          "exclude": ["*"]
-        }
-      },
-      "binary": {
-        "path": "/home/rsp/.local/share/zed/languages/ruff/ruff-0.15.14/ruff-x86_64-unknown-linux-gnu/ruff",
-        "arguments": ["server"]
-      }
-    },
-    "rust-analyzer": {
-      "enable_lsp_tasks": true,
-      "initialization_options": {
-        "diagnostics": {
-          "experimental": {
-            "enable": true
-          }
-        },
-        "checkOnSave": false,
-        "cargo": {
-          "allTargets": false
-        },
-        "check": {
-          "command": "clippy",
-          "workspace": false
-        },
-        "inlayHints": {
-          "maxLength": null,
-          "lifetimeElisionHints": {
-            "enable": "skip_trivial",
-            "useParameterNames": true
-          },
-          "closureReturnTypeHints": {
-            "enable": "always"
-          }
-        }
-      },
-      "binary": {
-        "path": "/home/rsp/.cache/cargo/bin/rust-analyzer",
-        "arguments": [],
-        "ignore_system_version": true
-      }
-    },
-    "tailwindcss-language-server": {
-      "binary": {
-        "path": "/home/rsp/.cache/vite-plus/bin/node",
-        "arguments": [
-          "/home/rsp/.local/share/zed/languages/tailwindcss-language-server/node_modules/@tailwindcss/language-server/bin/tailwindcss-language-server",
-          "--stdio"
-        ]
-      }
-    },
-    "tsgo": {
-      "binary": {
-        "path": "/home/rsp/.cache/vite-plus/bin/node",
-        "arguments": [
-          "/home/rsp/.local/share/zed/extensions/work/tsgo/node_modules/@typescript/native-preview/bin/tsgo.js",
-          "--lsp",
-          "--stdio"
-        ]
-      }
-    },
-    "vtsls": {
-      "settings": {
-        "typescript": {
-          "updateImportsOnFileMove": { "enabled": "always" }
-        },
-        "javascript": {
-          "updateImportsOnFileMove": { "enabled": "always" }
-        }
-      },
-      "enable_lsp_tasks": true,
-      "binary": {
-        "path": "/home/rsp/.cache/vite-plus/bin/node",
-        "arguments": [
-          "/home/rsp/.local/share/zed/languages/vtsls/node_modules/@vtsls/language-server/bin/vtsls.js",
-          "--stdio"
-        ]
       }
     }
   },
-
-  "node": {
-    "path": "/home/rsp/.local/bin/sandbox-node",
-    "npm_path": "/home/rsp/.local/bin/sandbox-npm",
-    "ignore_system_version": true
+  "agent_servers": {
+    "opencode": {
+      "type": "registry"
+    }
   }
 }

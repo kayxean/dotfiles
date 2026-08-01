@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Twitch
-Exec=uwsm-app -- helium-browser --app=https://www.twitch.tv/
-Terminal=false

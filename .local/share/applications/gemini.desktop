@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Gemini
-Exec=uwsm-app -- helium-browser --app=https://gemini.google.com/app
-Terminal=false

@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/dx-lib"
+
+MONITOR="eDP-1"
+GALLERY="$HOME/pictures"
+CONFIG="$HOME/.config/hypr/hyprpaper.conf"
+
+cmd_update() {
+  local wallpaper="${1:-}"
+
+  if [[ -z "$wallpaper" ]]; then
+    echo "error: missing wallpaper name" >&2
+    exit 1
+  fi
+
+  mkdir -p "$(dirname "$CONFIG")"
+  printf "wallpaper {\n  monitor = %s\n  path = %s/%s\n  fit_mode = fill\n}\n\nsplash = false\n" \
+    "$MONITOR" "$GALLERY" "$wallpaper" >"$CONFIG"
+
+  hyprctl hyprpaper wallpaper "$MONITOR,$GALLERY/$wallpaper,fill"
+}
+
+case "${1:-}" in
+update)
+  shift
+  cmd_update "$@"
+  ;;
+*)
+  echo "error: unknown command '${1:-}'" >&2
+  exit 1
+  ;;
+esac

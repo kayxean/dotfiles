@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Maps
-Exec=uwsm-app -- helium-browser --app=https://maps.google.com/?authuser=1
-Terminal=false

@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Translate
-Exec=uwsm-app -- helium-browser --app=https://translate.google.com/u/1/?sl=en&tl=id&op=translate
-Terminal=false

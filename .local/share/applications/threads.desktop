@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Threads
-Exec=uwsm-app -- helium-browser --app=https://www.threads.com/
-Terminal=false

@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=YT Music
-Exec=uwsm-app -- helium-browser --app=https://music.youtube.com/
-Terminal=false

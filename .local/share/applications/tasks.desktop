@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Tasks
-Exec=uwsm-app -- helium-browser --app=https://tasks.google.com/u/1/tasks/
-Terminal=false

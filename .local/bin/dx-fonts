@@ -1,0 +1,146 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/dx-lib"
+
+FONT_DIR="$HOME/.local/share/fonts"
+FONT_TEMP=""
+
+valid_name() {
+  local name="$1"
+  [[ -n "$name" && "$name" != "." && "$name" != ".." && "$name" != */* ]]
+}
+
+cmd_check() {
+  if [[ ! -d "$FONT_DIR" ]]; then
+    echo "no fonts downloaded"
+    return 0
+  fi
+  fc-list : family file 2>/dev/null | grep -F "$FONT_DIR/" | sed 's/^[^:]*: //' | sort -u
+}
+
+download_family() {
+  local name="$1"
+  local temp_dir="$2"
+  valid_name "$name" || {
+    echo "error: invalid font name '$name'" >&2
+    return 1
+  }
+
+  local encoded="${name// /+}"
+  local css_url="https://fonts.googleapis.com/css2?family=${encoded}:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900"
+  local css_file="$temp_dir/${encoded}.css"
+
+  if ! curl -sL "$css_url" -o "$css_file" 2>/dev/null || [[ ! -f "$css_file" ]]; then
+    echo "error: failed to download font '$name'" >&2
+    return 1
+  fi
+
+  if ! head -1 "$css_file" 2>/dev/null | grep -q "@font-face"; then
+    echo "error: font '$name' not found on google fonts" >&2
+    return 1
+  fi
+
+  local -a urls=()
+  mapfile -t urls < <(grep -oP 'url\(\K[^)]+' "$css_file" | sed -E "s/^['\"]//; s/['\"]$//" | sort -u || true)
+
+  if [[ ${#urls[@]} -eq 0 ]]; then
+    echo "error: no font files found for '$name'" >&2
+    return 1
+  fi
+
+  local target="$FONT_DIR/${name// /_}"
+  mkdir -p "$target"
+
+  local url clean tmp fullname sanitized ext outname
+  for url in "${urls[@]}"; do
+    clean="${url%%[?#]*}"
+    tmp="$temp_dir/${clean##*/}"
+    if ! curl -sL "$url" -o "$tmp"; then
+      echo "error: failed to download $url" >&2
+      return 1
+    fi
+    fullname="$(fc-scan --format "%{fullname}\n" "$tmp" 2>/dev/null || echo "${clean##*/}")"
+    sanitized="${fullname//[^a-zA-Z0-9._-]/_}"
+    ext="${clean##*.}"
+    outname="${sanitized}.${ext}"
+    echo "$outname"
+    mv "$tmp" "$target/$outname"
+  done
+}
+
+cmd_fetch() {
+  if [[ $# -eq 0 ]]; then
+    echo "error: missing font name" >&2
+    exit 1
+  fi
+
+  mkdir -p "$FONT_DIR"
+
+  FONT_TEMP="$(mktemp -d)" || return 1
+  trap 'rm -rf "$FONT_TEMP"' EXIT
+
+  local family err=0
+  for family in "$@"; do
+    if ! valid_name "$family"; then
+      echo "error: invalid font name '$family'" >&2
+      err=1
+      continue
+    fi
+    echo "fetching $family"
+    download_family "$family" "$FONT_TEMP" || err=1
+  done
+
+  if [[ $err -ne 0 ]]; then
+    echo "some fonts failed" >&2
+    return 1
+  fi
+
+  fc-cache -f >/dev/null 2>&1
+}
+
+cmd_remove() {
+  if [[ $# -eq 0 ]]; then
+    echo "error: missing font name" >&2
+    exit 1
+  fi
+
+  local name dir removed=0 err=0
+  for name in "$@"; do
+    if ! valid_name "$name"; then
+      echo "error: invalid font name '$name'" >&2
+      err=1
+      continue
+    fi
+    dir="$FONT_DIR/${name// /_}"
+    if [[ -d "$dir" ]]; then
+      rm -rf "$dir"
+      echo "removed $name"
+      removed=$((removed + 1))
+    else
+      echo "not found: $name" >&2
+      err=1
+    fi
+  done
+
+  if [[ $removed -gt 0 ]]; then
+    fc-cache -f >/dev/null 2>&1
+  fi
+  return "$err"
+}
+
+case "${1:-}" in
+check) cmd_check ;;
+fetch)
+  shift
+  cmd_fetch "$@"
+  ;;
+remove)
+  shift
+  cmd_remove "$@"
+  ;;
+*)
+  echo "error: unknown command '${1:-}'" >&2
+  exit 1
+  ;;
+esac

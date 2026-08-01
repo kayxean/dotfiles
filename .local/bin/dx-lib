@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+  echo "dx-lib: source it, don't run it" >&2
+  exit 1
+fi
+
+dx_root() {
+  cd "$(dirname "$(dirname "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")")")" && pwd
+}
+
+dx_store() {
+  (cd ~ && pnpm store path)
+}
+
+dx_runtime() {
+  local name="$1" action="$2"
+  shift 2
+  case "$action" in
+  check)
+    local store
+    store="$(dx_store)"
+    if [[ ! -d "$store/links/@/$name" ]]; then
+      echo "not installed"
+      return 0
+    fi
+    ls "$store/links/@/$name/" | sort -V
+    ;;
+  update)
+    pnpm runtime set "$name" latest -g
+    ;;
+  use)
+    [[ $# -gt 0 ]] || {
+      echo "error: missing version" >&2
+      exit 1
+    }
+    pnpm runtime set "$name" "$1" -g
+    ;;
+  *)
+    echo "error: unknown command '$action'" >&2
+    exit 1
+    ;;
+  esac
+}

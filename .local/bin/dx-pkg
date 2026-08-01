@@ -1,0 +1,142 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/dx-lib"
+
+PKGBUILD="$(dx_root)/PKGBUILD"
+
+current_version() {
+  case "$1" in
+  nodejs) node --version | tr -d v ;;
+  npm) npm --version ;;
+  pnpm) pnpm --version ;;
+  bun) bun --version ;;
+  deno) deno --version | awk 'NR==1{print $2}' ;;
+  nodejs-nopt | semver | node-gyp)
+    local store
+    store="$(dx_store)"
+    ls "$store/links/@/${1#nodejs-}/" | sort -V | tail -1
+    ;;
+  esac
+}
+
+read_provides() {
+  sed -n '/^provides=(/,/^)/p' "$PKGBUILD" | grep -oE '"[^"]+"' | tr -d '"'
+}
+
+cmd_check() {
+  [[ -f "$PKGBUILD" ]] || {
+    echo "error: no PKGBUILD at $PKGBUILD" >&2
+    exit 1
+  }
+  local line name pkg cur stale=0
+  printf '%-14s %-12s %s\n' "provide" "PKGBUILD" "actual"
+  for line in $(read_provides); do
+    name="${line%%=*}"
+    pkg="${line#*=}"
+    cur="$(current_version "$name")"
+    printf '%-14s %-12s %s\n' "$name" "$pkg" "$cur"
+    [[ "$pkg" == "$cur" ]] || stale=1
+  done
+  if [[ $stale -eq 0 ]]; then
+    echo "in sync"
+  else
+    echo "out of date" >&2
+  fi
+  return "$stale"
+}
+
+cmd_update() {
+  local nodever npmver pnpmver bunver denover noptver semverver nodegypver
+  local pkgver pkgrel
+  nodever="$(current_version nodejs)"
+  npmver="$(current_version npm)"
+  pnpmver="$(current_version pnpm)"
+  bunver="$(current_version bun)"
+  denover="$(current_version deno)"
+  noptver="$(current_version nodejs-nopt)"
+  semverver="$(current_version semver)"
+  nodegypver="$(current_version node-gyp)"
+  pkgver="$(grep -oP '^pkgver=\K.*' "$PKGBUILD" 2>/dev/null || true)"
+  pkgrel="$(grep -oP '^pkgrel=\K.*' "$PKGBUILD" 2>/dev/null || true)"
+
+  local changed=0 line name pkg cur
+  for line in $(read_provides 2>/dev/null || true); do
+    name="${line%%=*}"
+    pkg="${line#*=}"
+    cur="$(current_version "$name")"
+    [[ "$pkg" == "$cur" ]] || changed=1
+  done
+  if [[ "$changed" -eq 0 && -n "$pkgver" && "$nodever" == "$pkgver" ]]; then
+    echo "in sync: no version changes"
+    return 0
+  fi
+
+  if [[ -z "$pkgver" || -z "$pkgrel" ]]; then
+    pkgver="$nodever"
+    pkgrel=1
+  elif [[ "$nodever" == "$pkgver" ]]; then
+    pkgrel=$((pkgrel + 1))
+  else
+    pkgver="$nodever"
+    pkgrel=1
+  fi
+
+  cat >"$PKGBUILD.tmp" <<EOF
+pkgname=dx
+pkgver=$nodever
+pkgrel=$pkgrel
+pkgdesc="trust me bro"
+arch=('any')
+url="https://github.com/kayxean/dotfiles"
+license=('MIT')
+provides=(
+  "bun=$bunver"
+  "deno=$denover"
+  "pnpm=$pnpmver"
+  "npm=$npmver"
+  "nodejs=$nodever"
+  "nodejs-nopt=$noptver"
+  "node-gyp=$nodegypver"
+  "semver=$semverver"
+)
+conflicts=(
+  'bun'
+  'deno'
+  'pnpm'
+  'npm'
+  'nodejs'
+  'nodejs-nopt'
+  'node-gyp'
+  'semver'
+  'nodejs-lts-iron'
+  'nodejs-lts-jod'
+  'nodejs-lts-krypton'
+)
+
+package() {
+  mkdir -p "\${pkgdir}/usr/bin"
+  ln -s "\${HOME}/.local/bin/dx-cli" "\${pkgdir}/usr/bin/dx"
+  ln -s "\${HOME}/.local/share/pnpm/bin/bun" "\${pkgdir}/usr/bin/bun"
+  ln -s "\${HOME}/.local/share/pnpm/bin/deno" "\${pkgdir}/usr/bin/deno"
+  ln -s "\${HOME}/.local/share/pnpm/bin/pnpm" "\${pkgdir}/usr/bin/pnpm"
+  ln -s "\${HOME}/.local/share/pnpm/bin/npm" "\${pkgdir}/usr/bin/npm"
+  ln -s "\${HOME}/.local/share/pnpm/bin/npx" "\${pkgdir}/usr/bin/npx"
+  ln -s "\${HOME}/.local/share/pnpm/bin/node" "\${pkgdir}/usr/bin/node"
+  ln -s "\${HOME}/.local/share/pnpm/bin/node-gyp" "\${pkgdir}/usr/bin/node-gyp"
+  ln -s "\${HOME}/.local/share/pnpm/bin/semver" "\${pkgdir}/usr/bin/semver"
+}
+EOF
+  mv "$PKGBUILD.tmp" "$PKGBUILD"
+  echo "updated $PKGBUILD (pkgver=$nodever pkgrel=$pkgrel)"
+  echo "build: cd \"$(dx_root)\" && makepkg -si"
+}
+
+case "${1:-}" in
+check) cmd_check ;;
+update) cmd_update ;;
+*)
+  echo "error: unknown command '${1:-}'" >&2
+  exit 1
+  ;;
+esac

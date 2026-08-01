@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/dx-lib"
+
+report() {
+  local detailed="$1"
+  declare -A u_state s_state u_active s_active units
+  local unit state active pkg path name scope
+
+  while read -r pkg path; do
+    [[ -z "$pkg" ]] && continue
+    name="${path##*/}"
+    units["$pkg"]="${units[$pkg]:+${units[$pkg]} }$name"
+  done < <(pacman -Ql 2>/dev/null | grep -E '\.(service|socket)$')
+
+  while read -r unit state _; do
+    [[ -z "$unit" ]] && continue
+    u_state["$unit"]="$state"
+  done < <(systemctl --user list-unit-files --no-legend --no-pager 2>/dev/null)
+
+  while read -r unit state _; do
+    [[ -z "$unit" ]] && continue
+    s_state["$unit"]="$state"
+  done < <(systemctl list-unit-files --no-legend --no-pager 2>/dev/null)
+
+  if [[ "$detailed" == "1" ]]; then
+    while read -r unit active _; do
+      [[ -z "$unit" ]] && continue
+      u_active["$unit"]="$active"
+    done < <(systemctl --user list-units --all --no-legend --no-pager 2>/dev/null | awk '{print $1, $3}')
+    while read -r unit active _; do
+      [[ -z "$unit" ]] && continue
+      s_active["$unit"]="$active"
+    done < <(systemctl list-units --all --no-legend --no-pager 2>/dev/null | awk '{print $1, $3}')
+  fi
+
+  while IFS= read -r pkg; do
+    [[ -z "$pkg" || -z "${units[$pkg]:-}" ]] && continue
+
+    local -a pkgunits=()
+    read -ra pkgunits <<<"${units[$pkg]}"
+
+    local -a seen=()
+    echo "$pkg:"
+    for unit in "${pkgunits[@]}"; do
+      local s
+      for s in "${seen[@]}"; do [[ "$unit" == "$s" ]] && continue 2; done
+      seen+=("$unit")
+
+      local st="" tpl scope
+      if [[ "$unit" == *@* ]]; then
+        tpl="${unit%%@*}@.${unit##*.}"
+      fi
+      if [[ -n "${u_state[$unit]:-}" ]]; then
+        st="${u_state[$unit]}"
+        scope="user"
+      elif [[ -n "$tpl" && -n "${u_state[$tpl]:-}" ]]; then
+        st="${u_state[$tpl]}"
+        scope="user"
+      elif [[ -n "${s_state[$unit]:-}" ]]; then
+        st="${s_state[$unit]}"
+        scope="system"
+      elif [[ -n "$tpl" && -n "${s_state[$tpl]:-}" ]]; then
+        st="${s_state[$tpl]}"
+        scope="system"
+      else
+        st="?"
+        scope="?"
+      fi
+
+      if [[ "$detailed" == "1" ]]; then
+        local act
+        if [[ "$scope" == "user" ]]; then
+          act="${u_active[$unit]:-?}"
+        elif [[ "$scope" == "system" ]]; then
+          act="${s_active[$unit]:-?}"
+        else
+          act="?"
+        fi
+        [[ "$act" == "?" && "$unit" == *@* ]] && act="@"
+        printf "    %-45s %-10s %-10s %-6s\n" "$unit" "$st" "$act" "$scope"
+      else
+        printf "    %-50s %s\n" "$unit" "$scope"
+      fi
+    done
+  done < <(pacman -Qqe)
+}
+
+case "${1:-}" in
+check) report 0 ;;
+status) report 1 ;;
+*)
+  echo "error: unknown command '${1:-}'" >&2
+  exit 1
+  ;;
+esac

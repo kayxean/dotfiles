@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/dx-lib"
+
+cmd_update() {
+  if ! pacman -Q dx &>/dev/null; then
+    echo "error: dx package not installed (build: cd \"$(dx_root)\" && makepkg -si)" >&2
+    exit 1
+  fi
+
+  paru -Syu --needed --cleanafter
+
+  if pacman -Qtdq | grep -q .; then
+    pacman -Qtdq | xargs -r sudo pacman -Rns --noconfirm
+  fi
+
+  sudo find /var/cache/pacman/pkg -maxdepth 1 -type d -name 'download-*' -exec rm -rf {} +
+  sudo paccache -r -k 2
+  sudo journalctl --vacuum-time=7d
+
+  {
+    pacman -Qneq
+    echo
+    paru -Qmq
+  } >"$(dx_root)/.pkglist"
+}
+
+case "${1:-}" in
+update) cmd_update ;;
+*)
+  echo "error: unknown command '${1:-}'" >&2
+  exit 1
+  ;;
+esac

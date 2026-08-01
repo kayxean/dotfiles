@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=YouTube
-Exec=uwsm-app -- helium-browser --app=https://www.youtube.com/
-Terminal=false

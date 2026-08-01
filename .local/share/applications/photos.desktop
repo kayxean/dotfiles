@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Photos
-Exec=uwsm-app -- helium-browser --app=https://photos.google.com/u/1/
-Terminal=false

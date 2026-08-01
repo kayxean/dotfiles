@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=GitHub
-Exec=uwsm-app -- helium-browser --app=https://github.com/
-Terminal=false

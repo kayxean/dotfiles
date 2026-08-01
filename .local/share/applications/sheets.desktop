@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Sheets
-Exec=uwsm-app -- helium-browser --app=https://docs.google.com/spreadsheets/u/1/
-Terminal=false

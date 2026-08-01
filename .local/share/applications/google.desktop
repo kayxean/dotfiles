@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Google
-Exec=uwsm-app -- helium-browser --app=https://www.google.com/webhp?authuser=1
-Terminal=false

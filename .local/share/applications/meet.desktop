@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Meet
-Exec=uwsm-app -- helium-browser --app=https://meet.google.com/landing?authuser=1
-Terminal=false

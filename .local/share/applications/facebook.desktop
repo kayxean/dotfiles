@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Facebook
-Exec=uwsm-app -- helium-browser --app=https://www.facebook.com/
-Terminal=false

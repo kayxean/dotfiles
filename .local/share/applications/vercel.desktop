@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Vercel
-Exec=uwsm-app -- helium-browser --app=https://vercel.com/devrel
-Terminal=false

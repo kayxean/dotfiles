@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Vids
-Exec=uwsm-app -- helium-browser --app=https://docs.google.com/videos/create?authuser=1
-Terminal=false

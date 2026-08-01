@@ -13,7 +13,7 @@ does, and that is a boundary I am unwilling to test.
 
 ## How to deploy
 
-    ./dotfiles.sh
+paru -S $(cat .pkglist)
 
 If it doesn't work, your computer is haunted.
 

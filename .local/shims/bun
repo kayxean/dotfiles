@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+case "$1" in
+  -v|--version) exec /home/dev/.local/share/pnpm/bin/node --version ;;
+esac
+exec /home/dev/.local/share/pnpm/bin/bun "$@"

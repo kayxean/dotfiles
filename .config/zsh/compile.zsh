@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 set -euo pipefail
 
 R=$(tput setaf 1)

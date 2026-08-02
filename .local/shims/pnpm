@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+args=()
+i=0
+argv=("$@")
+n=$#
+while [ $i -lt $n ]; do
+  a="${argv[$i]}"
+  case "$a" in
+    --cache|--prefix|--fetch-retry-mintimeout|--fetch-retry-maxtimeout|--fetch-timeout)
+      i=$((i + 1))
+      ;;
+    --cache=*|--prefix=*|--fetch-retry-mintimeout=*|--fetch-retry-maxtimeout=*|--fetch-timeout=*)
+      ;;
+    --save-exact)
+      args+=("--config.save-exact=true")
+      ;;
+    --proxy)
+      i=$((i + 1))
+      args+=("--config.proxy=${argv[$i]}")
+      ;;
+    *)
+      args+=("$a")
+      ;;
+  esac
+  i=$((i + 1))
+done
+exec /home/dev/.local/share/pnpm/bin/pnpm "${args[@]}"

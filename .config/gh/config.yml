@@ -3,7 +3,7 @@ git_protocol: ssh
 editor: zeditor --wait
 prompt: enabled
 prefer_editor_prompt: disabled
-pager: bat --paging=always --style=plain
+pager: less -FRX
 http_unix_socket:
 browser: helium-browser
 color_labels: enabled

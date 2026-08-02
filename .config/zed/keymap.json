@@ -235,6 +235,7 @@
     "context": "ProjectPanel && not_editing",
     "bindings": {
       "enter": "project_panel::Open",
+      "alt-enter": "project_panel::OpenPermanent",
       "w": "menu::SelectPrevious",
       "a": "project_panel::CollapseSelectedEntry",
       "s": "menu::SelectNext",
@@ -321,6 +322,8 @@
       "ctrl-shift-a": "multi_workspace::ToggleWorkspaceSidebar",
       "ctrl-t": "workspace::NewFile",
       "ctrl-shift-t": "pane::ReopenClosedItem",
+      "ctrl-f": "pane::TogglePinTab",
+      "ctrl-p": "pane::TogglePreviewTab",
       "tab": "workspace::ActivateNextPane",
       "shift-tab": "workspace::ActivatePreviousPane",
       "alt-tab": "tab_switcher::ToggleAll",
@@ -482,8 +485,22 @@
     }
   },
   {
+    "context": "ApplicationMenu",
+    "bindings": {
+      "escape": "menu::Cancel",
+      "enter": "menu::Confirm",
+      "up": "menu::SelectPrevious",
+      "down": "menu::SelectNext",
+      "left": "app_menu::ActivateMenuLeft",
+      "right": "app_menu::ActivateMenuRight",
+      "home": "menu::SelectFirst",
+      "end": "menu::SelectLast"
+    }
+  },
+  {
     "context": "!SettingsWindow",
     "bindings": {
+      "ctrl-.": ["app_menu::OpenApplicationMenu", "Zed"],
       "ctrl-,": "zed::OpenSettings",
       "ctrl-=": ["zed::IncreaseBufferFontSize", { "persist": false }],
       "ctrl--": ["zed::DecreaseBufferFontSize", { "persist": false }],

@@ -68,6 +68,7 @@ hl.bind("SUPER + U", hl.dsp.exec_cmd("uwsm-app -- easyeffects"))
 hl.bind("SUPER + F", hl.dsp.exec_cmd("uwsm-app -- nautilus --new-window"))
 hl.bind("SUPER + T", hl.dsp.exec_cmd("uwsm-app -- tuned-gui"))
 
+hl.bind("SUPER + R", hl.dsp.exec_cmd("uwsm-app -- obs"))
 hl.bind("SUPER + B", hl.dsp.exec_cmd("uwsm-app -- helium-browser"))
 hl.bind("SUPER + I", hl.dsp.exec_cmd("uwsm-app -- helium-browser --incognito"))
 

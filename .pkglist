@@ -3,7 +3,6 @@ alsa-utils
 amd-ucode
 base
 base-devel
-bat
 bind
 bluez
 bluez-utils
@@ -16,8 +15,6 @@ delve
 easyeffects
 efibootmgr
 evince
-eza
-fd
 ffmpeg
 ffmpegthumbnailer
 gcr-4
@@ -50,7 +47,9 @@ libraw
 libva-utils
 linux
 linux-firmware
+linux-headers
 linux-lts
+linux-lts-headers
 lsp-plugins-lv2
 lua
 mda.lv2
@@ -60,6 +59,7 @@ ncdu
 neovim
 nftables
 nwg-look
+obs-studio
 pacman-contrib
 pipewire
 pipewire-alsa
@@ -80,9 +80,12 @@ slurp
 sof-firmware
 soundtouch
 stylua
+tree
 tuned
 tuned-ppd
+uutils-coreutils
 uwsm
+v4l2loopback-dkms
 vulkan-radeon
 wev
 wiremix
@@ -108,4 +111,6 @@ hummingbird-player
 libdeep_filter_ladspa-git
 opencode-bin
 paru
+uutils-diffutils-bin
+uutils-findutils-bin
 ytdlp-gui-bin

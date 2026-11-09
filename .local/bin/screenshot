@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+mode="${1:-}"
+filename="$HOME/pictures/.screenshot-$(date +%y%m%d-%H%M%S).png"
+
+case "$mode" in
+--area)
+  region="$(slurp)"
+  if [[ -n "$region" ]]; then
+    grim -g "$region" -t png - | tee "$filename" | wl-copy -t image/png
+  fi
+  ;;
+--full | *)
+  grim -t png - | tee "$filename" | wl-copy -t image/png
+  ;;
+esac

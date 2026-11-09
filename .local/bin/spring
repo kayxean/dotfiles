@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ZETA_MIN=0.7 # bounce 30% -- bounciest edge of the envelope
+ZETA_MAX=1.0 # bounce  0% -- smooth/critical, no overshoot
+
+if ! command -v qalc >/dev/null 2>&1; then
+  echo "error: qalc (libqalculate) not found on PATH" >&2
+  exit 1
+fi
+
+qc() { qalc -t "$1" 2>/dev/null | tr -d '≈ '; }
+
+usage() {
+  cat <<'EOF'
+Usage:
+  spring stiff <stiffness>   -> suggested dampening min/max
+  spring damp  <dampening>   -> suggested stiffness min/max
+EOF
+}
+
+warn_duration() {
+  local duration=$1
+  if awk -v d="$duration" 'BEGIN{exit !(d<0.15 || d>0.90)}'; then
+    echo "  note: ${duration}s is outside Apple's usual 0.15-0.90s range"
+  fi
+}
+
+stiff() {
+  local k=$1
+  local omega0 duration damp_min damp_max
+
+  omega0=$(qc "sqrt($k)")
+  duration=$(qc "2*pi/$omega0")
+  damp_min=$(qc "2*$ZETA_MIN*$omega0")
+  damp_max=$(qc "2*$ZETA_MAX*$omega0")
+
+  echo "stiffness=$k  (mass=1)  ->  duration = ${duration}s"
+  warn_duration "$duration"
+  echo
+  echo "suggested dampening range: $damp_min - $damp_max"
+  echo "  $damp_min  -> bounce 30% (bounciest)"
+  echo "  $damp_max  -> bounce  0% (smooth, no overshoot)"
+}
+
+damp() {
+  local c=$1
+  local k_min k_max dur_min dur_max
+
+  k_min=$(qc "($c/(2*$ZETA_MAX))^2")
+  k_max=$(qc "($c/(2*$ZETA_MIN))^2")
+  dur_min=$(qc "2*pi/sqrt($k_max)")
+  dur_max=$(qc "2*pi/sqrt($k_min)")
+
+  echo "dampening=$c  (mass=1)"
+  echo
+  echo "suggested stiffness range: $k_min - $k_max"
+  echo "  $k_min  -> bounce  0% (smooth, no overshoot), duration ${dur_max}s"
+  echo "  $k_max  -> bounce 30% (bounciest),            duration ${dur_min}s"
+  warn_duration "$dur_min"
+  warn_duration "$dur_max"
+}
+
+case "${1:-}" in
+stiff)
+  shift
+  [ $# -eq 1 ] || {
+    usage
+    exit 1
+  }
+  stiff "$1"
+  ;;
+damp)
+  shift
+  [ $# -eq 1 ] || {
+    usage
+    exit 1
+  }
+  damp "$1"
+  ;;
+*)
+  usage
+  exit 1
+  ;;
+esac

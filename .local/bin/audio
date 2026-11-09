@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+mode="${1:-}"
+
+if [[ -z "$mode" ]]; then
+  if amixer -c 1 sget 'Headphone' | grep -q '\[on\]'; then
+    mode="int"
+  else
+    mode="iem"
+  fi
+fi
+
+case "$mode" in
+iem)
+  amixer -c 1 sset 'Speaker' mute >/dev/null
+  amixer -c 1 sset 'Headphone' unmute >/dev/null
+  pactl set-sink-volume @DEFAULT_SINK@ 100%
+  easyeffects -l iem
+  hyprctl repl "hl.notification.create({ text = 'Switched into Headphone', timeout = 2000, color = '#62c073', font_size = 16 })" >/dev/null 2>&1
+  ;;
+int)
+  amixer -c 1 sset 'Headphone' mute >/dev/null
+  amixer -c 1 sset 'Speaker' unmute >/dev/null
+  pactl set-sink-volume @DEFAULT_SINK@ 50%
+  easyeffects -l int
+  hyprctl repl "hl.notification.create({ text = 'Switched into Speaker', timeout = 2000, color = '#62c073', font_size = 16 })" >/dev/null 2>&1
+  ;;
+*)
+  echo "error: unknown mode '${mode}' (use iem or int, or run without args to toggle)" >&2
+  exit 1
+  ;;
+esac

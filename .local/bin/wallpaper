@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+MONITOR="eDP-1"
+GALLERY="$HOME/pictures"
+CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/hyprpaper.conf"
+
+mapfile -t files < <(find "$GALLERY" -maxdepth 1 -type f -name "wallpaper*" 2>/dev/null)
+
+if [[ ${#files[@]} -eq 0 ]]; then
+  echo "error: no wallpaper found in $GALLERY" >&2
+  exit 1
+fi
+
+random_file="${files[RANDOM % ${#files[@]}]}"
+wallpaper="$(basename "$random_file")"
+
+printf "wallpaper {\n  monitor = %s\n  path = %s/%s\n  fit_mode = fill\n}\n\nsplash = false\n" \
+  "$MONITOR" "$GALLERY" "$wallpaper" >"$CONFIG"
+
+hyprctl hyprpaper wallpaper "$MONITOR,$GALLERY/$wallpaper,fill"
+
+hyprctl repl "hl.notification.create({ text = '${wallpaper}', timeout = 2000, color = '#62c073', font_size = 16 })" >/dev/null 2>&1

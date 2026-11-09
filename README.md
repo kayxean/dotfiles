@@ -13,7 +13,26 @@ does, and that is a boundary I am unwilling to test.
 
 ## How to deploy
 
-paru -S $(cat .pkglist)
+sudo bash -c 'cat > /etc/chromium/policies/managed/no-ai.json << "EOF"
+{
+  "AIModeSettings": 1,
+  "AutofillPredictionSettings": 2,
+  "ChromeSuggestionsSettings": 1,
+  "CreateThemesSettings": 2,
+  "DevToolsGenAiSettings": 2,
+  "GeminiActOnWebSettings": 1,
+  "GeminiSettings": 1,
+  "GeminiSparkSettings": 1,
+  "GenAILocalFoundationalModelSettings": 1,
+  "HelpMeWriteSettings": 2,
+  "HistorySearchSettings": 2,
+  "SearchContentSharingSettings": 1,
+  "SmartTabSharingSettings": 1,
+  "TabCompareSettings": 2,
+  "ThirdPartyAiChatSettings": 1,
+  "VoiceTypingSettings": 2
+}
+EOF' && hash -r
 
 If it doesn't work, your computer is haunted.
 

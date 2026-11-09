@@ -7,111 +7,147 @@ hl.monitor({
 })
 
 hl.on("hyprland.start", function()
-  hl.exec_cmd("uwsm-app -s b -- alacritty --daemon")
-  hl.exec_cmd("uwsm-app -s b -- easyeffects --hide-window --service-mode")
+  hl.exec_cmd("uwsm-app -s b -- easyeffects --service-mode --hide-window")
   hl.exec_cmd("uwsm finalize")
 end)
 
+for i = 1, 10 do
+  local key = i % 10
+  hl.bind("SUPER + " .. key, hl.dsp.focus({ workspace = i }))
+  hl.bind("SUPER + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+end
+
+hl.bind("SUPER + Return", hl.dsp.exec_cmd("uwsm-app -- ghostty +new-window"))
+
+hl.bind("SUPER + A", hl.dsp.exec_cmd("uwsm-app -- ghostty +new-window --title='floating_terminal' -e alsamixer"))
+hl.bind("SUPER + I", hl.dsp.exec_cmd("uwsm-app -- helium-browser --incognito"))
+
+hl.bind("SUPER + F", hl.dsp.exec_cmd("uwsm-app -- nautilus --new-window"))
+hl.bind("SUPER + U", hl.dsp.exec_cmd("uwsm-app -- easyeffects"))
+hl.bind("SUPER + C", hl.dsp.exec_cmd("uwsm-app -- celluloid"))
+hl.bind("SUPER + K", hl.dsp.exec_cmd("uwsm-app -- obs"))
+
+hl.bind("SUPER + M", hl.dsp.exec_cmd("uwsm-app -- mixxx"))
+hl.bind("SUPER + E", hl.dsp.exec_cmd("uwsm-app -- zeditor"))
+
+hl.bind("SUPER + B", hl.dsp.exec_cmd("uwsm-app -- helium-browser"))
+hl.bind("SUPER + R", hl.dsp.exec_cmd("uwsm-app -- ghostty +new-window --title='floating_terminal'"))
+hl.bind("SUPER + O", hl.dsp.exec_cmd("uwsm-app -- ghostty +new-window --title='floating_terminal' -e btop"))
+
+hl.bind("SUPER + Print", hl.dsp.exec_raw("screenshot --full"))
+hl.bind("SUPER + Insert", hl.dsp.exec_raw("screenshot --area"))
+hl.bind("SUPER + F5", hl.dsp.exec_raw("wallpaper"))
+hl.bind("SUPER + F6", hl.dsp.exec_raw("audio"))
+
+hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
+hl.bind("SUPER + mouse:273", hl.dsp.window.float(), { click = true })
+
+hl.bind("SUPER + X", hl.dsp.exec_cmd("uwsm-app -- helium-browser --app='https://x.com'"))
+hl.bind("SUPER + D", hl.dsp.exec_cmd("uwsm-app -- discord"))
+hl.bind("SUPER + G", hl.dsp.exec_cmd("uwsm-app -- helium-browser --app='https://github.com'"))
+
+hl.bind("SUPER + Q", hl.dsp.exec_cmd("uwsm-app -- helium-browser --app='https://figma.com'"))
+hl.bind("SUPER + S", hl.dsp.exec_cmd("uwsm-app -- helium-browser --app='https://open.spotify.com'"))
+
+hl.bind("SUPER + Y", hl.dsp.exec_cmd("uwsm-app -- helium-browser --app='https://youtube.com?hl=en&gl=US'"))
+hl.bind("SUPER + ALT + Y", hl.dsp.exec_cmd("uwsm-app -- helium-browser --app='https://youtube.com?hl=en&gl=US' --incognito"))
+hl.bind("SUPER + ALT + M", hl.dsp.exec_cmd("uwsm-app -- helium-browser --app='https://music.youtube.com?hl=en&gl=US'"))
+
+hl.bind("SUPER + ALT + I", hl.dsp.exec_cmd("uwsm-app -- helium-browser --app='https://instagram.com'"))
+hl.bind("SUPER + ALT + T", hl.dsp.exec_cmd("uwsm-app -- helium-browser --app='https://threads.com'"))
+hl.bind("SUPER + ALT + W", hl.dsp.exec_cmd("uwsm-app -- helium-browser --app='https://web.whatsapp.com'"))
+
+hl.bind("SUPER + ALT + R", hl.dsp.exec_cmd("uwsm-app -- helium-browser --app='https://reddit.com'"))
+hl.bind("SUPER + ALT + V", hl.dsp.exec_cmd("uwsm-app -- helium-browser --app='https://twitch.tv'"))
+
+hl.bind("SUPER + V", hl.dsp.submap("resize"))
+hl.define_submap("resize", function()
+  hl.bind("F", hl.dsp.window.resize({ x = 1820, y = 1024 }))
+  hl.bind("G", hl.dsp.window.resize({ x = 1366, y = 1024 }))
+  hl.bind("H", hl.dsp.window.resize({ x = 768, y = 1024 }))
+  hl.bind("J", hl.dsp.window.resize({ x = 512, y = 1024 }))
+  hl.bind("Escape", hl.dsp.submap("reset"))
+end)
+
+hl.bind("SUPER + N", hl.dsp.window.cycle_next({ next = true, tiled = true }))
+hl.bind("SUPER + P", hl.dsp.window.cycle_next({ next = false, tiled = true }))
+
+hl.bind("SUPER + W", hl.dsp.window.close())
+hl.bind("SUPER + Tab", hl.dsp.focus({ workspace = "previous" }))
+
 hl.config({
-  general = {
-    border_size = 0,
-    gaps_in = 0,
-    gaps_out = 0,
-    snap = { enabled = true },
-  },
-  decoration = {
-    blur = { enabled = false },
-    shadow = { enabled = false },
-  },
-  animations = { enabled = false },
   input = {
-    follow_mouse = 1,
-    repeat_rate = 40,
-    repeat_delay = 250,
-    touchpad = { scroll_factor = 0.4 },
     kb_layout = "us",
     kb_options = "caps:escape_shifted_capslock",
-  },
-  misc = {
-    disable_hyprland_logo = true,
-    force_default_wallpaper = 1,
-    font_family = "Geist",
-    vrr = 1,
-    mouse_move_enables_dpms = true,
-    key_press_enables_dpms = true,
-  },
-  binds = {
-    scroll_event_delay = 200,
-  },
-  xwayland = {
-    force_zero_scaling = true,
-  },
-  render = {
-    new_render_scheduling = true,
-    non_shader_cm = 3,
-    use_fp16 = 1,
-  },
-  ecosystem = {
-    no_update_news = true,
-    no_donation_nag = true,
+    repeat_rate = 50,
+    repeat_delay = 200,
+    sensitivity = 0.25,
+    follow_mouse = 1,
+    touchpad = { scroll_factor = 0.768 },
   },
 })
 
-hl.bind("SUPER + RETURN", hl.dsp.exec_cmd("uwsm-app -- alacritty msg create-window"))
-hl.bind("SUPER + SHIFT + RETURN", hl.dsp.exec_cmd("uwsm-app -- alacritty msg create-window --class float-window"))
+---@type { locked: boolean }
+local ONCE = { locked = true }
 
-hl.bind("SUPER + A", hl.dsp.exec_cmd("uwsm-app -- alacritty msg create-window --class float-window -e alsamixer"))
-hl.bind("SUPER + O", hl.dsp.exec_cmd("uwsm-app -- alacritty msg create-window --class float-window -e btop"))
+---@type { locked: boolean, repeating: boolean }
+local FAST = { locked = true, repeating = true }
 
-hl.bind("SUPER + E", hl.dsp.exec_cmd("uwsm-app -- zeditor"))
-hl.bind("SUPER + U", hl.dsp.exec_cmd("uwsm-app -- easyeffects"))
-hl.bind("SUPER + F", hl.dsp.exec_cmd("uwsm-app -- nautilus --new-window"))
-hl.bind("SUPER + T", hl.dsp.exec_cmd("uwsm-app -- tuned-gui"))
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_raw("brightnessctl -e4 -n2 set 5%+"), FAST)
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_raw("brightnessctl -e4 -n2 set 5%-"), FAST)
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_raw("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), FAST)
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_raw("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), FAST)
+hl.bind("XF86AudioMicMute", hl.dsp.exec_raw("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), FAST)
+hl.bind(
+  "XF86AudioMute",
+  hl.dsp.exec_raw([[
+sh -c 'wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+if wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED; then
+  hda-verb /dev/snd/hwC1D0 0x20 0x500 0x07
+  hda-verb /dev/snd/hwC1D0 0x20 0x400 0x1
+else
+  hda-verb /dev/snd/hwC1D0 0x20 0x500 0x07
+  hda-verb /dev/snd/hwC1D0 0x20 0x400 0x200
+fi'
+]]),
+  FAST
+)
+hl.bind("XF86AudioPlay", hl.dsp.exec_raw("playerctl play-pause"), ONCE)
+hl.bind("XF86AudioNext", hl.dsp.exec_raw("playerctl next"), ONCE)
+hl.bind("XF86AudioPrev", hl.dsp.exec_raw("playerctl previous"), ONCE)
 
-hl.bind("SUPER + R", hl.dsp.exec_cmd("uwsm-app -- obs"))
-hl.bind("SUPER + B", hl.dsp.exec_cmd("uwsm-app -- helium-browser"))
-hl.bind("SUPER + I", hl.dsp.exec_cmd("uwsm-app -- helium-browser --incognito"))
+hl.config({
+  general = {
+    border_size = 1,
+    gaps_in = 3,
+    gaps_out = 6,
+    float_gaps = -1,
+    layout = "scrolling",
+    col = {
+      active_border = "rgba(3090f0ff)",
+      inactive_border = "rgba(8e8e9366)",
+    },
+    resize_on_border = true,
+    extend_border_grab_area = 6,
+  },
+})
 
-hl.bind("SUPER + Y", hl.dsp.exec_cmd("uwsm-app -- ytdlp-gui"))
-hl.bind("SUPER + V", hl.dsp.exec_cmd("uwsm-app -- celluloid"))
-hl.bind("SUPER + M", hl.dsp.exec_cmd("uwsm-app -- hummingbird"))
-hl.bind("SUPER + K", hl.dsp.exec_cmd("uwsm-app -- kid3-qt"))
+hl.workspace_rule({ workspace = "w[tv1]s[false]", gaps_out = 0, gaps_in = 0 })
+hl.workspace_rule({ workspace = "f[1]s[false]", gaps_out = 0, gaps_in = 0 })
 
-hl.bind("SUPER + PRINT", hl.dsp.exec_cmd("uwsm-app -- sh -c 'grim -t png - | tee \"$HOME/pictures/$(date +%y%j-%I%M%S).png\" | wl-copy -t image/png'"))
-hl.bind("SUPER + SHIFT + PRINT", hl.dsp.exec_cmd('uwsm-app -- sh -c \'grim -g "$(slurp)" -t png - | tee "$HOME/pictures/$(date +%y%j-%I%M%S).png" | wl-copy -t image/png\''))
+hl.window_rule({ match = { float = false, workspace = "w[tv1]s[false]" }, border_size = 0 })
+hl.window_rule({ match = { float = false, workspace = "w[tv1]s[false]" }, rounding = 0 })
+hl.window_rule({ match = { float = false, workspace = "f[1]s[false]" }, border_size = 0 })
+hl.window_rule({ match = { float = false, workspace = "f[1]s[false]" }, rounding = 0 })
 
-hl.bind("SUPER + W", hl.dsp.window.close())
-hl.bind("SUPER + SHIFT + Q", hl.dsp.exec_cmd("uwsm stop"))
-
-hl.bind("SUPER + TAB", hl.dsp.focus({ workspace = "previous" }))
-hl.bind("SUPER + left", hl.dsp.focus({ direction = "left" }))
-hl.bind("SUPER + right", hl.dsp.focus({ direction = "right" }))
-hl.bind("SUPER + up", hl.dsp.focus({ direction = "up" }))
-hl.bind("SUPER + down", hl.dsp.focus({ direction = "down" }))
-
-hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
-hl.bind("SUPER + SHIFT + mouse:272", hl.dsp.window.resize(), { mouse = true })
-
-hl.bind("SUPER + SHIFT + left", hl.dsp.layout("splitratio -0.05"))
-hl.bind("SUPER + SHIFT + right", hl.dsp.layout("splitratio +0.05"))
-
-local ws_keys = { 10, 11, 12, 13, 14, 15, 16, 17, 18 }
-for i = 1, 9 do
-  hl.bind("SUPER + code:" .. ws_keys[i], hl.dsp.focus({ workspace = i }))
-  hl.bind("SUPER + SHIFT + code:" .. ws_keys[i], hl.dsp.window.move({ workspace = i }))
-end
-
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { locked = true, repeating = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true, repeating = true })
-hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { locked = true, repeating = true })
-
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+hl.config({
+  decoration = {
+    rounding = 12,
+    rounding_power = 4,
+    blur = { enabled = false },
+    shadow = { enabled = false },
+  },
+})
 
 hl.window_rule({
   name = "suppress-maximize-events",
@@ -133,21 +169,91 @@ hl.window_rule({
 })
 
 hl.window_rule({
-  name = "float-portal-dialogs",
-  match = { initial_class = "^(xdg-desktop-portal-gtk|float-window|tuned-gui)$" },
+  name = "fix-xdg-desktop-portal",
+  match = { initial_class = "xdg-desktop-portal-gtk" },
+  size = { "1366", "1024" },
   float = true,
-  size = { "1440", "768" },
   center = true,
-  pin = true,
-  rounding = 8,
 })
 
 hl.window_rule({
-  name = "float-portal-pip",
-  match = { initial_title = "^Picture in picture$" },
+  name = "fix-zed-settings",
+  match = { class = "dev.zed.Zed", initial_title = "Zed — Settings" },
+  size = { "768", "1024" },
   float = true,
-  move = { "1390", "765" },
-  size = { "512", "288" },
-  pin = true,
-  rounding = 8,
+  center = true,
+})
+
+hl.window_rule({
+  name = "fix-terminal-floating",
+  match = { class = "com.mitchellh.ghostty", initial_title = "floating_terminal" },
+  size = { "1366", "1024" },
+  float = true,
+  center = true,
+})
+
+hl.window_rule({
+  name = "fix-devtools",
+  match = { class = "helium", initial_title = "DevToolsApp" },
+  size = { "768", "1024" },
+  float = true,
+  center = true,
+})
+
+hl.window_rule({
+  name = "fix-mixxx-settings",
+  match = { class = "org.mixxx.Mixxx", initial_title = "Preferences" },
+  size = { "1366", "1024" },
+  float = true,
+  center = true,
+})
+
+hl.window_rule({
+  name = "fix-share-picker",
+  match = { class = "hyprland-share-picker" },
+  size = { "1366", "1024" },
+  float = true,
+  center = true,
+})
+
+hl.config({
+  animations = { enabled = true },
+})
+
+hl.curve("onOpen", { type = "spring", mass = 1, stiffness = 256, dampening = 32 })
+hl.curve("onClose", { type = "spring", mass = 1, stiffness = 768, dampening = 55 })
+hl.curve("onMove", { type = "spring", mass = 1, stiffness = 512, dampening = 54 })
+hl.curve("onBlur", { type = "spring", mass = 1, stiffness = 1024, dampening = 64 })
+
+hl.animation({ leaf = "workspaces", enabled = false })
+hl.animation({ leaf = "specialWorkspace", enabled = false })
+hl.animation({ leaf = "layers", enabled = false })
+hl.animation({ leaf = "windowsIn", enabled = true, speed = 1, spring = "onOpen", style = "popin 86%" })
+hl.animation({ leaf = "windowsOut", enabled = true, speed = 1, spring = "onClose", style = "popin 64%" })
+hl.animation({ leaf = "windowsMove", enabled = true, speed = 1, spring = "onMove" })
+hl.animation({ leaf = "border", enabled = false })
+hl.animation({ leaf = "fade", enabled = true, speed = 1, spring = "onBlur" })
+hl.animation({ leaf = "fadeSwitch", enabled = false })
+
+hl.config({
+  xwayland = {
+    enabled = false,
+  },
+  misc = {
+    disable_hyprland_logo = true,
+    disable_splash_rendering = true,
+    font_family = "Geist",
+    force_default_wallpaper = 1,
+    mouse_move_enables_dpms = true,
+    key_press_enables_dpms = true,
+    animate_manual_resizes = true,
+    animate_mouse_windowdragging = true,
+    focus_on_activate = true,
+    middle_click_paste = false,
+    disable_watchdog_warning = true,
+  },
+  ecosystem = {
+    no_update_news = true,
+    no_donation_nag = true,
+  },
 })

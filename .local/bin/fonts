@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-source "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/dx-lib"
-
 FONT_DIR="$HOME/.local/share/fonts"
 FONT_TEMP=""
 

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+BOLD='\033[1m'
+NC='\033[0m'
+
+if grep -q "subvol=@/.snapshots/stable" /proc/cmdline 2>/dev/null; then
+  printf "%b::%b %bRefusing: booted into stable snapshot. Reboot into arch-linux.efi (default) to refresh stable.%b\n" "$RED" "$NC" "$BOLD" "$NC" >&2
+  exit 1
+fi
+
+printf "%b::%b %bCreating stable snapshot...%b\n" "$BLUE" "$NC" "$BOLD" "$NC"
+sudo btrfs subvolume delete /.snapshots/stable 2>/dev/null || true
+
+if ! sudo btrfs subvolume snapshot / /.snapshots/stable 2>/dev/null; then
+  printf "%b::%b snapshot failed\n" "$RED" "$NC" >&2
+  exit 1
+fi

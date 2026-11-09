@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DOTFILES_ROOT="$HOME/code/dotfiles"
+
+if [[ ! -d "$DOTFILES_ROOT/.config" || ! -d "$DOTFILES_ROOT/.local" ]]; then
+  echo "shims: could not locate dotfiles root at $DOTFILES_ROOT" >&2
+  exit 1
+fi
+
+cmd_files() {
+  (cd "$DOTFILES_ROOT" && find .config .local -type f)
+}
+
+cmd_update() {
+  local f target rel target_dir
+  while read -r f; do
+    f="${f#./}"
+    target="$HOME/$f"
+    target_dir="$(dirname "$target")"
+
+    mkdir -p "$target_dir"
+    rel="$(realpath --relative-to="$target_dir" "$DOTFILES_ROOT/$f")"
+    ln -sfn "$rel" "$target"
+  done < <(cmd_files)
+
+  if command -v hyprctl &>/dev/null; then
+    hyprctl reload 'config-only' 2>/dev/null || true
+  fi
+}
+
+cmd_remove() {
+  local l dest
+  while IFS= read -r -d '' l; do
+    dest="$(readlink -f "$l" 2>/dev/null)" || continue
+    case "$dest" in
+    "$DOTFILES_ROOT"/*) rm "$l" ;;
+    esac
+  done < <(find "$HOME/.config" "$HOME/.local" -type l -print0 2>/dev/null)
+}
+
+cmd_check() {
+  local ok=0 missing=0 conflict=0
+  local f
+  while read -r f; do
+    f="${f#./}"
+    if [[ "$(readlink -f "$HOME/$f" 2>/dev/null)" == "$(readlink -f "$DOTFILES_ROOT/$f" 2>/dev/null)" ]]; then
+      ok=$((ok + 1))
+    elif [[ -e "$HOME/$f" || -L "$HOME/$f" ]]; then
+      conflict=$((conflict + 1))
+    else
+      missing=$((missing + 1))
+    fi
+  done < <(cmd_files)
+
+  echo "$ok ok, $missing missing, $conflict conflict"
+  [[ $conflict -eq 0 && $missing -eq 0 ]]
+}
+
+case "${1:-}" in
+check)
+  cmd_check
+  ;;
+update)
+  cmd_update
+  ;;
+remove)
+  cmd_remove
+  ;;
+"")
+  echo "usage: shims check|update|remove" >&2
+  exit 1
+  ;;
+*)
+  echo "error: unknown command '${1:-}'" >&2
+  exit 1
+  ;;
+esac
